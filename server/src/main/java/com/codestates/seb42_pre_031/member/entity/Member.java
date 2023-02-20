@@ -11,13 +11,24 @@ import javax.persistence.*;
 @Setter
 @Entity
 public class Member {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long memberId;
-    @Column(nullable = false, unique = true)
-    private String memberEmail;
+
     @Column(length = 100, nullable = false)
     private String memberName;
+
+    @Column(nullable = false, unique = true)
+    private String memberEmail;
+
     @Column(length = 100, nullable = false)
     private String memberPW;
+
+    @Column(length = 100, nullable = false) //unique=true?
+    private String nickName;
+
+    @Column(length = 500, nullable = false)
+    private String aboutMe;
+
 }
