@@ -266,7 +266,7 @@ let Main3div = styled.div`
     border-top: 1px solid  hsl(210,8%,85%);
 `
 let Main3div1 = styled.div`
-    padding:16px;
+    margin-bottom: 30px;
     box-sizing: border-box;
     display: block;
     font-size: 13px;
@@ -283,24 +283,43 @@ let Main3div2 = styled.div`
     text-align: left;
     vertical-align: baseline;
     color:rgb(35,38,41);
+    
 `
 let Main3div3 = styled.div`
     box-sizing: border-box;
     display: flex;
-    flex-direction: column;
     position: relative;
     font-size: 13px;
     line-height: 17px;
     text-align: left;
     vertical-align: baseline;
     color:rgb(35,38,41);
+    padding:16px;
     background-color: rgba(0,0,0,0);
-`
-let Main3div31 = styled.div`
+    @media (max-width: 980px){
     align-items: center;
     box-sizing: border-box;
     display: flex;
     flex-direction: row;
+    flex-shrink: 0;
+    flex-wrap: wrap;
+    margin-bottom: 4px;
+    margin-right: 16px;
+    width: auto;
+    font-size: 13px;
+    line-height: 17px;
+    text-align: left;
+    vertical-align: baseline;
+    color: rgb(106,115,124);
+    }
+
+`
+let Main3div31 = styled.div`
+    align-items: flex-end;
+    box-sizing: border-box;
+    display: flex;
+    position: relative;
+    flex-direction: column;
     flex-shrink: 0;
     flex-wrap: wrap;
     margin-bottom: 4px;
@@ -312,17 +331,48 @@ let Main3div31 = styled.div`
     text-align: left;
     vertical-align: baseline;
     color: rgb(106,115,124);
+    @media (max-width:980px){
+    align-items: center;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    flex-shrink: 0;
+    flex-wrap: wrap;
+    margin-right: 16px;
+    width: auto;
+    gap:6px;
+    font-size: 13px;
+    line-height: 17px;
+    text-align: left;
+    vertical-align: baseline;
+    color: rgb(106,115,124);
+
+    }
 `
 let Main3div31div = styled.div`
+    align-items: center;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    flex-shrink: 0;
+    flex-wrap: wrap;
+    margin-bottom: 4px;
+    margin-right: 16px;
+    gap:0.3em;
+    border: 1px solid transparent;
+    white-space: nowrap;
+    @media (max-width:980px){
     display: flex;
     box-sizing: border-box;
     align-items: center;
-    border: 1px solid transparent;
     display: inline-flex;
-    gap: 0.3em;
     justify-content: center;
     white-space: nowrap;
     color: rgb(12,13,14);
+    }
+
+
+
 `
 let Main3div31divspan = styled.span`
     box-sizing: border-box;
@@ -338,6 +388,7 @@ let Main3div31divspan = styled.span`
 let Main3div31divspan1 = styled.div`
     box-sizing: border-box;
     display: block;
+    font-weight: 500;
     font: inherit;
     font-size: 100%;
     vertical-align: baseline;
