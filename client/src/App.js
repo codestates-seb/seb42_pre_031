@@ -1,6 +1,7 @@
 import "./App.css";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Routes } from "react-router-dom";
 import styled from "styled-components";
+import { Main } from './MainPage/Main'
 
 const Dev = styled.div`
   display: flex;
@@ -9,6 +10,7 @@ const Dev = styled.div`
 function App() {
   return (
     <BrowserRouter>
+    <Main/>
       <div className="App">
         <Dev>
           <p>hi</p>
