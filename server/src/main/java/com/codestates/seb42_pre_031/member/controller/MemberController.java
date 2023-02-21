@@ -96,17 +96,19 @@ public class MemberController {
     }
 
 
-    /*로그아웃 구현 보안 관련해서 복습 하고 해보쟈..
+    //로그아웃 구현 보안 관련해서 복습 하고 해보쟈..
     @GetMapping("/logout/{member-id}?")
     public ResponseEntity getLogout(HttpServletRequest request) {
 
         HttpSession session = request.getSession();
 
-        session.invalidate();
+//        session.invalidate();
     return new ResponseEntity<>(HttpStatus.OK);
     }
 
 
-     */
+
+
+
 
 }
