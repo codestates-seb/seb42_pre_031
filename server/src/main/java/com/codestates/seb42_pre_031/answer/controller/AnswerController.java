@@ -55,7 +55,7 @@ public class AnswerController {
     public ResponseEntity deleteAnswer(@PathVariable("question-id") long questionId) {
 
         //TODO : service 구현
-        answerService.deleteAnswer(questionId);
-        return new ResponseEntity(HttpStatus.NO_CONTENT);
+       // answerService.deleteAnswer(questionId);
+        //return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 }
