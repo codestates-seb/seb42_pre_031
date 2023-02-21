@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
+// 926px 이하일때 변화주자
 const Headout = styled.header`
   display: flex;
   position: fixed;
@@ -30,6 +31,7 @@ const Headout = styled.header`
   .head-logo {
     width: 150px;
     height: 30px;
+    padding-right: 10px;
   }
   .icon-set {
     display: flex;
@@ -50,6 +52,9 @@ const Headout = styled.header`
       &:hover {
         background-color: rgb(185, 210, 232);
       }
+      > div {
+        display: flex;
+      }
     }
     .signup-button {
       display: flex;
@@ -64,6 +69,9 @@ const Headout = styled.header`
       font-size: 15px;
       &:hover {
         background-color: rgb(48, 116, 198);
+      }
+      > div {
+        display: flex;
       }
     }
     > img {
@@ -80,6 +88,7 @@ const Headout = styled.header`
     width: 64%;
     height: 30px;
     background-color: white;
+    padding-left: 10px;
     > img {
       width: 20px;
       height: 20px;
@@ -136,10 +145,10 @@ export default function HeaderLogout() {
         </div>
         <div className="icon-set">
           <Link to="/login" className="login-button">
-            Log in
+            <div>Log in</div>
           </Link>
           <Link to="/signup" className="signup-button">
-            Sign up
+            <div>Sign up</div>
           </Link>
         </div>
       </div>

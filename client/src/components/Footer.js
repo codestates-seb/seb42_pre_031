@@ -5,7 +5,7 @@ const Foot = styled.footer`
   display: flex;
   flex-wrap: wrap;
   width: 100%;
-  height: 300px;
+  /* height: 300px; */
   /* z-index: 300; */
   color: white;
   background-color: rgb(36, 38, 41);
