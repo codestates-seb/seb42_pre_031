@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 const LogoutContainer = styled.div`
   height: 100%;
@@ -7,7 +7,6 @@ const LogoutContainer = styled.div`
   justify-content: center;
   align-items: center;
 
-  background-color: #f1f2f3;
   h1 {
     font-size: 21px;
     margin-bottom: 24px;
@@ -89,8 +88,6 @@ const WhiteButton = styled(ButtonLogout)`
   }
 `;
 const LogOut = () => {
-
-
   return (
     <LogoutContainer>
       <h1>
@@ -137,7 +134,5 @@ const LogOut = () => {
     </LogoutContainer>
   );
 };
-
-
 
 export default LogOut;

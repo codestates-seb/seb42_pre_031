@@ -16,6 +16,7 @@ const Head = styled.header`
   z-index: 100;
   .head-wrap {
     display: flex;
+    justify-content: center;
     width: 100%;
     align-items: center;
     max-width: 1264px;
@@ -24,16 +25,18 @@ const Head = styled.header`
   .head-wrap > a {
     cursor: pointer;
     text-decoration: none;
+    display: flex;
   }
   .head-logo {
     width: 150px;
     height: 30px;
+    padding-right: 20px;
   }
   .icon-set {
     display: flex;
     align-items: center;
     justify-content: space-around;
-    width: 12%;
+    width: 14%;
     > a {
       display: flex;
       align-items: center;
@@ -60,9 +63,10 @@ const Head = styled.header`
     align-items: center;
     border: 2px solid rgb(235, 236, 237);
     border-radius: 5px;
-    width: 64%;
+    width: 50%;
     height: 30px;
     background-color: white;
+    padding-left: 10px;
     > img {
       width: 20px;
       height: 20px;
@@ -89,10 +93,6 @@ const Head = styled.header`
     width: 30px;
     height: 30px;
   }
-  .products {
-    width: 10%;
-    font-size: 15px;
-  }
 `;
 export default function Header() {
   return (
@@ -101,7 +101,6 @@ export default function Header() {
         <Link to="/">
           <img className="head-logo" src="logo.png" />
         </Link>
-        <div className="products">Products</div>
         <div className="top-search-bar">
           <img src="search.png" />
           <input placeholder="Search..."></input>

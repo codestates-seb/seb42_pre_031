@@ -5,7 +5,7 @@ const AskQ = styled.div`
   display: flex;
   flex-direction: column;
   padding: 0px 16px 24px 16px;
-  width: 50%;
+  width: 70%;
   top: 60px;
 
   > h1 {
@@ -14,7 +14,6 @@ const AskQ = styled.div`
   .question-explain {
     display: flex;
     flex-direction: column;
-
     margin-top: 20px;
     padding: 24px;
     border: 1px solid rgb(205, 225, 242);
@@ -23,11 +22,13 @@ const AskQ = styled.div`
     > p {
       text-align: start;
     }
+    > ul {
+      list-style: disc;
+    }
   }
   .ask-title {
     display: flex;
     flex-direction: column;
-
     border: 1px solid rgb(235, 236, 237);
     text-align: start;
     margin-top: 20px;
@@ -42,7 +43,6 @@ const AskQ = styled.div`
       height: 30px;
       outline: none;
       border: 1px solid rgb(235, 236, 237);
-
       &:focus {
         border: 1px solid rgb(65, 149, 247);
         outline: none;
@@ -52,7 +52,6 @@ const AskQ = styled.div`
   .good-title {
     display: flex;
     flex-direction: column;
-
     border: 1px solid rgb(235, 236, 237);
     text-align: start;
     margin-top: 20px;
@@ -70,7 +69,6 @@ const AskQ = styled.div`
   .good-title-title {
     border-bottom: 1px solid rgb(235, 236, 237);
     background-color: rgb(248, 249, 249);
-
     display: flex;
     align-items: center;
     height: 50px;
@@ -90,7 +88,6 @@ const AskQ = styled.div`
   .ask-problem {
     display: flex;
     flex-direction: column;
-
     border: 1px solid rgb(235, 236, 237);
     text-align: start;
     margin-top: 20px;
@@ -105,7 +102,6 @@ const AskQ = styled.div`
       height: 20px;
       outline: none;
       border: 1px solid rgb(235, 236, 237);
-
       &:focus {
         border: 1px solid rgb(65, 149, 247);
         outline: none;

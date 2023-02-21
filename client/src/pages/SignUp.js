@@ -1,10 +1,9 @@
 import styled from "styled-components";
-import React from "react";
-
+import React, { useEffect } from "react";
 
 const Main = styled.div`
   display: flex;
-  background-color: #eff0f1;
+
   height: 900px;
   justify-content: center;
   flex-direction: row;
@@ -74,8 +73,8 @@ const Button = styled.button`
 `;
 const Input = styled.input`
   margin-left: 35px;
-  width: 80%;
-  height: 10%;
+  width: 70%;
+  height: 5%;
   padding: 8px 32px 8px 9px;
   border: 1px solid #babfc4;
   font-size: 16px;
@@ -95,11 +94,13 @@ const Span = styled.div`
   font-size: 14px;
   color: #6a737c;
 `;
-function SignUp() {
-
+function SignUp({ setIsSidebar, setIsFooter }) {
+  useEffect(() => {
+    setIsSidebar(false);
+    setIsFooter(false);
+  }, []);
   return (
     <Main>
-
       <Explanation>
         <Block>
           <ExTitle>Join the Stack Overflow community</ExTitle>
@@ -109,7 +110,7 @@ function SignUp() {
           <ExDetail>Earn reputation and badges</ExDetail>
         </Block>
       </Explanation>
-   
+
       <Explanation>
         <SocialSignupContainer>
           <SocialButton color="white">Sign up with Google</SocialButton>
@@ -125,13 +126,9 @@ function SignUp() {
             <Div>Display name</Div>
             <Input></Input>
             <Div>Email</Div>
-            <Input
-              type="text"
-            ></Input>
+            <Input type="text"></Input>
             <Div>Password</Div>
-            <Input
-              type="password"
-            ></Input>
+            <Input type="password"></Input>
             <Span>
               Passwords must contain at least eight characters, including at
               least 1 letter and 1 number.

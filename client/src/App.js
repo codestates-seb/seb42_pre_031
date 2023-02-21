@@ -3,14 +3,15 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import styled from "styled-components";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import Sidebar from "./components/Sidebar";
-
-import MainP from "./pages/MainP";
+import Sidebar from "./components/LeftSidebar";
+import Main from "./pages/Main";
+import Login from "./pages/Login";
 import TagPage from "./pages/TagPage";
-import MyPage from "./pages/MyPage";
+import SignUp from "./pages/SignUp";
 import HeaderLogout from "./components/HeaderLogout";
 import { useEffect, useState } from "react";
 import AskQuestion from "./pages/AskQuestion";
+import Mypage from "./pages/Mypage";
 
 const Dev = styled.div`
   display: flex;
@@ -22,18 +23,18 @@ const Dev = styled.div`
   /* position: relative; */
   justify-content: center;
 `;
-// 이게 컨텐츠 가운데
-//푸터는 밖에
 
 const SideToggle = styled.div``;
+const FootToggle = styled.div``;
 function App() {
   const [isSidebar, setIsSidebar] = useState(true);
+  const [isFooter, setIsFooter] = useState(true);
+  const [isLogin, setIsLogin] = useState(false);
 
-  // 그러면 감싸는거 없어서 오류날텐데
   return (
     <BrowserRouter>
       <div className="App">
-        <HeaderLogout />
+        {isLogin === true ? <Header /> : <HeaderLogout />}
         <Dev className="ddd">
           <SideToggle style={{ display: isSidebar ? "block" : "none" }}>
             <Sidebar />
@@ -42,17 +43,38 @@ function App() {
             <Route
               exact
               path="/"
-              element={<MainP setIsSidebar={setIsSidebar} />}
+              element={
+                <Main setIsSidebar={setIsSidebar} setIsFooter={setIsFooter} />
+              }
             />
             <Route path="/tag" element={<TagPage />} />
-            <Route path="/mypage" element={<MyPage />} />
             <Route
-              path="/question"
-              element={<AskQuestion setIsSidebar={setIsSidebar} />}
+              path="/login"
+              element={
+                <Login setIsSidebar={setIsSidebar} setIsFooter={setIsFooter} />
+              }
             />
+            <Route
+              path="/signup"
+              element={
+                <SignUp setIsSidebar={setIsSidebar} setIsFooter={setIsFooter} />
+              }
+            />
+            <Route
+              path="/questions"
+              element={
+                <AskQuestion
+                  setIsSidebar={setIsSidebar}
+                  setIsFooter={setIsFooter}
+                />
+              }
+            />
+            <Route path="/mypage" element={<Mypage />} />
           </Routes>
         </Dev>
-        <Footer />
+        <FootToggle style={{ display: isFooter ? "block" : "none" }}>
+          <Footer />
+        </FootToggle>
       </div>
     </BrowserRouter>
   );
