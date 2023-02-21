@@ -32,7 +32,7 @@ public class Question extends Auditable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int questionId;
+    private long questionId;
 
     @Column(length = 200, nullable = false)
     private String questionTitle;
@@ -63,7 +63,7 @@ public class Question extends Auditable {
     private QuestionStatus questionStatus = QuestionStatus.QUESTION_REGISTRATION;*/
 
     @Column(columnDefinition = "integer default 0", nullable = false) // 수정됨
-    private Long questionView;
+    private long questionView;
 }
 
     /*public enum QuestionStatus {

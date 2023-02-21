@@ -26,6 +26,6 @@ public class QuestionPostDto {
 
     private String questionTrial;
 
-    private int memberId;
+    private long memberId;
 
 }

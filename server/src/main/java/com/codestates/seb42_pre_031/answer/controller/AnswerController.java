@@ -24,8 +24,8 @@ public class AnswerController {
     }
 
     @PostMapping("/{memebr-id}")
-    public ResponseEntity postAnswer(@PathVariable("question-id") int questionId,
-                                     @PathVariable("member-id") int memberId,
+    public ResponseEntity postAnswer(@PathVariable("question-id") long questionId,
+                                     @PathVariable("member-id") long memberId,
                                      @RequestBody AnswerPostDto answerPostDto) {
 
         //TODO : service 구현
@@ -38,8 +38,8 @@ public class AnswerController {
     }
 
     @PatchMapping("/{member-id}")
-    public ResponseEntity patchAnswer (@PathVariable("question-id") int questionId,
-                                       @PathVariable("answer-id") int answerId,
+    public ResponseEntity patchAnswer (@PathVariable("question-id") long questionId,
+                                       @PathVariable("answer-id") long answerId,
                                        @RequestBody AnswerPatchDto answerPatchDto) {
 
         answerPatchDto.setAnswerId(answerId);
@@ -52,7 +52,7 @@ public class AnswerController {
     }
 
     @DeleteMapping("/{answer-id}")
-    public ResponseEntity deleteAnswer(@PathVariable("question-id") int questionId) {
+    public ResponseEntity deleteAnswer(@PathVariable("question-id") long questionId) {
 
         //TODO : service 구현
         answerService.deleteAnswer(questionId);

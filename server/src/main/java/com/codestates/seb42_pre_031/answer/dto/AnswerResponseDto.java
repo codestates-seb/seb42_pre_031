@@ -7,9 +7,9 @@ import lombok.Setter;
 @Getter
 @AllArgsConstructor
 public class AnswerResponseDto {
-    private int answerId;
-    private int questionId;
-    private int memberId;
+    private long answerId;
+    private long questionId;
+    private long memberId;
     private String contents;
    // private int voteCount;
 }

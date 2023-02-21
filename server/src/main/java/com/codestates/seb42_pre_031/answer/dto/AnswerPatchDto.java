@@ -11,7 +11,7 @@ public class AnswerPatchDto {
     @NotBlank
     private String contents;
 
-    private int answerId;
+    private long answerId;
 
-    private int questionId;
+    private long questionId;
 }

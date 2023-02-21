@@ -19,10 +19,10 @@ import javax.persistence.*;
 public class VoteA {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int votAid;
+    private long votAid;
 
-    private int memberId; //TODO HttpSession과 연동할지 검토
-    private int answerId;
+    private long memberId; //TODO HttpSession과 연동할지 검토
+    private long answerId;
 
     @Column(nullable = false)
     private int voteState;

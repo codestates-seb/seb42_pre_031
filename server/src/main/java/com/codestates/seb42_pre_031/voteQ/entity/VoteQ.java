@@ -14,7 +14,7 @@ import javax.persistence.*;
 public class VoteQ {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int voteId;
+    private long voteId;
 
     /* 1:1 양방향 관계 매핑시
     외래키 기준 연관관계의 주 -> @JoinColumn을 넣어준다.

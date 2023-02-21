@@ -12,9 +12,9 @@ public class AnswerPostDto {
     private String contents;
 
     @Positive //양수만 가능
-    private int memberID;
+    private long memberID;
 
-    private int questionId;
+    private long questionId;
 
     /*public void addQuestionId(int questionId) {
         Assert.notNull(questionId, "질문 정보가 존재하지 않습니다."); // Assert -> 조건문을 단순화하고 반복적 코드를 줄여준다.
