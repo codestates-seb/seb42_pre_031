@@ -13,6 +13,7 @@ import { useEffect, useState } from "react";
 import AskQuestion from "./pages/AskQuestion";
 import Mypage from "./pages/Mypage";
 import LogOut from "./pages/LogOut";
+import MainpageD from "./pages/MainpageD";
 
 const Dev = styled.div`
   display: flex;
@@ -83,6 +84,7 @@ function App() {
                 <Mypage setIsSidebar={setIsSidebar} setIsFooter={setIsFooter} />
               }
             />
+            <Route path="/question" element={<MainpageD />} />
           </Routes>
         </Dev>
         <FootToggle style={{ display: isFooter ? "block" : "none" }}>
