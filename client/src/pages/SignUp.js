@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import React, { useEffect, useState } from "react";
+import axios from "axios";
 
 const Main = styled.div`
   display: flex;
@@ -71,10 +72,11 @@ const Button = styled.button`
   height: 40px;
   margin-left: 35px;
   border-radius: 4px;
-  text-align: center;
+  text-align: c enter;
   color: white;
   font-size: 1.2em;
   font-weight: 300;
+  cursor: pointer;
 `;
 const Input = styled.input`
   margin-left: 35px;
@@ -112,6 +114,7 @@ function SignUp({ setIsSidebar, setIsFooter }) {
     setIsFooter(false);
   }, []);
 
+  // 유효성검사코드
   //TODO:  전부 작성하고 요청보낼때 코드 추가하기
   const signUpSubmit = (e) => {
     e.preventDefault();
@@ -132,6 +135,18 @@ function SignUp({ setIsSidebar, setIsFooter }) {
     }
   };
 
+  // 회원가입 요청 axios
+  const signUp = async (email, password) => {
+    try {
+      const response = await axios.post("/v1/members", {
+        memberName: nickName,
+        memberEmail: email,
+        memberPW: password,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <Main>
       <Explanation>
