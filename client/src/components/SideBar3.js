@@ -26,7 +26,6 @@ import {
   SideBar362,
   SideBar36btn,
 } from "../Style/StyleSidebar3";
-
 function Sidebar3th() {
   return (
     <SideBar3alldiv>

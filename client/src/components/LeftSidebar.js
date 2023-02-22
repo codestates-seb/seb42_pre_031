@@ -135,6 +135,7 @@ export default function LeftSidebar() {
             <img src="bag.png" /> Create free Team
           </p>
         </div>
+        <Link to="/question"> 질문 상세페이지 임시 버튼</Link>
       </div>
     </LeftBar>
   );
