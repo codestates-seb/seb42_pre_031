@@ -18,10 +18,6 @@ public class QuestionPostDto {
 
     private String questionTitle;
 
-    private LocalDateTime createdAt;
-
-    private int questionView;
-
     private String questionContents;
 
     private String questionTrial;

@@ -21,11 +21,13 @@ public class CreateAuditorAware implements AuditorAware<String> {
 
     @Override
     public Optional<String> getCurrentAuditor() {
-        SessionUser user = (SessionUser) httpSession.getAttribute("user");
-        if (user == null)
-            return null;
+//        SessionUser user = (SessionUser) httpSession.getAttribute("user");
+//        if (user == null)
+//            return null;
 
-        return Optional.ofNullable(user.getId());
+//        return Optional.ofNullable(user.getId());
+
+        return Optional.of("back-end");
 
     }
 }

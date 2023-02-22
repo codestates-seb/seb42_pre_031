@@ -3,11 +3,11 @@ package com.codestates.seb42_pre_031.question.entity;
 import com.codestates.seb42_pre_031.answer.entity.Answer;
 import com.codestates.seb42_pre_031.audit.Auditable;
 import com.codestates.seb42_pre_031.member.entity.Member;
+import com.codestates.seb42_pre_031.vote.entity.VoteA;
 import com.codestates.seb42_pre_031.voteQ.entity.VoteQ;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -29,6 +29,8 @@ import java.util.List;
 @Setter
 @Entity
 public class Question extends Auditable {
+
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -62,8 +64,8 @@ public class Question extends Auditable {
    /* @Enumerated(value = EnumType.STRING)
     private QuestionStatus questionStatus = QuestionStatus.QUESTION_REGISTRATION;*/
 
-    @Column(columnDefinition = "integer default 0", nullable = false) // 수정됨
-    private long questionView;
+//    @Column(columnDefinition = "integer default 0", nullable = false) // 수정됨
+//    private long questionView;
 }
 
     /*public enum QuestionStatus {

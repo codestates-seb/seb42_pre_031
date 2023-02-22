@@ -10,9 +10,13 @@ public class MultiResponseDto<T> {
     private List<T> data;
     private PageInfo pageInfo;
 
-    public MultiResponseDto(List<T> data, Page page) {
+
+    //임시로 Page page->PageInfo pageInfo로 바꾸기. for api
+    public MultiResponseDto(List<T> data, PageInfo pageInfo) {
         this.data = data;
-        this.pageInfo = new PageInfo(page.getNumber() + 1,
-                page.getSize(), page.getTotalElements(), page.getTotalPages());
+//        this.pageInfo = new PageInfo(page.getNumber() + 1,
+//                page.getSize(), page.getTotalElements(), page.getTotalPages());
+
+        this.pageInfo = new PageInfo(pageInfo.getPage(), pageInfo.getSize(), pageInfo.getTotalElements(), pageInfo.getTotalPages());
     }
 }

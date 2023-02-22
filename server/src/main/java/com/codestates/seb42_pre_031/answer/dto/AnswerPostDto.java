@@ -12,7 +12,7 @@ public class AnswerPostDto {
     private String contents;
 
     @Positive //양수만 가능
-    private long memberID;
+    private long memberId;
 
     private long questionId;
 

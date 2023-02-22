@@ -20,7 +20,6 @@ public class MemberPostDto {
     @NotBlank
     private String memberPW;
 
-//    @NotBlank
     private String nickName;
 
     private String aboutMe;

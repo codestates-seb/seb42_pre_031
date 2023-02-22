@@ -1,4 +1,4 @@
-package com.codestates.seb42_pre_031.voteA.dto;
+package com.codestates.seb42_pre_031.vote.dto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
