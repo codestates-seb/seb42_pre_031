@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 const LeftBar = styled.div`
   display: flex;
+  position: relative;
   flex-direction: column;
   align-items: center;
   width: 164px;
@@ -26,7 +27,7 @@ const LeftBar = styled.div`
       background-color: rgb(241, 242, 243);
       font-weight: bold;
       color: black;
-      border-right: 2px solid rgb(229, 135, 62);
+      border-right: 3px solid rgb(229, 135, 62);
     }
   }
   .side-move {
@@ -34,6 +35,7 @@ const LeftBar = styled.div`
     padding-top: 30px;
     text-align: start;
     width: 159px;
+    padding-left: 5px;
   }
   .side-home {
     display: flex;
@@ -48,7 +50,7 @@ const LeftBar = styled.div`
       background-color: rgb(241, 242, 243);
       font-weight: bold;
       color: black;
-      border-right: 2px solid rgb(229, 135, 62);
+      border-right: 3px solid rgb(229, 135, 62);
     }
   }
   .side-collective {
@@ -113,7 +115,7 @@ export default function LeftSidebar() {
         <div className="tag_mypage">
           <p>PUBLIC</p>
           <a>Tags</a>
-          <Link to="/mypage">Users</Link>
+          <Link to="/users">Users</Link>
         </div>
         <div className="side-collective">
           <div className="col">
