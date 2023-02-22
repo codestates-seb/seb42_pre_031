@@ -5,7 +5,7 @@ const AskQ = styled.div`
   display: flex;
   flex-direction: column;
   padding: 0px 16px 24px 16px;
-  width: 70%;
+  width: 60%;
   top: 60px;
 
   > h1 {
@@ -113,6 +113,7 @@ const AskQ = styled.div`
     flex-direction: column;
     border: 1px solid black;
     height: 255px;
+
     > img {
       width: auto;
       height: 50px;
@@ -122,6 +123,7 @@ const AskQ = styled.div`
       background: none;
       outline: none;
       border: none;
+      padding: 10px;
     }
   }
   .ask-form:focus-within {
@@ -143,6 +145,7 @@ const AskQ = styled.div`
       background: none;
       outline: none;
       border: none;
+      padding: 10px;
     }
   }
   .expect-form:focus-within {

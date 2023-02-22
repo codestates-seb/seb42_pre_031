@@ -105,7 +105,7 @@ export default function Header() {
           <img src="search.png" />
           <input placeholder="Search..."></input>
         </div>
-        <Link to="/mypage" className="my-icon-wrap">
+        <Link to="/users" className="my-icon-wrap">
           <img className="my-icon" src="logo192.png" />
         </Link>
         <div className="icon-set">

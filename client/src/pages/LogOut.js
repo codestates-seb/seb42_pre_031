@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import styled from "styled-components";
 
 const LogoutContainer = styled.div`
@@ -6,6 +7,7 @@ const LogoutContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  min-height: 800px;
 
   h1 {
     font-size: 21px;
@@ -87,7 +89,12 @@ const WhiteButton = styled(ButtonLogout)`
     filter: brightness(0.9);
   }
 `;
-const LogOut = () => {
+const LogOut = ({ setIsSidebar, setIsFooter }) => {
+  useEffect(() => {
+    setIsSidebar(false);
+    setIsFooter(false);
+  }, []);
+
   return (
     <LogoutContainer>
       <h1>

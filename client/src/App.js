@@ -12,6 +12,7 @@ import HeaderLogout from "./components/HeaderLogout";
 import { useEffect, useState } from "react";
 import AskQuestion from "./pages/AskQuestion";
 import Mypage from "./pages/Mypage";
+import LogOut from "./pages/LogOut";
 
 const Dev = styled.div`
   display: flex;
@@ -29,6 +30,7 @@ const FootToggle = styled.div``;
 function App() {
   const [isSidebar, setIsSidebar] = useState(true);
   const [isFooter, setIsFooter] = useState(true);
+  // 로그인 상태에 헤더변경 // 마이페이지 접근 가능 여부
   const [isLogin, setIsLogin] = useState(false);
 
   return (
@@ -61,6 +63,12 @@ function App() {
               }
             />
             <Route
+              path="/logout"
+              element={
+                <LogOut setIsSidebar={setIsSidebar} setIsFooter={setIsFooter} />
+              }
+            />
+            <Route
               path="/questions"
               element={
                 <AskQuestion
@@ -69,7 +77,12 @@ function App() {
                 />
               }
             />
-            <Route path="/mypage" element={<Mypage />} />
+            <Route
+              path="/users"
+              element={
+                <Mypage setIsSidebar={setIsSidebar} setIsFooter={setIsFooter} />
+              }
+            />
           </Routes>
         </Dev>
         <FootToggle style={{ display: isFooter ? "block" : "none" }}>
