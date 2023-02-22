@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -34,7 +34,7 @@ const SocialButton = styled.button`
   border-color: #dcdcdc;
 `;
 
-const InputForm = styled.div`
+const InputForm = styled.form`
   background-color: white;
   border: 1px solid #d6d6d6;
   box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.3);
@@ -67,11 +67,16 @@ const InputLable = styled.div`
     display: flex;
     justify-content: space-between;
     a {
-      margin-top: 10px;
       color: #0074cc;
       text-decoration: none;
       font-size: 12px;
+      display: flex;
+      align-items: center;
     }
+  }
+  .login-error-alert {
+    color: red;
+    font-size: 14px;
   }
 `;
 
@@ -104,7 +109,25 @@ function Login({ setIsSidebar, setIsFooter }) {
     setIsSidebar(false);
     setIsFooter(false);
   }, []);
+  const [email, setEmail] = useState("");
+  const [confirmEmail, setConfirmEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
+  //TODO:  전부 작성하고 요청보낼때 코드 추가하기
+  const LoginSubmit = (e) => {
+    e.preventDefault();
+    if (email === "") {
+      setConfirmEmail("Email cannot be empty.");
+    } else {
+      setConfirmEmail("");
+    }
+    if (password === "") {
+      setConfirmPassword("Password cannot be empty.");
+    } else {
+      setConfirmPassword("");
+    }
+  };
   // const emailRegex =
   //   /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
   // async function getLogin() {
@@ -132,19 +155,29 @@ function Login({ setIsSidebar, setIsFooter }) {
             Log in with Facebook
           </SocialButton>
         </SocialSignupContainer>
-        <InputForm>
+        <InputForm onSubmit={LoginSubmit}>
           <InputLable>
             <p>Email</p>
-            <input name="password" type="text" />
+            <input
+              name="password"
+              type="text"
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <div className="login-error-alert">{confirmEmail}</div>
           </InputLable>
           <InputLable>
             <div>
               <p>Password</p>
               <a href="/signup">Forgot password?</a>
             </div>
-            <input name="password" type="password" />
+            <input
+              name="password"
+              type="password"
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <div className="login-error-alert">{confirmPassword}</div>
           </InputLable>
-          <LoginButton>Log in</LoginButton>
+          <LoginButton type="submit">Log in</LoginButton>
         </InputForm>
         <SignupGuide>
           <p>

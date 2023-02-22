@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 const Main = styled.div`
   display: flex;
@@ -47,6 +47,11 @@ const SignupContainer = styled.div`
   box-shadow: -1px 1px 10px 2px #dcdcdc;
   font-size: 0.7rem;
   font-weight: 300;
+  .signup-error-alert {
+    display: flex;
+    margin-left: 40px;
+    color: red;
+  }
 `;
 
 const SocialButton = styled.button`
@@ -95,10 +100,38 @@ const Span = styled.div`
   color: #6a737c;
 `;
 function SignUp({ setIsSidebar, setIsFooter }) {
+  const [nickName, setNickName] = useState("");
+  const [confirmNickName, setConfirmNickName] = useState("");
+  const [email, setEmail] = useState("");
+  const [confirmEmail, setConfirmEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+
   useEffect(() => {
     setIsSidebar(false);
     setIsFooter(false);
   }, []);
+
+  //TODO:  전부 작성하고 요청보낼때 코드 추가하기
+  const signUpSubmit = (e) => {
+    e.preventDefault();
+    if (nickName === "") {
+      setConfirmNickName("Display name cannot be empty.");
+    } else {
+      setConfirmNickName("");
+    }
+    if (email === "") {
+      setConfirmEmail("Email cannot be empty.");
+    } else {
+      setConfirmEmail("");
+    }
+    if (password === "") {
+      setConfirmPassword("Password cannot be empty.");
+    } else {
+      setConfirmPassword("");
+    }
+  };
+
   return (
     <Main>
       <Explanation>
@@ -122,13 +155,28 @@ function SignUp({ setIsSidebar, setIsFooter }) {
           </SocialButton>
         </SocialSignupContainer>
         <SignupContainer>
-          <form>
+          <form onSubmit={signUpSubmit}>
             <Div>Display name</Div>
-            <Input></Input>
+            <Input
+              type="text"
+              value={nickName}
+              onChange={(e) => setNickName(e.target.value)}
+            ></Input>
+            <div className="signup-error-alert">{confirmNickName}</div>
             <Div>Email</Div>
-            <Input type="text"></Input>
+            <Input
+              type="text"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            ></Input>
+            <div className="signup-error-alert">{confirmEmail}</div>
             <Div>Password</Div>
-            <Input type="password"></Input>
+            <Input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            ></Input>
+            <div className="signup-error-alert">{confirmPassword}</div>
             <Span>
               Passwords must contain at least eight characters, including at
               least 1 letter and 1 number.
