@@ -14,6 +14,8 @@ import AskQuestion from "./pages/AskQuestion";
 import Mypage from "./pages/Mypage";
 import LogOut from "./pages/LogOut";
 import MainpageD from "./pages/MainpageD";
+import ProfileEdit from "./pages/ProfileEdit";
+import AnswerEdit from "./pages/AnswerEdit";
 
 const Dev = styled.div`
   display: flex;
@@ -85,6 +87,8 @@ function App() {
               }
             />
             <Route path="/question" element={<MainpageD />} />
+            <Route path="/editmypage" element={<ProfileEdit />} />
+            <Route path="/editanswer" element={<AnswerEdit />} />
           </Routes>
         </Dev>
         <FootToggle style={{ display: isFooter ? "block" : "none" }}>

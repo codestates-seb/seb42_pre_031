@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import {
   Mainpage,
   Mainpage1,
@@ -371,6 +372,11 @@ function MainpageD() {
               </MainpageMainf11h2>
               {/* MainpageMainf11from,MainpageMainf11fh2,MainpageMainf11fdiv,MainpageMainf11fbtn,MainpageMainf11fh21,MainpageMainf11fh21d,MainpageMainf11fh21dul,MainpageMainf11fh21dula */}
               <a></a>
+              {/* 답변목록 엔드포인트 뒤에 글목록 아이디 찍어줘야됨*/}
+              <div>
+                <h3>Answer</h3>
+                <Link to="/editanswer">edit 답변수정</Link>
+              </div>
               <MainpageMainf11from>
                 {/* <input></input>
                                 <input></input>
