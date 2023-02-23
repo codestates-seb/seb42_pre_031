@@ -33,6 +33,10 @@ public class MemberService {
 
         Member findMember = findVerifiedMember(member.getMemberId());
 
+        Member updatedMember = beanUtils.copyNonNullProperties(member, findMember);
+        return memberRepository.save(updatedMember);
+
+        /*
         Optional.ofNullable(member.getMemberName())
                 .ifPresent(name -> findMember.setMemberName(name));
         Optional.ofNullable(member.getMemberPW())
@@ -41,9 +45,8 @@ public class MemberService {
                 .ifPresent(nickName -> findMember.setNickName(nickName));
         Optional.ofNullable(member.getAboutMe())
                 .ifPresent(aboutMe -> findMember.setAboutMe(aboutMe));
-
         return memberRepository.save(findMember);
-
+         */
     }
 
     public Member findMember(long memberId) {

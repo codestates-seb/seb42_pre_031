@@ -5,9 +5,8 @@ import lombok.Getter;
 // 정식님 코드 가져온 것 후에 수정해야 함
 public enum ExceptionCode {
     MEMBER_NOT_FOUND(404, "Member not found"),
-    MEMBER_EXISTS(409, "Member exists");
-
-//    ORDER_NOT_FOUND(404, "Order not found"),
+    MEMBER_EXISTS(409, "Member exists"),
+    QUESTION_NOT_FOUND(404, "Question not found");
 //    CANNOT_CHANGE_ORDER(403, "Order can not change"),
 //    NOT_IMPLEMENTATION(501, "Not Implementation"),
 //    INVALID_MEMBER_STATUS(400, "Invalid member status");  // TO 추가된 부분

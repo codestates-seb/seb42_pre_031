@@ -23,6 +23,8 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.Positive;
 import java.net.URI;
 import java.util.List;
+import java.util.Optional;
+
 @CrossOrigin
 @RestController
 @RequestMapping("/v1/questions")
@@ -130,9 +132,8 @@ public class QuestionController {
     public ResponseEntity searchQuestions(
             @RequestParam(value = "keyword") String keyword, @Positive @RequestParam int page,
             @Positive @RequestParam int size) {
-        //keyword로 어떻게 구현할지 아직...
 
-        Page<Question> pageQuestions = questionService.findQuestions(page - 1, size);
+        Page<Question> pageQuestions = questionService.findQuestionsBykeyword(page - 1, size, keyword);
         List<Question> questions = pageQuestions.getContent();
         return new ResponseEntity<>(
                 new MultiResponseDto<>(questionMapper.questionsToQuestionResponseDtos(questions),
@@ -156,7 +157,7 @@ public class QuestionController {
     @GetMapping
     public ResponseEntity getQuestions(@Positive @RequestParam int page,
                                      @Positive @RequestParam int size) {
-//        api dummy 긑내고 바꿔줄것
+
         Page<Question> pageQuestions = questionService.findQuestions(page - 1, size);
         List<Question> questions = pageQuestions.getContent();
         return new ResponseEntity<>(
