@@ -34,8 +34,7 @@ function Sidebar3th() {
           <SideBar31h2>Watched Tags</SideBar31h2>
           <SideBar31a>edit</SideBar31a>
         </SideBar31adiv>
-      </SideBar31div>
-      <SideBar32div>
+
         <SideBar321div>
           <SideBar321script>
             <SideBar33 href="/questions/tagged/template"></SideBar33>
@@ -57,23 +56,25 @@ function Sidebar3th() {
             Watch a tag
           </SideBar34pa>
         </SideBar34>
+        </SideBar31div>
 
         {/* 여기쯤에서 나뉘어야함 */}
-
-        <SideBar35>
+        <sideBar35>
+        <SideBar32div>
           <SideBar351>
             <SideBar351h>Ignored Tags</SideBar351h>
             <SideBar351a href="/users/tag-notifications/21216556#ignored-1">
               edit
             </SideBar351a>
           </SideBar351>
-        </SideBar35>
+        
         <SideBar36>
           <SideBar361></SideBar361>
           <SideBar362></SideBar362>
           <SideBar36btn>Add an ignored tag</SideBar36btn>
         </SideBar36>
       </SideBar32div>
+      </sideBar35>
     </SideBar3alldiv>
   );
 }

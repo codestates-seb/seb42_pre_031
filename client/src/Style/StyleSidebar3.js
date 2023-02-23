@@ -2,7 +2,6 @@ import styled from "styled-components";
 
 let SideBar3alldiv = styled.div`
 box-sizing: border-box;
-border:1px solid hsl(210,8%, 85%);
 display: block;
 font-size: 13px;
 line-height: 17px;
@@ -27,7 +26,9 @@ display: block;
 position: relative;
 font-size: 13px;
 line-height: 17px;
+margin-bottom: 16px;
 text-align: left;
+border:1px solid hsl(210,8%, 85%);
 vertical-align: baseline;
 color: rgb(35,38,41);
 background-color: rgb(255,255,255);
@@ -101,6 +102,7 @@ let SideBar32div = styled.div`
     text-align: left;
     vertical-align: baseline;
     color: rgb(35,38,41);
+    border:1px solid hsl(210,8%, 85%);
 `
 let SideBar321div = styled.div`
     box-sizing: border-box;
