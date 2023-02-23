@@ -11,7 +11,7 @@ import SignUp from "./pages/SignUp";
 import HeaderLogout from "./components/HeaderLogout";
 import { useEffect, useState } from "react";
 import AskQuestion from "./pages/AskQuestion";
-import Mypage from "./pages/Mypage";
+import Mypage from "./pages/MyPage";
 import LogOut from "./pages/LogOut";
 import MainpageD from "./pages/MainpageD";
 import ProfileEdit from "./pages/ProfileEdit";
