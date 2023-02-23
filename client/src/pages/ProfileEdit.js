@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import styled from "styled-components";
 
 const Profilelabel = styled.div`
@@ -171,7 +172,11 @@ export const CancleButton = styled(SocialButton)`
   }
 `;
 
-const ProfileEdit = () => {
+const ProfileEdit = ({ setIsSidebar, setIsFooter }) => {
+  useEffect(() => {
+    setIsSidebar(true);
+    setIsFooter(true);
+  }, []);
   return (
     <MainContainer>
       <Left></Left>

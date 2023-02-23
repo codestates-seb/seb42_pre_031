@@ -86,9 +86,33 @@ function App() {
                 <Mypage setIsSidebar={setIsSidebar} setIsFooter={setIsFooter} />
               }
             />
-            <Route path="/question" element={<MainpageD />} />
-            <Route path="/editmypage" element={<ProfileEdit />} />
-            <Route path="/editanswer" element={<AnswerEdit />} />
+            <Route
+              path="/question"
+              element={
+                <MainpageD
+                  setIsSidebar={setIsSidebar}
+                  setIsFooter={setIsFooter}
+                />
+              }
+            />
+            <Route
+              path="/editmypage"
+              element={
+                <ProfileEdit
+                  setIsSidebar={setIsSidebar}
+                  setIsFooter={setIsFooter}
+                />
+              }
+            />
+            <Route
+              path="/editanswer"
+              element={
+                <AnswerEdit
+                  setIsSidebar={setIsSidebar}
+                  setIsFooter={setIsFooter}
+                />
+              }
+            />
           </Routes>
         </Dev>
         <FootToggle style={{ display: isFooter ? "block" : "none" }}>
