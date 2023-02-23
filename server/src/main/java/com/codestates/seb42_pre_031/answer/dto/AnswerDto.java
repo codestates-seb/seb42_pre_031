@@ -15,10 +15,10 @@ public class AnswerDto {
     @Setter
     @NoArgsConstructor
     public static class Post {
-        @NotBlank
-        private String contents;
         private long memberId;
         private long questionId;
+        @NotBlank
+        private String contents;
     }
 
     @Getter
@@ -26,8 +26,8 @@ public class AnswerDto {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class Patch {
-        @NotBlank
         private long answerId;
+        @NotBlank
         private String contents;
     }
 

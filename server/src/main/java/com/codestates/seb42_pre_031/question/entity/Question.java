@@ -3,7 +3,6 @@ package com.codestates.seb42_pre_031.question.entity;
 import com.codestates.seb42_pre_031.answer.entity.Answer;
 import com.codestates.seb42_pre_031.audit.Auditable;
 import com.codestates.seb42_pre_031.member.entity.Member;
-import com.codestates.seb42_pre_031.vote.entity.VoteA;
 import com.codestates.seb42_pre_031.voteQ.entity.VoteQ;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

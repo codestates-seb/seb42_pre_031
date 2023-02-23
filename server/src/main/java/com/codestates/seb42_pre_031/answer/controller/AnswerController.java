@@ -13,6 +13,7 @@ import com.codestates.seb42_pre_031.response.PageInfo;
 import com.codestates.seb42_pre_031.response.SingleResponseDto;
 import com.codestates.seb42_pre_031.utils.UriCreator;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -23,9 +24,11 @@ import javax.validation.constraints.Positive;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
-
+@CrossOrigin
 @RestController
 @RequestMapping("/v1")
+@Validated
+@Slf4j
 public class AnswerController {
 
     private final static String ANSWER_DEFAULT_URL = "/v1";
@@ -62,21 +65,6 @@ public class AnswerController {
 //        return new ResponseEntity(mapper.answerToAnswerResponseDto(answer), HttpStatus.CREATED);
 //
 //    }
-
-    @GetMapping("/answers")
-    public ResponseEntity getAnswers(@Positive @RequestParam int page,
-                                     @Positive @RequestParam int size) {
-
-//        api dummy 긑내고 바꿔줄것
-//        Page<Answer> pageAnswers = answerService.findAnswers(page - 1, size);
-//        List<Answer> answers = pageAnswers.getContent();
-//        return new ResponseEntity<>(
-//                new MultiResponseDto<>(answerMapper.answersToAnswerResponseDtos(answers),
-//                        pageAnswers),
-//                HttpStatus.OK);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
-
     @PatchMapping("/answers/{answer-id}")
     public ResponseEntity patchAnswer (@PathVariable("answer-id") long answerId,
                                        @RequestBody AnswerDto.Patch answerPatchDto) {
@@ -90,23 +78,36 @@ public class AnswerController {
 
     }
 
+
+
     @PatchMapping("/answers/{answer-id}/votePlus")
     public ResponseEntity patchVoteAPlus(
             @PathVariable("answer-id") @Positive long answerId) {
         Answer answer =
                 answerService.findAnswer(answerId);
         Answer addedVoteA = answerService.updateVoteAPlus(answer);
+        int voteAcount = addedVoteA.getVoteA().getVoteACount();
+        String voteACountJson =
+                "{\"" +
+                        "" + "voteACount\": \"" + voteAcount + "" +
+                        "\"}";;
 
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(voteACountJson, HttpStatus.OK);
     }
+
     @PatchMapping("/answers/{answer-id}/voteMinus")
     public ResponseEntity patchVoteAMinus(
             @PathVariable("answer-id") @Positive long answerId) {
         Answer answer =
                 answerService.findAnswer(answerId);
         Answer droppedVoteA = answerService.updateVoteAMinus(answer);
+        int voteAcount = droppedVoteA.getVoteA().getVoteACount();
+        String voteACountJson =
+                "{\"" +
+                        "" + "voteACount\": \"" + voteAcount + "" +
+                        "\"}";;
 
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(voteACountJson, HttpStatus.OK);
     }
 
     @GetMapping("/answers/{answer-id}/voteA")
@@ -116,11 +117,24 @@ public class AnswerController {
         Answer answer = answerService.findAnswer(answerId);
         int voteAcount = answer.getVoteA().getVoteACount();
         String voteACountJson =
-                "{\"" + "voteACount\": \"" + voteAcount + "\"}";;
+                "{\"" +
+                        "" + "voteACount\": \"" + voteAcount + "" +
+                        "\"}";;
 
         return voteACountJson;
     }
 
+    @GetMapping("/answers")
+    public ResponseEntity getAnswers(@Positive @RequestParam int page,
+                                     @Positive @RequestParam int size) {
+
+        Page<Answer> pageAnswers = answerService.findAnswers(page - 1, size);
+        List<Answer> answers = pageAnswers.getContent();
+        return new ResponseEntity<>(
+                new MultiResponseDto<>(mapper.answersToAnswerResponseDtos(answers),
+                        pageAnswers),
+                HttpStatus.OK);
+    }
 
 
     @DeleteMapping("/answers/{answer-id}")

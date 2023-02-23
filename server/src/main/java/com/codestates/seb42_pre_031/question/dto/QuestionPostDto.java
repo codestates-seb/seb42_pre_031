@@ -16,12 +16,13 @@ import java.time.LocalDateTime;
 @Setter
 public class QuestionPostDto {
 
+    private long memberId;
+
     private String questionTitle;
 
     private String questionContents;
 
     private String questionTrial;
 
-    private long memberId;
 
 }
