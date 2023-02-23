@@ -1,7 +1,5 @@
-
-import styled from 'styled-components';
-
-
+import { useEffect } from "react";
+import styled from "styled-components";
 
 const Main = styled.div`
   display: flex;
@@ -14,7 +12,6 @@ const Container = styled.div`
   width: 1080px;
   justify-content: center;
   margin-bottom: 20px;
-
 `;
 
 const Content = styled.div`
@@ -22,7 +19,6 @@ const Content = styled.div`
   flex-direction: column;
   padding: 30px;
 `;
-
 
 const TopContain = styled.div`
   background-color: #fdf7e2;
@@ -34,41 +30,34 @@ const TopContain = styled.div`
 `;
 const Top = styled.h6`
   margin: 10px;
-  
 `;
-
 
 const Answer = styled.div``;
 const Answeredit = styled.input`
-padding: 7.8px 9.1px;
-margin: 7px 0px 0px 0px ;
-margin-bottom: 20px;
-width: 750px;
-height: 300px;
-
-  `;
-
-const InputText = styled.input`
-padding: 7.8px 9.1px;
-margin: 7px 0px 0px 0px ;
-margin-bottom: 20px;
-width: 600px;
-`
-
-
-const Summary = styled.div`
-        margin-top: 10px;
-        padding-bottom: 15px;
-        display: flex;
-        flex-direction: column;
+  padding: 7.8px 9.1px;
+  margin: 7px 0px 0px 0px;
+  margin-bottom: 20px;
+  width: 750px;
+  height: 300px;
 `;
 
+const InputText = styled.input`
+  padding: 7.8px 9.1px;
+  margin: 7px 0px 0px 0px;
+  margin-bottom: 20px;
+  width: 600px;
+`;
 
+const Summary = styled.div`
+  margin-top: 10px;
+  padding-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+`;
 
 const Title = styled.h3`
   margin-bottom: 10px;
 `;
-
 
 const Buttons = styled.div`
   display: flex;
@@ -100,8 +89,6 @@ const CancelBtn = styled.button`
   }
 `;
 
-
-
 const Side = styled.div`
   display: flex;
   flex-direction: column;
@@ -124,7 +111,6 @@ const SideTitle = styled.div`
   color: #3b4045;
 `;
 
-
 const Explain = styled.div`
   padding: 5px 70px 5px 20px;
   background-color: #faf5e6;
@@ -134,7 +120,7 @@ const Explain = styled.div`
 `;
 
 const Ul = styled.ul`
-padding: 1%;
+  padding: 1%;
 `;
 
 const Li = styled.li`
@@ -145,42 +131,41 @@ const Li = styled.li`
   padding-right: 10px;
   list-style: inside;
 `;
-function AnswerEdit() {
-
+function AnswerEdit({ setIsSidebar, setIsFooter }) {
+  useEffect(() => {
+    setIsSidebar(true);
+    setIsFooter(true);
+  }, []);
   return (
     <Main>
       <Container>
         <Content>
           <TopContain>
             <Top>
-              We welcome edits that make the post easier to understand and more valuable for
-              readers. Because community members review edits, please try to make the post
-              substantially better than how you found it, for example, by fixing grammar or adding
-              additional resources and hyperlinks.
+              We welcome edits that make the post easier to understand and more
+              valuable for readers. Because community members review edits,
+              please try to make the post substantially better than how you
+              found it, for example, by fixing grammar or adding additional
+              resources and hyperlinks.
             </Top>
           </TopContain>
 
-
-          <Answer>       
-             <Title name="title">Rev</Title>
-             <Title name="title">페이지</Title>
-             <Answeredit>
-        
-            </Answeredit>
+          <Answer>
+            <Title name="title">Rev</Title>
+            <Title name="title">페이지</Title>
+            <Answeredit></Answeredit>
             <Title name="title">Answer</Title>
-            <Answeredit>
-            </Answeredit>
+            <Answeredit></Answeredit>
             <Summary>
-                <Title>Edit Summary</Title>
-                <InputText type={"text"} placeholder="briefly explain your change (corrected spelling, fixed grammar, improved formatting)"></InputText>
+              <Title>Edit Summary</Title>
+              <InputText
+                type={"text"}
+                placeholder="briefly explain your change (corrected spelling, fixed grammar, improved formatting)"
+              ></InputText>
             </Summary>
             <Buttons>
-              <SaveEdit name="saveEdit">
-                Save Edits
-              </SaveEdit>
-              <CancelBtn name="cancel">
-                Cancel
-              </CancelBtn>
+              <SaveEdit name="saveEdit">Save Edits</SaveEdit>
+              <CancelBtn name="cancel">Cancel</CancelBtn>
             </Buttons>
           </Answer>
         </Content>
@@ -204,7 +189,6 @@ function AnswerEdit() {
                 <Li></Li>
                 <Li></Li>
                 <Li></Li>
-   
               </Ul>
             </Explain>
           </SideContain>
