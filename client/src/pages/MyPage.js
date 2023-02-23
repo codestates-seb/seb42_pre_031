@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const UserBox = styled.div`
@@ -41,6 +42,18 @@ const UserBox = styled.div`
     top: 30px;
     width: 200px;
     > div {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgb(207, 210, 213);
+      padding: 5px;
+      width: 82px;
+      height: 20px;
+      font-size: 12px;
+      color: rgb(108, 115, 123);
+      text-align: center;
+    }
+    > a {
       display: flex;
       align-items: center;
       justify-content: center;
@@ -240,7 +253,7 @@ export default function Mypage({ setIsSidebar, setIsFooter }) {
           </div>
         </div>
         <div className="user-info-edit">
-          <div>Edit profile</div>
+          <Link to="/editmypage">Edit profile</Link>
           <div>Profiles</div>
         </div>
       </div>
