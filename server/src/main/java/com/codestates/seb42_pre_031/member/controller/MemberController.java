@@ -1,7 +1,7 @@
 package com.codestates.seb42_pre_031.member.controller;
 
 
-import com.codestates.seb42_pre_031.member.Mapper.MemberMapper;
+import com.codestates.seb42_pre_031.member.mapper.MemberMapper;
 import com.codestates.seb42_pre_031.member.dto.MemberPatchDto;
 import com.codestates.seb42_pre_031.member.dto.MemberPostDto;
 import com.codestates.seb42_pre_031.member.entity.Member;
@@ -9,22 +9,17 @@ import com.codestates.seb42_pre_031.member.service.MemberService;
 import com.codestates.seb42_pre_031.response.SingleResponseDto;
 import com.codestates.seb42_pre_031.utils.UriCreator;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Positive;
 import java.net.URI;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/v1/members")
 @Validated
@@ -67,7 +62,7 @@ public class MemberController {
 
     @GetMapping("/{member-id}")
     public ResponseEntity getMember(
-            @PathVariable("member-id") @Min(0) long memberId) {
+            @PathVariable("member-id") @Positive long memberId) {
         Member member = memberService.findMember(memberId);
         return new ResponseEntity<>(
                 new SingleResponseDto<>(memberMapper.memberToMemberResponseDto(member))
@@ -113,8 +108,6 @@ public class MemberController {
 //        session.invalidate();
     return new ResponseEntity<>(HttpStatus.OK);
     }
-
-
      */
 
 }

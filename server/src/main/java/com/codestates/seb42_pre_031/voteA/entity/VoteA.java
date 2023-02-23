@@ -1,4 +1,4 @@
-package com.codestates.seb42_pre_031.vote.entity;
+package com.codestates.seb42_pre_031.voteA.entity;
 
 import com.codestates.seb42_pre_031.answer.entity.Answer;
 import lombok.Getter;

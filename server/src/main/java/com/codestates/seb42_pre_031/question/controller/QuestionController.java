@@ -23,7 +23,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.Positive;
 import java.net.URI;
 import java.util.List;
-
+@CrossOrigin
 @RestController
 @RequestMapping("/v1/questions")
 @Validated
@@ -87,8 +87,13 @@ public class QuestionController {
         Question question =
                 questionService.findQuestion(questionId);
         Question addedVoteQ = questionService.updateVoteQPlus(question);
+        int voteQcount = addedVoteQ.getVoteQ().getVoteQCount();
+        String voteQCountJson =
+                "{\"" +
+                        "" + "voteQCount\": \"" + voteQcount + "" +
+                        "\"}";;
 
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(voteQCountJson, HttpStatus.OK);
     }
     @PatchMapping("/{question-id}/voteMinus")
     public ResponseEntity patchVoteQMinus(
@@ -96,8 +101,13 @@ public class QuestionController {
         Question question =
                 questionService.findQuestion(questionId);
         Question droppedVoteQ = questionService.updateVoteQMinus(question);
+        int voteQcount = droppedVoteQ.getVoteQ().getVoteQCount();
+        String voteQCountJson =
+                "{\"" +
+                        "" + "voteQCount\": \"" + voteQcount + "" +
+                        "\"}";;
 
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(voteQCountJson, HttpStatus.OK);
     }
 
     @GetMapping("/{question-id}/voteQ")
@@ -107,7 +117,9 @@ public class QuestionController {
         Question question = questionService.findQuestion(questionId);
         int voteQcount = question.getVoteQ().getVoteQCount();
         String voteQCountJson =
-                "{\"" + "voteQCount\": \"" + voteQcount + "\"}";;
+                "{\"" + "" +
+                        "voteQCount\": \"" + voteQcount + "" +
+                        "\"}";;
 
         return voteQCountJson;
     }
@@ -119,14 +131,13 @@ public class QuestionController {
             @RequestParam(value = "keyword") String keyword, @Positive @RequestParam int page,
             @Positive @RequestParam int size) {
         //keyword로 어떻게 구현할지 아직...
-//        api dummy 긑내고 바꿔줄것
-//        Page<Question> pageQuestions = questionService.findQuestions(page - 1, size);
-//        List<Question> questions = pageQuestions.getContent();
-//        return new ResponseEntity<>(
-//                new MultiResponseDto<>(questionMapper.questionsToQuestionResponseDtos(questions),
-//                        pageQuestions),
-//                HttpStatus.OK);
-        return new ResponseEntity<>(HttpStatus.OK);
+
+        Page<Question> pageQuestions = questionService.findQuestions(page - 1, size);
+        List<Question> questions = pageQuestions.getContent();
+        return new ResponseEntity<>(
+                new MultiResponseDto<>(questionMapper.questionsToQuestionResponseDtos(questions),
+                        pageQuestions),
+                HttpStatus.OK);
     }
 
     //리스트중 해당 question 딱 하나 가져오는거
@@ -146,13 +157,12 @@ public class QuestionController {
     public ResponseEntity getQuestions(@Positive @RequestParam int page,
                                      @Positive @RequestParam int size) {
 //        api dummy 긑내고 바꿔줄것
-//        Page<Question> pageQuestions = questionService.findQuestions(page - 1, size);
-//        List<Question> questions = pageQuestions.getContent();
-//        return new ResponseEntity<>(
-//                new MultiResponseDto<>(questionMapper.questionsToQuestionResponseDtos(questions),
-//                        pageQuestions),
-//                HttpStatus.OK);
-        return new ResponseEntity<>(HttpStatus.OK);
+        Page<Question> pageQuestions = questionService.findQuestions(page - 1, size);
+        List<Question> questions = pageQuestions.getContent();
+        return new ResponseEntity<>(
+                new MultiResponseDto<>(questionMapper.questionsToQuestionResponseDtos(questions),
+                        pageQuestions),
+                HttpStatus.OK);
     }
 
     @DeleteMapping("/{question-id}")

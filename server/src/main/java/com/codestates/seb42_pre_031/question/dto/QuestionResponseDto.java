@@ -34,7 +34,7 @@ public class QuestionResponseDto {
     //createdby 관련해서 수정하기
     private long memberId;
 
-    private List<AnswerResponseDto> answers;
-
     private int voteQCount;
+
+    private List<AnswerResponseDto> answers;
 }
