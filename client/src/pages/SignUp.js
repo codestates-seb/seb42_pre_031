@@ -138,11 +138,14 @@ function SignUp({ setIsSidebar, setIsFooter }) {
   // 회원가입 요청 axios
   const signUp = async (email, password) => {
     try {
-      const response = await axios.post("/v1/members", {
-        memberName: nickName,
-        memberEmail: email,
-        memberPW: password,
-      });
+      const response = await axios.post(
+        "http://ec2-43-201-115-211.ap-northeast-2.compute.amazonaws.com:8080/v1/members",
+        {
+          memberName: nickName,
+          memberEmail: email,
+          memberPW: password,
+        }
+      );
     } catch (error) {
       console.log(error);
     }

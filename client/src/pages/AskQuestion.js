@@ -1,12 +1,16 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
 
 const AskQ = styled.div`
   display: flex;
   flex-direction: column;
   padding: 0px 16px 24px 16px;
   width: 60%;
+  height: 100%;
   top: 60px;
+  justify-content: space-between;
 
   > h1 {
     text-align: start;
@@ -88,7 +92,7 @@ const AskQ = styled.div`
   .ask-problem {
     display: flex;
     flex-direction: column;
-    border: 1px solid rgb(235, 236, 237);
+    /* border: 1px solid rgb(235, 236, 237); */
     text-align: start;
     margin-top: 20px;
     padding: 12px;
@@ -135,27 +139,11 @@ const AskQ = styled.div`
     flex-direction: column;
     border: 1px solid black;
     height: 255px;
-    > img {
-      width: auto;
-      height: 50px;
-    }
-    > input {
-      width: 100%;
-      text-align: start;
-      background: none;
-      outline: none;
-      border: none;
-      padding: 10px;
-    }
-  }
-  .expect-form:focus-within {
-    outline: none;
-    border: 2px solid rgb(65, 149, 247);
   }
   .ask-expect {
     display: flex;
     flex-direction: column;
-    border: 1px solid rgb(235, 236, 237);
+    /* border: 1px solid rgb(235, 236, 237); */
     text-align: start;
     margin-top: 20px;
     padding: 12px;
@@ -165,17 +153,8 @@ const AskQ = styled.div`
     > h4 {
       margin: 0;
     }
-    > input {
-      height: 20px;
-      outline: none;
-      border: 1px solid rgb(235, 236, 237);
-
-      &:focus {
-        border: 1px solid rgb(65, 149, 247);
-        outline: none;
-      }
-    }
   }
+
   .tags-gen {
     display: flex;
     flex-direction: column;
@@ -238,18 +217,67 @@ const AskQ = styled.div`
       background-color: rgb(48, 116, 198);
     }
   }
+  .ql-container {
+    box-sizing: border-box;
+    font-family: "Gowun Batang";
+    font-size: 1.25rem;
+    font-weight: 400;
+    color: #565759;
+    min-height: 15rem;
+    margin: 0px;
+    position: relative;
+  }
+  .ql-editor {
+    min-height: 15rem;
+  }
+  @media screen and (max-width: 600px) {
+    .ql-container {
+      font-size: 1.125rem;
+    }
+  }
 `;
-export default function AskQuestion({ setIsSidebar }) {
+export default function AskQuestion({ setIsSidebar, setIsFooter }) {
   const [isGoodTitle, setIsGoodTitle] = useState(false);
 
+  useEffect(() => {
+    setIsSidebar(false);
+    setIsFooter(true);
+  }, []);
+
+  // 타이틀 인풋 클릭 시 모달
   const goodTitleHandler = () => {
     setIsGoodTitle(true);
   };
 
-  useEffect(() => {
-    setIsSidebar(false);
-  }, []);
-
+  //에디터 모듈
+  const modules = {
+    toolbar: {
+      container: [
+        [{ header: [1, 2, 3, 4, 5, 6, false] }],
+        [{ font: [] }],
+        [{ align: [] }],
+        ["bold", "italic", "underline", "strike", "blockquote"],
+        [{ list: "ordered" }, { list: "bullet" }, "link"],
+        [
+          {
+            color: [
+              "#000000",
+              "#e60000",
+              "#ff9900",
+              "#ffff00",
+              "#008a00",
+              "#0066cc",
+              "#9933ff",
+              "custom-color",
+            ],
+          },
+          { background: [] },
+        ],
+        ["image", "video"],
+        ["clean"],
+      ],
+    },
+  };
   return (
     <AskQ>
       <h1>Ask a public question</h1>
@@ -310,10 +338,13 @@ export default function AskQuestion({ setIsSidebar }) {
           Introduce the problem and expand on what you put in the title. Minimum
           20 characters.
         </div>
-        <div className="ask-form">
-          <img src="askicon.png" />
-          <input></input>
-        </div>
+
+        <ReactQuill
+          className="text-left"
+          name="content"
+          theme="snow"
+          modules={modules}
+        />
       </div>
       <div className="ask-expect">
         <h4>What did you try and what were you expecting?</h4>
@@ -321,10 +352,12 @@ export default function AskQuestion({ setIsSidebar }) {
           Describe what you tried, what you expected to happen, and what
           actually resulted. Minimum 20 characters.
         </div>
-        <div className="expect-form">
-          <img src="askicon.png" />
-          <input></input>
-        </div>
+        <ReactQuill
+          className="text-left"
+          name="content"
+          theme="snow"
+          modules={modules}
+        />
       </div>
       <div className="tags-gen">
         <h4>Tags</h4>
