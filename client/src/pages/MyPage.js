@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
@@ -227,24 +228,40 @@ const UserBox = styled.div`
 export default function Mypage({ setIsSidebar, setIsFooter }) {
   const [feedModal, setFeedModal] = useState(false);
 
+  useEffect(() => {
+    setIsSidebar(true);
+    setIsFooter(true);
+  });
+  // feed 모달 구현
   const feedOpener = () => {
     setFeedModal(true);
   };
   const feedCloser = () => {
     setFeedModal(false);
   };
-
+  // 회원 정보 요청
+  const [userInfo, setUserInfo] = useState("");
   useEffect(() => {
-    setIsSidebar(true);
-    setIsFooter(true);
-  });
+    axios
+      .get(
+        "http://ec2-43-201-115-211.ap-northeast-2.compute.amazonaws.com:8080/v1/members/1"
+      )
+      .then((response) => {
+        console.log(response);
+        setUserInfo(response.data.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
   return (
     <UserBox>
       <div className="user-top">
         <div className="user-id-info">
           <img src="star.png" />
           <div>
-            <div className="user-nickname">UserName(유저이름api)</div>
+            <div className="user-nickname">{userInfo.nickName}</div>
             <ul className="user-sign-info">
               <li>Member for 7 days(가입일api)</li>
               <li>Last seen this week</li>
