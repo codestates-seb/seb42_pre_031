@@ -1,25 +1,31 @@
-package com.codestates.seb42_pre_031.answer.controller;
+/*package com.codestates.seb42_pre_031.answer.controller;
 
 import com.codestates.seb42_pre_031.answer.dto.AnswerDto;
+import com.codestates.seb42_pre_031.answer.dto.AnswerPatchDto;
+import com.codestates.seb42_pre_031.answer.dto.AnswerPostDto;
 import com.codestates.seb42_pre_031.answer.entity.Answer;
 import com.codestates.seb42_pre_031.answer.mapper.AnswerMapper;
 import com.codestates.seb42_pre_031.answer.service.AnswerService;
+import com.codestates.seb42_pre_031.member.entity.Member;
+import com.codestates.seb42_pre_031.answer.entity.Answer;
 import com.codestates.seb42_pre_031.response.MultiResponseDto;
+import com.codestates.seb42_pre_031.response.PageInfo;
 import com.codestates.seb42_pre_031.response.SingleResponseDto;
 import com.codestates.seb42_pre_031.utils.UriCreator;
-import lombok.NoArgsConstructor;
-import org.springframework.data.domain.Page;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 @RequestMapping("/v1")
-@NoArgsConstructor
 public class AnswerController {
 
     private final static String ANSWER_DEFAULT_URL = "/v1";
@@ -32,29 +38,43 @@ public class AnswerController {
         this.mapper = mapper;
     }
 
-    @PostMapping("/questions/{question-id}/answers") //기존 서비스 코드 long questionId 파라미터가 충돌
+    @PostMapping("/questions/{question-id}/answers")
     public ResponseEntity postAnswer(@PathVariable("question-id") long questionId,
                                      @RequestBody AnswerDto.Post answerPostDto) {
         answerPostDto.setQuestionId(questionId);
-        Answer answer = answerService.createAnswer(mapper.answerPostDtoToAnswer(answerPostDto));
+        Answer answer = mapper.answerPostDtoToAnswer(answerPostDto);
 
+        Answer createdAnswer = answerService.createAnswer(answer);
         //UricomponentesBUilder를 통해 uri 템플릿 변수 지정 =>
-        URI location = UriCreator.createUri(ANSWER_DEFAULT_URL+"/answers", answer.getAnswerId());
+        URI location = UriCreator.createUri(ANSWER_DEFAULT_URL+"/answers", createdAnswer.getAnswerId());
 
         return ResponseEntity.created(location).build();
 
     }
 
+    //get Answer 하나 가져오는게 필요한가
+//    @GetMapping("/answers/{answer-id}")
+//    public ResponseEntity getAnswer(@PathVariable("answer-id") long answerId,
+//                                     @RequestBody AnswerDto.Post answerPostDto) {
+//
+//        Answer answer = mapper.answerPostDtoToAnswer(answerPostDto);
+//
+//        return new ResponseEntity(mapper.answerToAnswerResponseDto(answer), HttpStatus.CREATED);
+//
+//    }
+
     @GetMapping("/answers")
     public ResponseEntity getAnswers(@Positive @RequestParam int page,
                                      @Positive @RequestParam int size) {
 
-       Page<Answer> pageAnswers = answerService.findAnswers(page - 1, size);
-       List<Answer> answers     = pageAnswers.getContent();
-       return new ResponseEntity<>(
-               new MultiResponseDto<>(mapper.answersToAnswerResponseDtos(answers),
-                       pageAnswers),
-               HttpStatus.OK);
+//        api dummy 긑내고 바꿔줄것
+//        Page<Answer> pageAnswers = answerService.findAnswers(page - 1, size);
+//        List<Answer> answers = pageAnswers.getContent();
+//        return new ResponseEntity<>(
+//                new MultiResponseDto<>(answerMapper.answersToAnswerResponseDtos(answers),
+//                        pageAnswers),
+//                HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PatchMapping("/answers/{answer-id}")
@@ -63,32 +83,32 @@ public class AnswerController {
 
         answerPatchDto.setAnswerId(answerId);
 
+        //TODO : service 구현
         Answer answer = answerService.updateAnswer(mapper.answerPatchDtoToAnswer(answerPatchDto));
 
-        return new ResponseEntity(new SingleResponseDto(mapper.answerToAnswerResponseDtos(answer)), HttpStatus.OK);
+        return new ResponseEntity(new SingleResponseDto(mapper.answerToAnswerResponseDto(answer)), HttpStatus.OK);
 
     }
 
-    //TODO:
     @PatchMapping("/answers/{answer-id}/votePlus")
     public ResponseEntity patchVoteAPlus(
             @PathVariable("answer-id") @Positive long answerId) {
-        Answer answer = answerService.findAnswer(answerId);
+        Answer answer =
+                answerService.findAnswer(answerId);
         Answer addedVoteA = answerService.updateVoteAPlus(answer);
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
-    //TODO:
     @PatchMapping("/answers/{answer-id}/voteMinus")
     public ResponseEntity patchVoteAMinus(
             @PathVariable("answer-id") @Positive long answerId) {
-        Answer answer = answerService.findAnswer(answerId);
+        Answer answer =
+                answerService.findAnswer(answerId);
         Answer droppedVoteA = answerService.updateVoteAMinus(answer);
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    //TODO:
     @GetMapping("/answers/{answer-id}/voteA")
     public String getVoteACount(
             @PathVariable("answer-id") @Positive long answerId) {
@@ -101,10 +121,12 @@ public class AnswerController {
         return voteACountJson;
     }
 
+
+
     @DeleteMapping("/answers/{answer-id}")
     public ResponseEntity deleteAnswer(@PathVariable("answer-id") @Positive long answerId) {
 
        answerService.deleteAnswer(answerId);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
-}
+}*/
