@@ -36,6 +36,9 @@ function App() {
   const [isFooter, setIsFooter] = useState(true);
   // 로그인 상태에 헤더변경 // 마이페이지 접근 가능 여부
   const [isLogin, setIsLogin] = useState(false);
+  // const ALL_URL = 'http://ec2-43-201-115-211.ap-northeast-2.compute.amazonaws.com:8080/v1/questions?page=1&size=3'
+
+    const [data , setData] = useState([]);
 
   return (
     <BrowserRouter>
@@ -50,7 +53,7 @@ function App() {
               exact
               path="/"
               element={
-                <Main setIsSidebar={setIsSidebar} setIsFooter={setIsFooter} />
+                <Main setIsSidebar={setIsSidebar} setIsFooter={setIsFooter} setData={setData} data={data}/>
               }
             />
             <Route path="/tag" element={<TagPage />} />
@@ -97,6 +100,7 @@ function App() {
               }
             />
             <Route
+            // {`/question/${a.questionId}`}
               path="/question"
               element={
                 <MainpageD
