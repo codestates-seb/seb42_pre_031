@@ -30,16 +30,50 @@ import {
   Main4div2timea,
   Main4div2timeaspan,
 } from "../Style/Style.js";
+import axios, { all } from "axios";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
-function Mainscript() {
+function Mainscript({data, setData}) {
+  const Q_URL = 'http://ec2-43-201-115-211.ap-northeast-2.compute.amazonaws.com:8080/v1/questions/1'
+  const VOTE_URL = 'http://ec2-43-201-115-211.ap-northeast-2.compute.amazonaws.com:8080/v1/questions/1/voteQ'
+  const ALL_URL = 'http://ec2-43-201-115-211.ap-northeast-2.compute.amazonaws.com:8080/v1/questions?page=1&size=3'
+
+
+    const [Numall, Setnumall] = useState([])
+
+    // const Tdata = () => {
+    //   axios.get(Q_URL).then((response)=>{Setmember(response.data.data)})
+    // }
+    useEffect(()=>{
+      
+      axios.get(ALL_URL)
+     .then(response =>{
+        setData(response.data.data)
+    })
+
+    },[])
+    
+
   return (
-    <Main3div>
+    <>
+    {data.map(function(a,i){
+                  return(
+                    <Main3div key={a.questionId}>
       <Main3div1>
+        {console.log(data.questionId)}
         <Main3div2>
           <Main3div3>
             <Main3div31>
               <Main3div31div>
-                <Main3div31divspan>1</Main3div31divspan>
+                {/* <div>
+                {[All].map(function(){
+                  return(
+                    <h1>{All.questionTitle}</h1>
+                  )
+                })}
+                </div> */}
+                <Main3div31divspan>{a.voteQCount}</Main3div31divspan>
                 <Main3div31divspan1>votes</Main3div31divspan1>
               </Main3div31div>
               <Main3div31div>
@@ -54,8 +88,7 @@ function Mainscript() {
             <Main3div4>
               <Main3div4h3>
                 <Main3div4h3a>
-                  How can I call my function as a command line in Ubuntu without
-                  segmentation fault?
+                  <Link to = {`/question/${a.questionId}`}>{a.questionTitle}</Link>
                 </Main3div4h3a>
               </Main3div4h3>
               <Main4div>
@@ -93,7 +126,7 @@ function Mainscript() {
                   <Main4div2time>
                     <Main4div2timea>
                       "Modified"
-                      <Main4div2timeaspan>min ago</Main4div2timeaspan>
+                      <Main4div2timeaspan>{a.createdAt}</Main4div2timeaspan>
                     </Main4div2timea>
                   </Main4div2time>
                 </Main4div2>
@@ -103,8 +136,12 @@ function Mainscript() {
         </Main3div2>
       </Main3div1>
     </Main3div>
-    // </>
+                  )
+                })}
+    
+    </>
   );
 }
 
 export default Mainscript;
+

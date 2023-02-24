@@ -945,8 +945,19 @@ let Mainpn2a1 = styled.a`
     background-color: hsl(210, 8%, 85%);
   }
 `;
+let MainpageMainbtn = styled.button`
+  background-color: rgba(0,0,0,0);
+  color: red;
+  border: 1px solid rgba(0,0,0,0);
+  border-radius: 0px;
+  margin-bottom: 0px;
+  padding: 0px;
+  padding-top: 0px;
+  border-top: 0px;
+`
 
 export {
+  MainpageMainbtn,
   Content,
   Container,
   Mainbar,

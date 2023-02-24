@@ -31,7 +31,7 @@ import { MainSidebar } from "../components/Sidebar.js";
 import Mainscript from "../components/Mainpage.js";
 import { useEffect, useState } from "react";
 
-function Main({ setIsSidebar, setIsFooter }) {
+function Main({ setIsSidebar, setIsFooter ,data, setData}) {
   useEffect(() => {
     setIsSidebar(true);
     setIsFooter(true);
@@ -62,15 +62,8 @@ function Main({ setIsSidebar, setIsFooter }) {
           </Main2div>
 
           {/* 내용 map으로 뿌리기 전  */}
-          <Mainscript />
-          <Mainscript />
-          <Mainscript />
-          <Mainscript />
-          <Mainscript />
-          <Mainscript />
-          <Mainscript />
-          <Mainscript />
-          <Mainscript />
+          <Mainscript data={data} setData={setData} />
+         
 
           <Mainbarbr></Mainbarbr>
           <Mainbarh2>

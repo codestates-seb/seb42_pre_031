@@ -80,8 +80,9 @@ import {
   Mainpagecode,
   Mainpagepre,
   Mainpagespan,
+
 } from "./../Style/MainpageD.js";
-import { Main1div1, Main1div1a } from "./../Style/Style.js";
+import { Main1div1, Main1div1a, MainpageMainbtn} from "./../Style/Style.js";
 
 function MainpageD() {
   return (
@@ -268,6 +269,9 @@ function MainpageD() {
                                                                 "Follow this question to receive notifications"
                                                                 <div></div>
                                                             </div> */}
+                            </MainpageMain224131>
+                            <MainpageMain224131>
+                              < MainpageMainbtn>delete</ MainpageMainbtn>
                             </MainpageMain224131>
                           </MainpageMain22413>
                           <div></div>

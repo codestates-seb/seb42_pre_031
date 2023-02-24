@@ -59,7 +59,7 @@ function Sidebar3th() {
         </SideBar31div>
 
         {/* 여기쯤에서 나뉘어야함 */}
-        <sideBar35>
+        <SideBar35>
         <SideBar32div>
           <SideBar351>
             <SideBar351h>Ignored Tags</SideBar351h>
@@ -74,7 +74,7 @@ function Sidebar3th() {
           <SideBar36btn>Add an ignored tag</SideBar36btn>
         </SideBar36>
       </SideBar32div>
-      </sideBar35>
+      </SideBar35>
     </SideBar3alldiv>
   );
 }
