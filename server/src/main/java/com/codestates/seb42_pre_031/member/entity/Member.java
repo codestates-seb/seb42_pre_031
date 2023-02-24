@@ -31,7 +31,7 @@ public class Member {
     @Column(length = 100, nullable = false)
     private String memberPW;
 
-    @Column(length = 100, nullable = false, unique = true) //unique=true?
+    @Column(length = 100, nullable = false) //unique=true?
     private String nickName;
 
     @Column(length = 500, nullable = true)

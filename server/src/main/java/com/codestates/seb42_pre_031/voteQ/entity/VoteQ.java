@@ -25,4 +25,10 @@ public class VoteQ {
     @JoinColumn(name = "QUESTION_ID")
     private Question question;
 
+    public void setQuestion(Question question) {
+        this.question = question;
+        if(question.getVoteQ() != this) {
+            question.setVoteQ(this);
+        }
+    }
 }

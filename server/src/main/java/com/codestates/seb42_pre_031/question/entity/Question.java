@@ -59,6 +59,27 @@ public class Question extends Auditable {
     @OneToOne(mappedBy = "question", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private VoteQ voteQ;
 
+    public void setMember(Member member) {
+        this.member = member;
+        if (!this.member.getQuestions().contains(this)){
+            this.member.getQuestions().add(this);
+        }
+    }
+
+    public void setAnswer(Answer answer) {
+        this.answerList.add(answer);
+        if (answer.getQuestion() != this) {
+            answer.setQuestion(this);
+        }
+    }
+
+    public void setVoteQ(VoteQ voteQ) {
+        this.voteQ = voteQ;
+        if (voteQ.getQuestion() != this) {
+            voteQ.setQuestion(this);
+        }
+    }
+
     // @Enumerated(value = EnumType.STRING) : enum 값을 index가 아닌 텍스트 값 그대로 저장
    /* @Enumerated(value = EnumType.STRING)
     private QuestionStatus questionStatus = QuestionStatus.QUESTION_REGISTRATION;*/

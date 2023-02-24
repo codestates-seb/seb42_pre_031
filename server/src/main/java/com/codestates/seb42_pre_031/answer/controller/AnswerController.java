@@ -8,10 +8,13 @@ import com.codestates.seb42_pre_031.answer.mapper.AnswerMapper;
 import com.codestates.seb42_pre_031.answer.service.AnswerService;
 import com.codestates.seb42_pre_031.member.entity.Member;
 import com.codestates.seb42_pre_031.answer.entity.Answer;
+import com.codestates.seb42_pre_031.question.entity.Question;
 import com.codestates.seb42_pre_031.response.MultiResponseDto;
 import com.codestates.seb42_pre_031.response.PageInfo;
 import com.codestates.seb42_pre_031.response.SingleResponseDto;
 import com.codestates.seb42_pre_031.utils.UriCreator;
+import com.codestates.seb42_pre_031.voteA.entity.VoteA;
+import com.codestates.seb42_pre_031.voteQ.entity.VoteQ;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -33,8 +36,8 @@ public class AnswerController {
 
     private final static String ANSWER_DEFAULT_URL = "/v1";
 
-    private AnswerService answerService;
-    private AnswerMapper mapper;
+    private final AnswerService answerService;
+    private final AnswerMapper mapper;
 
     public AnswerController(AnswerService answerService, AnswerMapper mapper) {
         this.answerService = answerService;
@@ -46,6 +49,10 @@ public class AnswerController {
                                      @RequestBody AnswerDto.Post answerPostDto) {
         answerPostDto.setQuestionId(questionId);
         Answer answer = mapper.answerPostDtoToAnswer(answerPostDto);
+
+        VoteA voteA = new VoteA();
+        voteA.setVoteACount(0);
+        answer.setVoteA(voteA);
 
         Answer createdAnswer = answerService.createAnswer(answer);
 
@@ -124,17 +131,20 @@ public class AnswerController {
         return voteACountJson;
     }
 
-    @GetMapping("/answers")
-    public ResponseEntity getAnswers(@Positive @RequestParam int page,
+    @GetMapping("/questions/{question-id}/answers")
+    public ResponseEntity getAnswers(@PathVariable("question-id") long questionId, @Positive @RequestParam int page,
                                      @Positive @RequestParam int size) {
 
-        Page<Answer> pageAnswers = answerService.findAnswers(page - 1, size);
+
+        Page<Answer> pageAnswers = answerService.findAnswers(questionId,page - 1, size);
         List<Answer> answers = pageAnswers.getContent();
         return new ResponseEntity<>(
                 new MultiResponseDto<>(mapper.answersToAnswerResponseDtos(answers),
                         pageAnswers),
                 HttpStatus.OK);
     }
+
+    // get by memberId
 
 
     @DeleteMapping("/answers/{answer-id}")

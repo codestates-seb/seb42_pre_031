@@ -7,6 +7,8 @@ import lombok.Setter;
 import org.springframework.util.Assert;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Positive;
 import java.util.Stack;
 
@@ -17,7 +19,8 @@ public class AnswerDto {
     public static class Post {
         private long memberId;
         private long questionId;
-        @NotBlank
+        @NotNull
+        @Pattern(regexp = "^(?!\\s+$).+", message = "Fill in the blank.")
         private String contents;
     }
 
@@ -27,7 +30,7 @@ public class AnswerDto {
     @AllArgsConstructor
     public static class Patch {
         private long answerId;
-        @NotBlank
+        @Pattern(regexp = "^(?!\\s+$).+", message = "Fill in the blank.")
         private String contents;
     }
 

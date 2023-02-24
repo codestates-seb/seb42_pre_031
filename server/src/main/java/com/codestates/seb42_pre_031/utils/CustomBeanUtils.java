@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 import java.lang.reflect.Field;
 import java.util.Collection;
 
+//기능은 알겠는데 코드 분석을 나중에.. 흑
 @Component
 public class CustomBeanUtils<T> {
     public T copyNonNullProperties(T source, T destination) {

@@ -11,6 +11,7 @@ import com.codestates.seb42_pre_031.question.service.QuestionService;
 import com.codestates.seb42_pre_031.response.MultiResponseDto;
 import com.codestates.seb42_pre_031.response.SingleResponseDto;
 import com.codestates.seb42_pre_031.utils.UriCreator;
+import com.codestates.seb42_pre_031.voteQ.entity.VoteQ;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -44,7 +45,9 @@ public class QuestionController {
     @PostMapping
     public ResponseEntity postQuestion( @RequestBody QuestionPostDto questionPostDto) {
         Question question = questionMapper.questionPostDtoToQuestion(questionPostDto);
-
+        VoteQ voteQ = new VoteQ();
+        voteQ.setVoteQCount(0);
+        question.setVoteQ(voteQ);
         Question createdQuestion = questionService.createQuestion(question);
         URI location = UriCreator.createUri(QUESTION_DEFAULT_URL, createdQuestion.getQuestionId());
 
@@ -88,11 +91,12 @@ public class QuestionController {
             @PathVariable("question-id") @Positive long questionId) {
         Question question =
                 questionService.findQuestion(questionId);
-        Question addedVoteQ = questionService.updateVoteQPlus(question);
-        int voteQcount = addedVoteQ.getVoteQ().getVoteQCount();
+        Question addedVoteQquestion = questionService.updateVoteQPlus(question);
+        VoteQ addedVoteQ = addedVoteQquestion.getVoteQ();
+        int voteQcount = addedVoteQ.getVoteQCount();
         String voteQCountJson =
                 "{\"" +
-                        "" + "voteQCount\": \"" + voteQcount + "" +
+                        "" + "voteQCount\": \"" + Integer.toString(voteQcount) + "" +
                         "\"}";;
 
         return new ResponseEntity<>(voteQCountJson, HttpStatus.OK);
@@ -102,11 +106,12 @@ public class QuestionController {
             @PathVariable("question-id") @Positive long questionId) {
         Question question =
                 questionService.findQuestion(questionId);
-        Question droppedVoteQ = questionService.updateVoteQMinus(question);
-        int voteQcount = droppedVoteQ.getVoteQ().getVoteQCount();
+        Question droppedVoteQquestion = questionService.updateVoteQMinus(question);
+        VoteQ droppedVoteQ = droppedVoteQquestion.getVoteQ();
+        int voteQcount = droppedVoteQ.getVoteQCount();
         String voteQCountJson =
                 "{\"" +
-                        "" + "voteQCount\": \"" + voteQcount + "" +
+                        "" + "voteQCount\": \"" + Integer.toString(voteQcount) + "" +
                         "\"}";;
 
         return new ResponseEntity<>(voteQCountJson, HttpStatus.OK);
@@ -117,10 +122,11 @@ public class QuestionController {
             @PathVariable("question-id") @Positive long questionId) {
 
         Question question = questionService.findQuestion(questionId);
-        int voteQcount = question.getVoteQ().getVoteQCount();
+        VoteQ voteQ = question.getVoteQ();
+        int voteQcount = voteQ.getVoteQCount();
         String voteQCountJson =
                 "{\"" + "" +
-                        "voteQCount\": \"" + voteQcount + "" +
+                        "voteQCount\": \"" + Integer.toString(voteQcount) + "" +
                         "\"}";;
 
         return voteQCountJson;

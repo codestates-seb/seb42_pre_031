@@ -17,7 +17,7 @@ import java.util.Optional;
 @Component
 public class CreateAuditorAware implements AuditorAware<String> {
 
-    private final HttpSession httpSession;
+//    private final HttpSession httpSession;
 
     @Override
     public Optional<String> getCurrentAuditor() {
