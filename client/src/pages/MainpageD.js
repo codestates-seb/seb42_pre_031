@@ -1,4 +1,5 @@
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
 import {
   Mainpage,
   Mainpage1,
@@ -80,11 +81,25 @@ import {
   Mainpagecode,
   Mainpagepre,
   Mainpagespan,
-
 } from "./../Style/MainpageD.js";
-import { Main1div1, Main1div1a, MainpageMainbtn} from "./../Style/Style.js";
+import { Main1div1, Main1div1a, MainpageMainbtn } from "./../Style/Style.js";
 
-function MainpageD() {
+function MainpageD({ data, setData, setIsSidebar, setIsFooter }) {
+  const param = useParams();
+  const [render, setRender] = useState({});
+  useEffect(() => {
+    setIsSidebar(true);
+    setIsFooter(true);
+
+    {
+      data.map((e) => {
+        if (e.questionId === param) {
+          return setRender(e);
+        }
+      });
+    }
+  });
+
   return (
     <Mainpage>
       <Mainpage1>
@@ -92,9 +107,7 @@ function MainpageD() {
         <Mainpage1div>
           <Mainpage1div1>
             <Mainpage1divh1>
-              <Mainpage1diva>
-                How can I change schema structure in Spark
-              </Mainpage1diva>
+              <Mainpage1diva>{render.questionTitle}</Mainpage1diva>
             </Mainpage1divh1>
             <Main1div1>
               <Main1div1a> Ask Question</Main1div1a>
@@ -271,7 +284,7 @@ function MainpageD() {
                                                             </div> */}
                             </MainpageMain224131>
                             <MainpageMain224131>
-                              < MainpageMainbtn>delete</ MainpageMainbtn>
+                              <MainpageMainbtn>delete</MainpageMainbtn>
                             </MainpageMain224131>
                           </MainpageMain22413>
                           <div></div>

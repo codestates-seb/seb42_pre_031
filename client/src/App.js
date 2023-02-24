@@ -17,6 +17,7 @@ import MainpageD from "./pages/MainpageD";
 import ProfileEdit from "./pages/ProfileEdit";
 import AnswerEdit from "./pages/AnswerEdit";
 import EditQuestion from "./pages/EditQuestion";
+import axios from "axios";
 
 const Dev = styled.div`
   display: flex;
@@ -36,10 +37,16 @@ function App() {
   const [isFooter, setIsFooter] = useState(true);
   // 로그인 상태에 헤더변경 // 마이페이지 접근 가능 여부
   const [isLogin, setIsLogin] = useState(false);
-  // const ALL_URL = 'http://ec2-43-201-115-211.ap-northeast-2.compute.amazonaws.com:8080/v1/questions?page=1&size=3'
+  const ALL_URL =
+    "http://ec2-43-201-115-211.ap-northeast-2.compute.amazonaws.com:8080/v1/questions?page=1&size=3";
 
-    const [data , setData] = useState([]);
+  const [data, setData] = useState([]);
 
+  useEffect(() => {
+    axios.get(ALL_URL).then((response) => {
+      setData(response.data.data);
+    });
+  }, []);
   return (
     <BrowserRouter>
       <div className="App">
@@ -53,7 +60,12 @@ function App() {
               exact
               path="/"
               element={
-                <Main setIsSidebar={setIsSidebar} setIsFooter={setIsFooter} setData={setData} data={data}/>
+                <Main
+                  setIsSidebar={setIsSidebar}
+                  setIsFooter={setIsFooter}
+                  setData={setData}
+                  data={data}
+                />
               }
             />
             <Route path="/tag" element={<TagPage />} />
@@ -100,12 +112,13 @@ function App() {
               }
             />
             <Route
-            // {`/question/${a.questionId}`}
-              path="/question"
+              path="/question/:id"
               element={
                 <MainpageD
                   setIsSidebar={setIsSidebar}
                   setIsFooter={setIsFooter}
+                  data={data}
+                  setData={setData}
                 />
               }
             />
