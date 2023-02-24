@@ -16,6 +16,7 @@ import LogOut from "./pages/LogOut";
 import MainpageD from "./pages/MainpageD";
 import ProfileEdit from "./pages/ProfileEdit";
 import AnswerEdit from "./pages/AnswerEdit";
+import EditQuestion from "./pages/EditQuestion";
 
 const Dev = styled.div`
   display: flex;
@@ -75,6 +76,15 @@ function App() {
               path="/questions"
               element={
                 <AskQuestion
+                  setIsSidebar={setIsSidebar}
+                  setIsFooter={setIsFooter}
+                />
+              }
+            />
+            <Route
+              path="/editquestion"
+              element={
+                <EditQuestion
                   setIsSidebar={setIsSidebar}
                   setIsFooter={setIsFooter}
                 />

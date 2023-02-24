@@ -1,10 +1,9 @@
-import { useEffect, useState } from "react";
-import styled from "styled-components";
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
 import axios from "axios";
+import { useEffect, useState } from "react";
+import ReactQuill from "react-quill";
+import styled from "styled-components";
 
-const AskQ = styled.div`
+const AskEdit = styled.div`
   display: flex;
   flex-direction: column;
   padding: 0px 16px 24px 16px;
@@ -237,7 +236,8 @@ const AskQ = styled.div`
     }
   }
 `;
-export default function AskQuestion({ setIsSidebar, setIsFooter }) {
+
+export default function EditQuestion({ setIsSidebar, setIsFooter }) {
   useEffect(() => {
     setIsSidebar(false);
     setIsFooter(true);
@@ -288,7 +288,7 @@ export default function AskQuestion({ setIsSidebar, setIsFooter }) {
     },
   };
 
-  // 질문 내역 POST 요청
+  // 질문 내역 PATCH 요청
   // 백엔드 post api 미구현 상태 .
   const questionSubmit = async (e) => {
     e.preventDefault();
@@ -312,7 +312,7 @@ export default function AskQuestion({ setIsSidebar, setIsFooter }) {
   };
 
   return (
-    <AskQ>
+    <AskEdit>
       <h1>Ask a public question</h1>
       <div className="question-explain">
         <h2>Writing a good question</h2>
@@ -408,12 +408,6 @@ export default function AskQuestion({ setIsSidebar, setIsFooter }) {
       <button onClick={questionSubmit} className="post-question">
         Post your question
       </button>
-      <input
-        defaultValue={questionContent.replace(/(<([^>]+)>)/gi, "")}
-      ></input>
-    </AskQ>
+    </AskEdit>
   );
 }
-
-// TODO: 인풋창 정리
-// 에디터 인풋이 target.value 를 못읽음?
