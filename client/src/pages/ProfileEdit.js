@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import  { useNavigate }from "react-router-dom"
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const Profilelabel = styled.div`
@@ -40,7 +40,6 @@ const Leftdiv = styled.div`
   display: flex;
   flex-direction: row;
 `;
-
 
 const MainContainer = styled.div`
   top: 0;
@@ -170,56 +169,51 @@ export const CancleButton = styled(SocialButton)`
 `;
 
 const ProfileEdit = ({ setIsSidebar, setIsFooter }) => {
-    const[displayName, setDisplayName] = useState("");
-    const[aboutMe, setAboutMe] = useState("");
-    const[fullName, setFullName] = useState("");
+  const [displayName, setDisplayName] = useState("");
+  const [aboutMe, setAboutMe] = useState("");
+  const [fullName, setFullName] = useState("");
 
-    const navigate = useNavigate
+  const navigate = useNavigate();
 
- useEffect(() => {
+  useEffect(() => {
     setIsSidebar(true);
     setIsFooter(true);
-
   }, []);
 
   const handleDisplayNameChange = (e) => {
     setDisplayName(e.target.value);
-    };
+  };
 
   const handleAboutMeChange = (e) => {
     setAboutMe(e.target.value);
-    };
+  };
 
   const handleFullNameChange = (e) => {
     setFullName(e.target.value);
-    };
+  };
 
-
-    const handleSubmit = () =>{
-    axios
-      .patch("/v1/members/1", {
-        nickName : displayName,
-        aboutMe : aboutMe,
-        memberName : fullName,
-      })
-      .then((response) => {
-        console.log("성공!");
-        navigate("/mypage")
-      })
-      .catch((error) => {
-        console.error("에러:", error);
-      });
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.patch(
+        "http://ec2-43-201-115-211.ap-northeast-2.compute.amazonaws.com:8080/v1/members/1",
+        {
+          nickName: displayName,
+          aboutMe: aboutMe,
+          memberName: fullName,
+        }
+      );
+      console.log(response);
+      navigate("/mypage");
+    } catch (error) {
+      console.log(error);
     }
-  
+  };
 
+  //ssss
 
- //ssss
-
-
-  
   return (
     <MainContainer>
-  
       <RightContainer>
         <div>
           <Mypagediv>
@@ -268,10 +262,10 @@ const ProfileEdit = ({ setIsSidebar, setIsFooter }) => {
                 <Profilelabel>Profile image</Profilelabel>
                 <ProfilImg></ProfilImg>
                 <Profilelabel>Display name</Profilelabel>
-                <InputText 
-                type={"text"}
-                value={displayName}
-                onChange={handleDisplayNameChange}
+                <InputText
+                  type={"text"}
+                  value={displayName}
+                  onChange={handleDisplayNameChange}
                 ></InputText>
                 <Profilelabel>Location</Profilelabel>
                 <InputText type={"text"}></InputText>
@@ -281,26 +275,25 @@ const ProfileEdit = ({ setIsSidebar, setIsFooter }) => {
                   placeholder="No title has been set"
                 ></InputText>
                 <Profilelabel>About me</Profilelabel>
-                <InputBox 
-                type={"text"}
-                value={aboutMe}
-                onChange={handleAboutMeChange}
+                <InputBox
+                  type={"text"}
+                  value={aboutMe}
+                  onChange={handleAboutMeChange}
                 ></InputBox>
               </Changediv>
 
               <Profilelabel>Private information</Profilelabel>
               <Changediv>
                 <Profilelabel>Full name</Profilelabel>
-                <InputText 
-                type={"text"}
-                value={fullName}
-                onChange={handleFullNameChange}
+                <InputText
+                  type={"text"}
+                  value={fullName}
+                  onChange={handleFullNameChange}
                 ></InputText>
               </Changediv>
-             
+
               <LoginButton onClick={handleSubmit}>Save Profile</LoginButton>
               <CancleButton>Cancle</CancleButton>
-              
             </Editdiv>
           </Leftdiv>
         </div>
