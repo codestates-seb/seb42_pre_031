@@ -1,5 +1,7 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import  { useNavigate }from "react-router-dom"
 import styled from "styled-components";
+import axios from "axios";
 
 const Main = styled.div`
   display: flex;
@@ -131,11 +133,46 @@ const Li = styled.li`
   padding-right: 10px;
   list-style: inside;
 `;
+
+
+
 function AnswerEdit({ setIsSidebar, setIsFooter }) {
+
+  const [editAnswer, setEditAnswer] = useState('');
+  const navigate = useNavigate
+
+  const handleEditAnswer = async () => {
+  //   try {
+  //     const response = await axios.patch('/v1/answers/1', {
+  //       contents: editAnswer
+  //     });
+
+  //     console.log(response.data); 
+  //     navigate("/mypage")
+  //   }catch (error) { 
+  //     console.error(error);
+  //   }
+  // }; sss
+  axios
+  .patch("/v1/answers/1", {
+    contents : editAnswer,
+
+  })
+  .then((response) => {
+    console.log("성공!");
+    navigate("/AskQuestion")
+  })
+  .catch((error) => {
+    console.error("에러:", error);
+  });
+}
+  
+  
   useEffect(() => {
     setIsSidebar(true);
     setIsFooter(true);
   }, []);
+
   return (
     <Main>
       <Container>
@@ -155,7 +192,11 @@ function AnswerEdit({ setIsSidebar, setIsFooter }) {
             <Title name="title">페이지</Title>
             <Answeredit></Answeredit>
             <Title name="title">Answer</Title>
-            <Answeredit></Answeredit>
+            <Answeredit
+              type={"text"}
+              value={editAnswer}
+            onChange={event => setEditAnswer(event.target.value)}
+            ></Answeredit>
             <Summary>
               <Title>Edit Summary</Title>
               <InputText
@@ -164,7 +205,7 @@ function AnswerEdit({ setIsSidebar, setIsFooter }) {
               ></InputText>
             </Summary>
             <Buttons>
-              <SaveEdit name="saveEdit">Save Edits</SaveEdit>
+              <SaveEdit name="saveEdit" onClick={handleEditAnswer}>Save Edits</SaveEdit>
               <CancelBtn name="cancel">Cancel</CancelBtn>
             </Buttons>
           </Answer>
