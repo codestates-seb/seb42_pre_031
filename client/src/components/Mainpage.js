@@ -35,33 +35,13 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 function Mainscript({data, setData}) {
-  const Q_URL = 'http://ec2-43-201-115-211.ap-northeast-2.compute.amazonaws.com:8080/v1/questions/1'
-  const VOTE_URL = 'http://ec2-43-201-115-211.ap-northeast-2.compute.amazonaws.com:8080/v1/questions/1/voteQ'
-  const ALL_URL = 'http://ec2-43-201-115-211.ap-northeast-2.compute.amazonaws.com:8080/v1/questions?page=1&size=3'
-
-
-    const [Numall, Setnumall] = useState([])
-
-    // const Tdata = () => {
-    //   axios.get(Q_URL).then((response)=>{Setmember(response.data.data)})
-    // }
-    useEffect(()=>{
-      
-      axios.get(ALL_URL)
-     .then(response =>{
-        setData(response.data.data)
-    })
-
-    },[])
-    
 
   return (
     <>
     {data.map(function(a,i){
-                  return(
-                    <Main3div key={a.questionId}>
+  return(
+    <Main3div key={a.questionId}>
       <Main3div1>
-        {console.log(data.questionId)}
         <Main3div2>
           <Main3div3>
             <Main3div31>

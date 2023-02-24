@@ -83,8 +83,18 @@ import {
 
 } from "./../Style/MainpageD.js";
 import { Main1div1, Main1div1a, MainpageMainbtn} from "./../Style/Style.js";
+import { useEffect, useState } from "react";
+import { useParams } from 'react-router-dom';
 
-function MainpageD() {
+function MainpageD( data, setData) {
+
+// const [Vote, setVote] = useState([]);
+
+const { id } = useParams();
+const Vid = id -1;
+const Vdata = data.data[Vid]
+// 상세 페이지 들어오면 엔드포인트에 일치한 questionId 가 
+// 내용에 보이게
   return (
     <Mainpage>
       <Mainpage1>
@@ -93,7 +103,9 @@ function MainpageD() {
           <Mainpage1div1>
             <Mainpage1divh1>
               <Mainpage1diva>
-                How can I change schema structure in Spark
+                {console.log(Vdata)}
+                {/* How can I change schema structure in Spark */}
+                {Vdata.questionTitle}
               </Mainpage1diva>
             </Mainpage1divh1>
             <Main1div1>
@@ -135,7 +147,7 @@ function MainpageD() {
                                              it is useful and clear"
                                              <div></div>
                                         </div> */}
-                    <MainpageMain212>0</MainpageMain212>
+                    <MainpageMain212>{Vdata.voteQCount}</MainpageMain212>
                     <MainpageMain211btn>
                       <MainpageMain211sgv>
                         <MainpageMain211svgP d="M2 11h32L18 27 2 11Z"></MainpageMain211svgP>
@@ -172,50 +184,7 @@ function MainpageD() {
                 <MainpageMain22>
                   <MainpageMain221>
                     <MainpageMain221p>
-                      I have a schema of the following view:
-                    </MainpageMain221p>
-                    <MainpageMain221p>
-                      <MainpageMain221p>
-                        {" "}
-                        We have one URLUtils class which is coming from one
-                        internal maven dependency jar (Jar A),
-                      </MainpageMain221p>
-                      <MainpageMain221p>
-                        and this URLUtils class is also coming from another
-                        third-party maven dependency jar (Jar B).
-                      </MainpageMain221p>{" "}
-                      These both classes have same package name in these two
-                      jars. : string (nullable = true)
-                    </MainpageMain221p>
-                    <MainpageMain221p>
-                      and I need to change it like this:
-                    </MainpageMain221p>
-                    <MainpageMain221p>
-                      Now there is another 3rd part dependency which has Jar B
-                      as dependency, and it is using
-                      <MainpageMain221p>
-                        {" "}
-                        URLUtils class from it.
-                      </MainpageMain221p>
-                      Even though the class and package names of URLUtils class
-                      in Jar A and Jar B is same but method
-                      <MainpageMain221p>
-                        signature is different.
-                      </MainpageMain221p>
-                    </MainpageMain221p>
-                    <MainpageMain221p>
-                      Merge **indie_guarantee_ArrayType **(array) and
-                      **indie_guarantee **(struct) in one array and
-                      <MainpageMain221p>
-                        don't forget about <strong>sign</strong>
-                      </MainpageMain221p>
-                    </MainpageMain221p>
-                    <MainpageMain221p>I've tried to do</MainpageMain221p>
-                    <MainpageMain221p></MainpageMain221p>
-                    <MainpageMain221p>
-                      "but it works incorrectly. It creates a new field not in "
-                      <strong>indie_guarantees</strong>
-                      "How can I do it?"
+                    {Vdata.questionContents}
                     </MainpageMain221p>
                   </MainpageMain221>
                   <MainpageMain223>
