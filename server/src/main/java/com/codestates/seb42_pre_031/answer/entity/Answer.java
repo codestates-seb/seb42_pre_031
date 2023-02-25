@@ -3,6 +3,7 @@ import com.codestates.seb42_pre_031.audit.Auditable;
 import com.codestates.seb42_pre_031.member.entity.Member;
 import com.codestates.seb42_pre_031.question.entity.Question;
 import com.codestates.seb42_pre_031.voteA.entity.VoteA;
+import com.codestates.seb42_pre_031.voteQ.entity.VoteQ;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -60,6 +61,27 @@ public class Answer extends Auditable {
      */
     @OneToOne(mappedBy = "answer", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private VoteA voteA;
+
+    public void setMember(Member member) {
+        this.member = member;
+        if (!this.member.getAnswers().contains(this)){
+            this.member.getAnswers().add(this);
+        }
+    }
+
+    public void setQuestion(Question question) {
+        this.question = question;
+        if (!this.question.getAnswerList().contains(this)){
+            this.question.getAnswerList().add(this);
+        }
+    }
+
+    public void setVoteA(VoteA voteA) {
+        this.voteA = voteA;
+        if (voteA.getAnswer() != this) {
+            voteA.setAnswer(this);
+        }
+    }
 }
 
 

@@ -19,6 +19,7 @@ public interface QuestionMapper {
 
     @Mapping(source = "member.memberId", target = "memberId")
     @Mapping(source = "voteQ.voteQCount", target = "voteQCount")
+    @Mapping(source = "answerList", target = "answers")
     QuestionResponseDto questionToQuestionResponseDto(Question question);
 
     List<QuestionResponseDto> questionsToQuestionResponseDtos(List<Question> questions);

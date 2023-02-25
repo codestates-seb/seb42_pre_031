@@ -9,6 +9,7 @@ import com.codestates.seb42_pre_031.answer.service.AnswerService;
 import com.codestates.seb42_pre_031.member.entity.Member;
 import com.codestates.seb42_pre_031.answer.entity.Answer;
 import com.codestates.seb42_pre_031.question.entity.Question;
+import com.codestates.seb42_pre_031.question.service.QuestionService;
 import com.codestates.seb42_pre_031.response.MultiResponseDto;
 import com.codestates.seb42_pre_031.response.PageInfo;
 import com.codestates.seb42_pre_031.response.SingleResponseDto;
@@ -35,102 +36,40 @@ import java.util.List;
 public class AnswerController {
 
     private final static String ANSWER_DEFAULT_URL = "/v1";
-
     private final AnswerService answerService;
     private final AnswerMapper mapper;
+    private final QuestionService questionService;
 
-    public AnswerController(AnswerService answerService, AnswerMapper mapper) {
+//    public AnswerController(AnswerService answerService, AnswerMapper mapper) {
+//        this.answerService = answerService;
+//        this.mapper = mapper;
+//    }
+
+
+    public AnswerController(AnswerService answerService, AnswerMapper mapper, QuestionService questionService) {
         this.answerService = answerService;
         this.mapper = mapper;
+        this.questionService = questionService;
     }
 
-    @PostMapping("/questions/{question-id}/answers")
+    @PostMapping("/questions/{question-id}/answers")//기존 서비스 코드 long questionId 파라미터가 충돌
     public ResponseEntity postAnswer(@PathVariable("question-id") long questionId,
                                      @RequestBody AnswerDto.Post answerPostDto) {
         answerPostDto.setQuestionId(questionId);
         Answer answer = mapper.answerPostDtoToAnswer(answerPostDto);
 
-        VoteA voteA = new VoteA();
-        voteA.setVoteACount(0);
-        answer.setVoteA(voteA);
 
-        Answer createdAnswer = answerService.createAnswer(answer);
 
+        Answer createdAnswer = answerService.createAnswer(questionId, answer);
+
+        //TODO: NPE
+        //UricomponentesBUilder를 통해 uri 템플릿 변수 지정 =>
         URI location = UriCreator.createUri(ANSWER_DEFAULT_URL+"/answers", createdAnswer.getAnswerId());
 
         return ResponseEntity.created(location).build();
-
     }
 
-    //get Answer 하나 가져오는게 필요한가
-//    @GetMapping("/answers/{answer-id}")
-//    public ResponseEntity getAnswer(@PathVariable("answer-id") long answerId,
-//                                     @RequestBody AnswerDto.Post answerPostDto) {
-//
-//        Answer answer = mapper.answerPostDtoToAnswer(answerPostDto);
-//
-//        return new ResponseEntity(mapper.answerToAnswerResponseDto(answer), HttpStatus.CREATED);
-//
-//    }
-    @PatchMapping("/answers/{answer-id}")
-    public ResponseEntity patchAnswer (@PathVariable("answer-id") long answerId,
-                                       @RequestBody AnswerDto.Patch answerPatchDto) {
-
-        answerPatchDto.setAnswerId(answerId);
-
-        //TODO : service 구현
-        Answer answer = answerService.updateAnswer(mapper.answerPatchDtoToAnswer(answerPatchDto));
-
-        return new ResponseEntity(new SingleResponseDto(mapper.answerToAnswerResponseDto(answer)), HttpStatus.OK);
-
-    }
-
-
-
-    @PatchMapping("/answers/{answer-id}/votePlus")
-    public ResponseEntity patchVoteAPlus(
-            @PathVariable("answer-id") @Positive long answerId) {
-        Answer answer =
-                answerService.findAnswer(answerId);
-        Answer addedVoteA = answerService.updateVoteAPlus(answer);
-        int voteAcount = addedVoteA.getVoteA().getVoteACount();
-        String voteACountJson =
-                "{\"" +
-                        "" + "voteACount\": \"" + voteAcount + "" +
-                        "\"}";;
-
-        return new ResponseEntity<>(voteACountJson, HttpStatus.OK);
-    }
-
-    @PatchMapping("/answers/{answer-id}/voteMinus")
-    public ResponseEntity patchVoteAMinus(
-            @PathVariable("answer-id") @Positive long answerId) {
-        Answer answer =
-                answerService.findAnswer(answerId);
-        Answer droppedVoteA = answerService.updateVoteAMinus(answer);
-        int voteAcount = droppedVoteA.getVoteA().getVoteACount();
-        String voteACountJson =
-                "{\"" +
-                        "" + "voteACount\": \"" + voteAcount + "" +
-                        "\"}";;
-
-        return new ResponseEntity<>(voteACountJson, HttpStatus.OK);
-    }
-
-    @GetMapping("/answers/{answer-id}/voteA")
-    public String getVoteACount(
-            @PathVariable("answer-id") @Positive long answerId) {
-
-        Answer answer = answerService.findAnswer(answerId);
-        int voteAcount = answer.getVoteA().getVoteACount();
-        String voteACountJson =
-                "{\"" +
-                        "" + "voteACount\": \"" + voteAcount + "" +
-                        "\"}";;
-
-        return voteACountJson;
-    }
-
+    //TODO: qeustionId 따와서 가져오는 걸로 questions/{questionid}/answers
     @GetMapping("/questions/{question-id}/answers")
     public ResponseEntity getAnswers(@PathVariable("question-id") long questionId, @Positive @RequestParam int page,
                                      @Positive @RequestParam int size) {
@@ -144,8 +83,65 @@ public class AnswerController {
                 HttpStatus.OK);
     }
 
-    // get by memberId
+    @PatchMapping("/answers/{answer-id}")
+    public ResponseEntity patchAnswer (@PathVariable("answer-id") long answerId,
+                                       @RequestBody AnswerDto.Patch answerPatchDto) {
 
+        answerPatchDto.setAnswerId(answerId);
+
+        //TODO : service 구현
+        Answer answer = answerService.updateAnswer(mapper.answerPatchDtoToAnswer(answerPatchDto));
+
+        return new ResponseEntity(new SingleResponseDto(mapper.answerToAnswerResponseDto(answer)), HttpStatus.OK);
+
+    }
+
+    //TODO:
+    @PatchMapping("/answers/{answer-id}/votePlus")
+    public ResponseEntity patchVoteAPlus(
+            @PathVariable("answer-id") @Positive long answerId) {
+        Answer answer =
+                answerService.findAnswer(answerId);
+        Answer addedVoteA = answerService.updateVoteAPlus(answer);
+        int voteAcount = addedVoteA.getVoteA().getVoteACount();
+        String voteACountJson =
+                "{\"" +
+                        "" + "voteACount\": \"" + Integer.toString(voteAcount) + "" +
+                        "\"}";;
+
+        return new ResponseEntity<>(voteACountJson, HttpStatus.OK);
+    }
+
+    //TODO:
+    @PatchMapping("/answers/{answer-id}/voteMinus")
+    public ResponseEntity patchVoteAMinus(
+            @PathVariable("answer-id") @Positive long answerId) {
+        Answer answer =
+                answerService.findAnswer(answerId);
+        Answer droppedVoteA = answerService.updateVoteAMinus(answer);
+        int voteAcount = droppedVoteA.getVoteA().getVoteACount();
+        String voteACountJson =
+                "{\"" +
+                        "" + "voteACount\": \"" + Integer.toString(voteAcount) + "" +
+                        "\"}";;
+
+        return new ResponseEntity<>(voteACountJson, HttpStatus.OK);
+    }
+
+    //TODO:
+    @GetMapping("/answers/{answer-id}/voteA")
+    public String getVoteACount(
+            @PathVariable("answer-id") @Positive long answerId) {
+
+        Answer answer = answerService.findAnswer(answerId);
+        int voteAcount = answer.getVoteA().getVoteACount();
+        String voteACountJson =
+                "{\"" +
+                        "" + "voteACount\": \"" + Integer.toString(voteAcount) + "" +
+                        "\"}";;
+
+        return voteACountJson;
+    }
 
     @DeleteMapping("/answers/{answer-id}")
     public ResponseEntity deleteAnswer(@PathVariable("answer-id") @Positive long answerId) {

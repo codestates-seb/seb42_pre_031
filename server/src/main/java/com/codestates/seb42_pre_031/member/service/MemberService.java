@@ -14,16 +14,12 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class MemberService {
 
     private final MemberRepository memberRepository;
     private final CustomBeanUtils<Member> beanUtils;
 
-    @Autowired
-    public MemberService(MemberRepository memberRepository, CustomBeanUtils<Member> beanUtils) {
-        this.memberRepository = memberRepository;
-        this.beanUtils = beanUtils;
-    }
 
     public Member createMember(Member member) {
 

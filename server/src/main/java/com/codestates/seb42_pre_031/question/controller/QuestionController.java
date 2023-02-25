@@ -45,31 +45,13 @@ public class QuestionController {
     @PostMapping
     public ResponseEntity postQuestion( @RequestBody QuestionPostDto questionPostDto) {
         Question question = questionMapper.questionPostDtoToQuestion(questionPostDto);
-        VoteQ voteQ = new VoteQ();
-        voteQ.setVoteQCount(0);
-        question.setVoteQ(voteQ);
+
         Question createdQuestion = questionService.createQuestion(question);
         URI location = UriCreator.createUri(QUESTION_DEFAULT_URL, createdQuestion.getQuestionId());
 
         return ResponseEntity.created(location).build();
     }
 
-    /*
-    @PostMapping("/{question-id}/answers")
-    public ResponseEntity postAnswerOfQuestion(@PathVariable("question-id") long questionId,
-                                               @Valid @RequestBody AnswerPostDto answerPostDto) {
-
-        requestBody.addQuestionId(questionId);
-        Answer createdQnaAnswer = qnaAnswerService.createQnaAnswer(qnaAnswerMapper.qnaAnswerPostDtoToQnaAnswer(requestBody));
-        URI location = UriCreator.createUri(QUESTION_DEFAULT_URL, createdQnaAnswer.getAnswerId());
-
-
-        return ResponseEntity.created(location).build();
-
-        return new ResponseEntity<AnswerPostDto>(answerPostDto, HttpStatus.CREATED);
-
-    }
-    */
 
     @PatchMapping("/{question-id}")
     public ResponseEntity patchQuestion(

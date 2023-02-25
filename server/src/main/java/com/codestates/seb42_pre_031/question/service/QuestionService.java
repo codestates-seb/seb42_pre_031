@@ -23,11 +23,13 @@ public class QuestionService {
 
     private final QuestionRepository questionRepository;
     private final CustomBeanUtils<Question> beanUtils;
-
     private final MemberService memberService;
 
 
     public Question createQuestion(Question question) {
+        VoteQ voteQ = new VoteQ();
+        voteQ.setVoteQCount(0);
+        question.setVoteQ(voteQ);
         Member member = question.getMember();
         memberService.findVerifiedMember(member.getMemberId());
         return questionRepository.save(question);

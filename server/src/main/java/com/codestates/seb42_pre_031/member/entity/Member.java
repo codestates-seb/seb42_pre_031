@@ -42,4 +42,18 @@ public class Member {
 
     @OneToMany(mappedBy = "member", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private List<Answer> answers = new ArrayList<>();
+
+    public void setQuestion(Question question) {
+        this.questions.add(question);
+        if (question.getMember() != this) {
+            question.setMember(this);
+        }
+    }
+    public void setAnswer(Answer answer) {
+        this.answers.add(answer);
+        if (answer.getMember() != this) {
+            answer.setMember(this);
+        }
+    }
+
 }

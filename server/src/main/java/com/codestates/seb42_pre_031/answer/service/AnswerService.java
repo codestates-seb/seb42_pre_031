@@ -9,6 +9,7 @@ import com.codestates.seb42_pre_031.member.service.MemberService;
 import com.codestates.seb42_pre_031.answer.entity.Answer;
 import com.codestates.seb42_pre_031.question.entity.Question;
 import com.codestates.seb42_pre_031.question.service.QuestionService;
+import com.codestates.seb42_pre_031.utils.CustomBeanUtils;
 import com.codestates.seb42_pre_031.voteA.entity.VoteA;
 import com.codestates.seb42_pre_031.voteQ.entity.VoteQ;
 import com.fasterxml.classmate.MemberResolver;
@@ -24,63 +25,66 @@ import java.util.Optional;
 
 
 @Service
+@RequiredArgsConstructor
 public class AnswerService {
     private final AnswerRepository answerRepository;
     private final QuestionService questionService;
     private final MemberService memberService;
+    private final CustomBeanUtils<Answer> beanUtils;
 
-    @Autowired
-    public AnswerService(AnswerRepository answerRepository, QuestionService questionService, MemberService memberService) {
-        this.answerRepository = answerRepository;
-        this.questionService = questionService;
-        this.memberService = memberService;
-    }
 
-    public Answer createAnswer(Answer answer) {
-        //voteACount 0으로 시작
-        Member member = memberService.findMember(answer.getMember().getMemberId());
-        Question question = questionService.findVerifiedQuestion(answer.getQuestion().getQuestionId());
-        answer.setQuestion(question);
+    public Answer createAnswer(long questionId, Answer answer) {
+
         VoteA voteA = new VoteA();
         voteA.setVoteACount(0);
         answer.setVoteA(voteA);
+        Question findquestion = questionService.findVerifiedQuestion(questionId);
+        Member findMember = memberService.findVerifiedMember(answer.getMember().getMemberId());
+        answer.setMember(findMember);
+        answer.setQuestion(findquestion);
 
         return answerRepository.save(answer);
     }
 
     public Answer updateAnswer(Answer answer) {
         Answer findAnswer = findVerifiedAnswer(answer.getAnswerId());
-        Optional.ofNullable(answer.getContents())
-                .ifPresent(content -> findAnswer.setContents(content));
-        Optional.ofNullable(answer.getVoteA())
-                .ifPresent(vote -> findAnswer.setVoteA(vote));
+//        Optional.ofNullable(answer.getContents())
+//                .ifPresent(content -> findAnswer.setContents(content));
+//        Optional.ofNullable(answer.getVoteA())
+//                .ifPresent(vote -> findAnswer.setVoteA(vote));
+        Answer updatedAnswer = beanUtils.copyNonNullProperties(answer, findAnswer);
 
-        return answerRepository.save(findAnswer);
+//        return answerRepository.save(findAnswer);
+        return answerRepository.save(updatedAnswer);
     }
 
     public Answer updateVoteAPlus(Answer answer) {
         int count = answer.getVoteA().getVoteACount() + 1;
         answer.getVoteA().setVoteACount(count);
-        answerRepository.save(answer);
-        return answer; //null도 상관 없을거 같긴 하지만..
+        return answerRepository.save(answer);
     }
 
     public Answer updateVoteAMinus(Answer answer) {
         int count = answer.getVoteA().getVoteACount() - 1;
         answer.getVoteA().setVoteACount(count);
-        answerRepository.save(answer);
-        return answer;
+        return answerRepository.save(answer);
     }
 
     public Answer findAnswer(long answerId) {
-        return answerRepository.findById(answerId)
-                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.ANSWER_NOT_FOUND));
+        return findVerifiedAnswer(answerId);
     }
 
     //TODO:
     @Transactional(readOnly = true)
-    public Page<Answer> findAnswers(long memberId, int page, int size) {
-        return answerRepository.findAll(PageRequest.of(page, size, Sort.by("answerId").descending()));
+    public Page<Answer> findAnswers(long questionId, int page, int size) {
+
+
+        Optional<Page<Answer>> optionalPage = answerRepository.findByQuestionQuestionId(questionId, PageRequest.of(page, size, Sort.by("voteA.voteACount").descending()));
+
+        Page<Answer> findPage =
+                optionalPage.orElseThrow(() ->
+                        new BusinessLogicException(ExceptionCode.ANSWER_NOT_FOUND));
+        return findPage;
     }
 
     public void deleteAnswer(long answerId) {
