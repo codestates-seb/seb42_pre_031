@@ -23,7 +23,7 @@ public class QuestionResponseDto {
 
     private String questionTitle;
 
-    private LocalDateTime createdAt = LocalDateTime.now() ;
+    private LocalDateTime createdAt = LocalDateTime.now();
 
 //    private int questionView;
 

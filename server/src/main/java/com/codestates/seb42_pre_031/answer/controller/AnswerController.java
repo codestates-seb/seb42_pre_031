@@ -71,15 +71,13 @@ public class AnswerController {
 
     //TODO: qeustionId 따와서 가져오는 걸로 questions/{questionid}/answers
     @GetMapping("/questions/{question-id}/answers")
-    public ResponseEntity getAnswers(@PathVariable("question-id") long questionId, @Positive @RequestParam int page,
-                                     @Positive @RequestParam int size) {
+    public ResponseEntity getAnswers(@PathVariable("question-id") long questionId) {
 
 
-        Page<Answer> pageAnswers = answerService.findAnswers(questionId,page - 1, size);
+        Page<Answer> pageAnswers = answerService.findAnswers(questionId,0, 100);
         List<Answer> answers = pageAnswers.getContent();
         return new ResponseEntity<>(
-                new MultiResponseDto<>(mapper.answersToAnswerResponseDtos(answers),
-                        pageAnswers),
+                new SingleResponseDto<>(mapper.answersToAnswerResponseDtos(answers)),
                 HttpStatus.OK);
     }
 
