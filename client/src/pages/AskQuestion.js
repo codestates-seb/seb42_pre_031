@@ -288,8 +288,8 @@ export default function AskQuestion({ setIsSidebar, setIsFooter }) {
     },
   };
 
-  // 질문 내역 POST 요청
-  // 백엔드 post api 미구현 상태 .
+  // 질문 내역 POST 요청 >> 구현 완료
+  //FIXME 아이디 부분에 로그인한 유저 아이디로 들어가야함
   const questionSubmit = async (e) => {
     e.preventDefault();
     if (!questionContent) {
@@ -298,8 +298,9 @@ export default function AskQuestion({ setIsSidebar, setIsFooter }) {
     }
     try {
       const response = await axios.post(
-        "http://ec2-43-201-115-211.ap-northeast-2.compute.amazonaws.com:8080/v1/questions",
+        "http://ec2-13-125-248-94.ap-northeast-2.compute.amazonaws.com:8080/v1/questions",
         {
+          memberId: 2,
           questionTitle: questionTitle,
           questionContents: questionContent,
           questionTrial: questionTry,

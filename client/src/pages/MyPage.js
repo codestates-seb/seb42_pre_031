@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import styled from "styled-components";
 
 const UserBox = styled.div`
@@ -22,11 +22,25 @@ const UserBox = styled.div`
     height: 150px;
   }
   .user-nickname {
-    font-size: 30px;
+    font-size: 40px;
+    color: black;
+  }
+  .user-about {
+    width: 400px;
+    font-size: 20px;
+    color: rgb(108, 115, 123);
+    font-weight: bold;
   }
   .user-id-info {
     display: flex;
+    width: 100%;
     align-items: center;
+
+    > div {
+      /* width: 100%; */
+      padding-left: 20px;
+      color: rgb(108, 115, 123);
+    }
     > img {
       width: 100px;
       height: 100px;
@@ -34,6 +48,30 @@ const UserBox = styled.div`
   }
   .user-sign-info {
     display: flex;
+    > li {
+      font-size: 13px;
+      padding-right: 10px;
+    }
+  }
+  .user-delete {
+    display: flex;
+    cursor: pointer;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    font-size: 12px;
+    padding: 0;
+    width: 70px;
+    height: 30px;
+    background-color: rgb(224, 162, 162);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    position: absolute;
+    right: 85px;
+    &:hover {
+      background-color: rgb(192, 69, 68);
+    }
   }
   .user-info-edit {
     display: flex;
@@ -231,7 +269,7 @@ export default function Mypage({ setIsSidebar, setIsFooter }) {
   useEffect(() => {
     setIsSidebar(true);
     setIsFooter(true);
-  });
+  }, []);
   // feed 모달 구현
   const feedOpener = () => {
     setFeedModal(true);
@@ -240,20 +278,37 @@ export default function Mypage({ setIsSidebar, setIsFooter }) {
     setFeedModal(false);
   };
   // 회원 정보 요청
-  const [userInfo, setUserInfo] = useState("");
+  const memberId = useParams();
+  const [userInfo, setUserInfo] = useState([]);
   useEffect(() => {
+    console.log(memberId.id);
     axios
       .get(
-        "http://ec2-43-201-115-211.ap-northeast-2.compute.amazonaws.com:8080/v1/members/1"
+        `http://ec2-13-125-248-94.ap-northeast-2.compute.amazonaws.com:8080/v1/members/${memberId.id}`
       )
       .then((response) => {
-        console.log(response);
         setUserInfo(response.data.data);
       })
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [memberId]);
+  // 회원 정보 삭제 요청
+  //FIXME: 버튼에 온클릭으로 담기
+  const userDeleteHandler = async (e) => {
+    e.preventDefault();
+    if (window.confirm("진짜 지울거임?")) {
+      try {
+        await axios.delete(
+          `http://ec2-13-125-248-94.ap-northeast-2.compute.amazonaws.com:8080/v1/members/${memberId.id}`
+        );
+        alert("삭제됐다!!!!");
+      } catch (error) {
+        console.log(error);
+        alert("삭제안됨;;");
+      }
+    }
+  };
 
   return (
     <UserBox>
@@ -262,15 +317,34 @@ export default function Mypage({ setIsSidebar, setIsFooter }) {
           <img src="star.png" />
           <div>
             <div className="user-nickname">{userInfo.nickName}</div>
+            {/* <div className="user-about">{userInfo.aboutMe}</div> */}
+            <div
+              className="user-about"
+              dangerouslySetInnerHTML={{ __html: userInfo.aboutMe }}
+            />
             <ul className="user-sign-info">
-              <li>Member for 7 days(가입일api)</li>
-              <li>Last seen this week</li>
-              <li>Visited 6 days, 3 consecutive</li>
+              <li>
+                <i className="fa-sharp fa-solid fa-cake-candles"></i> Member for
+                7 days
+              </li>
+              <li>
+                <i className="fa-sharp fa-solid fa-clock"></i> Last seen this
+                week
+              </li>
+              <li>
+                <i className="fa-sharp fa-solid fa-calendar-days"></i> Visited 6
+                days, 3 consecutive
+              </li>
             </ul>
           </div>
+          <button onClick={userDeleteHandler} className="user-delete">
+            Delete Profile
+          </button>
         </div>
         <div className="user-info-edit">
-          <Link to="/editmypage">Edit profile</Link>
+          <Link to={`/editmypage/${memberId.id}`}>
+            <i class="fa-sharp fa-solid fa-pen"></i> Edit profile
+          </Link>
           <div>Profiles</div>
         </div>
       </div>

@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import ReactQuill from "react-quill";
+import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 
 const Profilelabel = styled.div`
@@ -47,6 +48,24 @@ const MainContainer = styled.div`
   grid-template-columns: 1fr 7.3fr;
   margin: 0 auto;
   width: 100%;
+  .ql-container {
+    box-sizing: border-box;
+    font-family: "Gowun Batang";
+    font-size: 1.25rem;
+    font-weight: 400;
+    color: #565759;
+    min-height: 15rem;
+    margin: 0px;
+    position: relative;
+  }
+  .ql-editor {
+    min-height: 15rem;
+  }
+  @media screen and (max-width: 600px) {
+    .ql-container {
+      font-size: 1.125rem;
+    }
+  }
 `;
 
 const RightContainer = styled.div`
@@ -185,32 +204,78 @@ const ProfileEdit = ({ setIsSidebar, setIsFooter }) => {
   };
 
   const handleAboutMeChange = (e) => {
-    setAboutMe(e.target.value);
+    setAboutMe(e);
   };
 
   const handleFullNameChange = (e) => {
     setFullName(e.target.value);
   };
 
+  // 유저 정보 요청
+  const memberId = useParams();
+  const [userInfo, setUserInfo] = useState([]);
+  useEffect(() => {
+    console.log(memberId.id);
+    axios
+      .get(
+        `http://ec2-13-125-248-94.ap-northeast-2.compute.amazonaws.com:8080/v1/members/${memberId.id}`
+      )
+      .then((response) => {
+        setUserInfo(response.data.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [memberId]);
+  // 유저정보 수정 요청
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const response = await axios.patch(
-        "http://ec2-43-201-115-211.ap-northeast-2.compute.amazonaws.com:8080/v1/members/1",
+        `http://ec2-13-125-248-94.ap-northeast-2.compute.amazonaws.com:8080/v1/members/${memberId.id}`,
         {
+          memberName: fullName,
+          memberPW: "111111",
           nickName: displayName,
           aboutMe: aboutMe,
-          memberName: fullName,
         }
       );
       console.log(response);
-      navigate("/mypage");
+      navigate(`/users/${memberId.id}`);
     } catch (error) {
       console.log(error);
     }
   };
 
-  //ssss
+  //에디터 모듈
+  const modules = {
+    toolbar: {
+      container: [
+        [{ header: [1, 2, 3, 4, 5, 6, false] }],
+        [{ font: [] }],
+        [{ align: [] }],
+        ["bold", "italic", "underline", "strike", "blockquote"],
+        [{ list: "ordered" }, { list: "bullet" }, "link"],
+        [
+          {
+            color: [
+              "#000000",
+              "#e60000",
+              "#ff9900",
+              "#ffff00",
+              "#008a00",
+              "#0066cc",
+              "#9933ff",
+              "custom-color",
+            ],
+          },
+          { background: [] },
+        ],
+        ["image", "video"],
+        ["clean"],
+      ],
+    },
+  };
 
   return (
     <MainContainer>
@@ -275,11 +340,13 @@ const ProfileEdit = ({ setIsSidebar, setIsFooter }) => {
                   placeholder="No title has been set"
                 ></InputText>
                 <Profilelabel>About me</Profilelabel>
-                <InputBox
-                  type={"text"}
-                  value={aboutMe}
+                <ReactQuill
+                  className="text-left"
+                  name="content"
+                  theme="snow"
+                  modules={modules}
                   onChange={handleAboutMeChange}
-                ></InputBox>
+                />
               </Changediv>
 
               <Profilelabel>Private information</Profilelabel>
