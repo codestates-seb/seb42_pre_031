@@ -11,15 +11,14 @@ import SignUp from "./pages/SignUp";
 import HeaderLogout from "./components/HeaderLogout";
 import { useEffect, useState } from "react";
 import AskQuestion from "./pages/AskQuestion";
-import Mypage from "./pages/Mypage";
+import Mypage from "./pages/MyPage";
 import LogOut from "./pages/LogOut";
 import MainpageD from "./pages/MainpageD";
 import ProfileEdit from "./pages/ProfileEdit";
 import AnswerEdit from "./pages/AnswerEdit";
 import EditQuestion from "./pages/EditQuestion";
 import axios from "axios";
-import { useParams } from 'react-router-dom';
-const ALL_URL = 'http://ec2-43-201-115-211.ap-northeast-2.compute.amazonaws.com:8080/v1/questions?page=1&size=3'
+import { useParams } from "react-router-dom";
 
 const Dev = styled.div`
   display: flex;
@@ -35,36 +34,51 @@ const Dev = styled.div`
 const SideToggle = styled.div``;
 const FootToggle = styled.div``;
 function App() {
+  const ALL_URL =
+    "http://ec2-13-125-248-94.ap-northeast-2.compute.amazonaws.com:8080/v1/questions?page=1&size=5";
   const [isSidebar, setIsSidebar] = useState(true);
   const [isFooter, setIsFooter] = useState(true);
   // 로그인 상태에 헤더변경 // 마이페이지 접근 가능 여부
   const [isLogin, setIsLogin] = useState(false);
-  const {id} = useParams();
-  const [data , setData] = useState([]);
-  useEffect(()=>{
-      
-    axios.get(ALL_URL)
-   .then(response =>{
-      setData(response.data.data)
-  })
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    axios.get(ALL_URL).then((response) => {
+      setData(response.data.data);
+    });
+  }, []);
 
-  },[])
+  // 유저 정보 받아오기
+  //FIXME: 아이디 부분 로그인 상태의 아이디로 수정해야댐
+  const [userInfo, setUserInfo] = useState([]);
+  useEffect(() => {
+    axios
+      .get(
+        "http://ec2-13-125-248-94.ap-northeast-2.compute.amazonaws.com:8080/v1/members/1"
+      )
+      .then((response) => {
+        setUserInfo(response.data.data);
+      });
+  }, []);
   return (
     <BrowserRouter>
-
       <div className="App">
         {/* {console.log(id)} */}
         {isLogin === true ? <Header /> : <HeaderLogout />}
         <Dev className="ddd">
           <SideToggle style={{ display: isSidebar ? "block" : "none" }}>
-            <Sidebar />
+            <Sidebar userInfo={userInfo} />
           </SideToggle>
           <Routes>
             <Route
               exact
               path="/"
               element={
-                <Main setIsSidebar={setIsSidebar} setIsFooter={setIsFooter} setData={setData} data={data}/>
+                <Main
+                  setIsSidebar={setIsSidebar}
+                  setIsFooter={setIsFooter}
+                  setData={setData}
+                  data={data}
+                />
               }
             />
             <Route path="/tag" element={<TagPage />} />
@@ -105,25 +119,25 @@ function App() {
               }
             />
             <Route
-              path="/users"
+              path="/users/:id"
               element={
                 <Mypage setIsSidebar={setIsSidebar} setIsFooter={setIsFooter} />
               }
             />
             <Route
-            // {`/question/${a.questionId}`}
+              // {`/question/${a.questionId}`}
               path="/question/:id"
               element={
                 <MainpageD
                   setIsSidebar={setIsSidebar}
                   setIsFooter={setIsFooter}
-                  data = {data}
-                  setData = {setData}
+                  data={data}
+                  setData={setData}
                 />
               }
             />
             <Route
-              path="/editmypage"
+              path="/editmypage/:id"
               element={
                 <ProfileEdit
                   setIsSidebar={setIsSidebar}

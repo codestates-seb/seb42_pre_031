@@ -105,7 +105,7 @@ const LeftBar = styled.div`
     margin-right: 5px;
   }
 `;
-export default function LeftSidebar() {
+export default function LeftSidebar({ userInfo }) {
   return (
     <LeftBar>
       <div className="side-move">
@@ -115,7 +115,7 @@ export default function LeftSidebar() {
         <div className="tag_mypage">
           <p>PUBLIC</p>
           <a>Tags</a>
-          <Link to="/users">Users</Link>
+          <Link to={`/users/${userInfo.memberId}`}>Users</Link>
         </div>
         <div className="side-collective">
           <div className="col">
