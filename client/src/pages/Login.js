@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -114,8 +116,10 @@ function Login({ setIsSidebar, setIsFooter }) {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
+  const navigate = useNavigate()
+
   //TODO:  전부 작성하고 요청보낼때 코드 추가하기
-  const LoginSubmit = (e) => {
+  const LoginSubmit = async (e) => {
     e.preventDefault();
     if (email === "") {
       setConfirmEmail("Email cannot be empty.");
@@ -127,7 +131,34 @@ function Login({ setIsSidebar, setIsFooter }) {
     } else {
       setConfirmPassword("");
     }
-  };
+  
+
+      try{
+        const response = await axios.post("http://ec2-13-125-248-94.ap-northeast-2.compute.amazonaws.com:8080/v1/members", {
+         memberEmail: email,
+         memberPW: password,
+        })
+        const accessToken = response.data.access_token;
+
+        console.log(response)
+        localStorage.setItem("access_token", accessToken);
+
+        setIsSidebar(false);
+        setIsFooter(false);
+        navigate("/")
+
+      }catch(error){
+        console.log(error); 
+   
+     
+      }
+    }
+
+
+
+
+
+
   // const emailRegex =
   //   /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
   // async function getLogin() {
