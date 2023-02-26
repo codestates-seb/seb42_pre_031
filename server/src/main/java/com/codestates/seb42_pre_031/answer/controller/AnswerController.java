@@ -38,18 +38,13 @@ public class AnswerController {
     private final static String ANSWER_DEFAULT_URL = "/v1";
     private final AnswerService answerService;
     private final AnswerMapper mapper;
-    private final QuestionService questionService;
-
-//    public AnswerController(AnswerService answerService, AnswerMapper mapper) {
-//        this.answerService = answerService;
-//        this.mapper = mapper;
-//    }
 
 
-    public AnswerController(AnswerService answerService, AnswerMapper mapper, QuestionService questionService) {
+
+
+    public AnswerController(AnswerService answerService, AnswerMapper mapper) {
         this.answerService = answerService;
         this.mapper = mapper;
-        this.questionService = questionService;
     }
 
     @PostMapping("/questions/{question-id}/answers")//기존 서비스 코드 long questionId 파라미터가 충돌
@@ -78,6 +73,17 @@ public class AnswerController {
         List<Answer> answers = pageAnswers.getContent();
         return new ResponseEntity<>(
                 new SingleResponseDto<>(mapper.answersToAnswerResponseDtos(answers)),
+                HttpStatus.OK);
+    }
+
+    @GetMapping("/answers/{answer-id}")
+    public ResponseEntity getAnswer(@PathVariable("answer-id") long answerId) {
+
+
+        Answer answer = answerService.findAnswer(answerId);
+
+        return new ResponseEntity<>(
+                new SingleResponseDto<>(mapper.answerToAnswerResponseDto(answer)),
                 HttpStatus.OK);
     }
 
