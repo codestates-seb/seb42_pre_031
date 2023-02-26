@@ -34,6 +34,7 @@ import axios, { all } from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
+// 모든 글이 뿌려지는 컴포넌트..
 function Mainscript({ data, setData }) {
   return (
     <>
