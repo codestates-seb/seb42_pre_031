@@ -34,18 +34,10 @@ const Dev = styled.div`
 const SideToggle = styled.div``;
 const FootToggle = styled.div``;
 function App() {
-  const ALL_URL =
-    "http://ec2-13-125-248-94.ap-northeast-2.compute.amazonaws.com:8080/v1/questions?page=1&size=5";
   const [isSidebar, setIsSidebar] = useState(true);
   const [isFooter, setIsFooter] = useState(true);
   // 로그인 상태에 헤더변경 // 마이페이지 접근 가능 여부
   const [isLogin, setIsLogin] = useState(false);
-  const [data, setData] = useState([]);
-  useEffect(() => {
-    axios.get(ALL_URL).then((response) => {
-      setData(response.data.data);
-    });
-  }, []);
 
   // 유저 정보 받아오기
   //FIXME: 아이디 부분 로그인 상태의 아이디로 수정해야댐
@@ -73,12 +65,7 @@ function App() {
               exact
               path="/"
               element={
-                <Main
-                  setIsSidebar={setIsSidebar}
-                  setIsFooter={setIsFooter}
-                  setData={setData}
-                  data={data}
-                />
+                <Main setIsSidebar={setIsSidebar} setIsFooter={setIsFooter} />
               }
             />
             <Route path="/tag" element={<TagPage />} />
@@ -131,8 +118,6 @@ function App() {
                 <MainpageD
                   setIsSidebar={setIsSidebar}
                   setIsFooter={setIsFooter}
-                  data={data}
-                  setData={setData}
                 />
               }
             />
@@ -146,7 +131,7 @@ function App() {
               }
             />
             <Route
-              path="/editanswer"
+              path="/editanswer/:id"
               element={
                 <AnswerEdit
                   setIsSidebar={setIsSidebar}

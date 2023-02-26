@@ -1205,6 +1205,24 @@ let MainpageMainf11from = styled.div`
   text-align: left;
   vertical-align: baseline;
   color: rgb(35, 38, 41);
+  .ql-container {
+    box-sizing: border-box;
+    font-family: "Gowun Batang";
+    font-size: 1.25rem;
+    font-weight: 400;
+    color: #565759;
+    min-height: 15rem;
+    margin: 0px;
+    position: relative;
+  }
+  .ql-editor {
+    min-height: 15rem;
+  }
+  @media screen and (max-width: 600px) {
+    .ql-container {
+      font-size: 1.125rem;
+    }
+  }
 `;
 let MainpageMainf11fh2 = styled.h2`
   box-sizing: border-box;

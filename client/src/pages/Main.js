@@ -30,11 +30,20 @@ import {
 import { MainSidebar } from "../components/Sidebar.js";
 import Mainscript from "../components/Mainpage.js";
 import { useEffect, useState } from "react";
+import axios from "axios";
 
-function Main({ setIsSidebar, setIsFooter, data, setData }) {
+function Main({ setIsSidebar, setIsFooter }) {
   useEffect(() => {
     setIsSidebar(true);
     setIsFooter(true);
+  }, []);
+  const ALL_URL =
+    "http://ec2-13-125-248-94.ap-northeast-2.compute.amazonaws.com:8080/v1/questions?page=1&size=15";
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    axios.get(ALL_URL).then((response) => {
+      setData(response.data.data);
+    });
   }, []);
   return (
     <Container>

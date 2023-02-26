@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
+import ReactQuill from "react-quill";
 
 const Main = styled.div`
   display: flex;
@@ -34,7 +35,26 @@ const Top = styled.h6`
   margin: 10px;
 `;
 
-const Answer = styled.div``;
+const Answer = styled.div`
+  .ql-container {
+    box-sizing: border-box;
+    font-family: "Gowun Batang";
+    font-size: 1.25rem;
+    font-weight: 400;
+    color: #565759;
+    min-height: 15rem;
+    margin: 0px;
+    position: relative;
+  }
+  .ql-editor {
+    min-height: 15rem;
+  }
+  @media screen and (max-width: 600px) {
+    .ql-container {
+      font-size: 1.125rem;
+    }
+  }
+`;
 const Answeredit = styled.input`
   padding: 7.8px 9.1px;
   margin: 7px 0px 0px 0px;
@@ -137,28 +157,18 @@ const Li = styled.li`
 function AnswerEdit({ setIsSidebar, setIsFooter }) {
   const [editAnswer, setEditAnswer] = useState("");
   const navigate = useNavigate();
+  const { id } = useParams();
 
-  //   try {
-  //     const response = await axios.patch('/v1/answers/1', {
-  //       contents: editAnswer
-  //     });
-
-  //     console.log(response.data);
-  //     navigate("/mypage")
-  //   }catch (error) {
-  //     console.error(error);
-  //   }
-  // }; sss
+  // 수정 완료 버튼
   const handleEditAnswer = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.patch(
-        "http://ec2-43-201-115-211.ap-northeast-2.compute.amazonaws.com:8080/v1/answers/1",
+      await axios.patch(
+        `http://ec2-13-125-248-94.ap-northeast-2.compute.amazonaws.com:8080/v1/answers/${id}`,
         {
           contents: editAnswer,
         }
       );
-      console.log(response);
       navigate("/question");
     } catch (error) {
       console.log(error);
@@ -169,6 +179,52 @@ function AnswerEdit({ setIsSidebar, setIsFooter }) {
     setIsSidebar(true);
     setIsFooter(true);
   }, []);
+
+  // 답변 받아오는 api
+  const [answers, setAnswers] = useState([]);
+  useEffect(() => {
+    axios
+      .get(
+        `http://ec2-13-125-248-94.ap-northeast-2.compute.amazonaws.com:8080/v1/questions/${id}/answers`
+      )
+      .then((response) => {
+        setAnswers(response.data.data);
+        console.log(answers);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
+  // 에디터 모듈
+  const modules = {
+    toolbar: {
+      container: [
+        [{ header: [1, 2, 3, 4, 5, 6, false] }],
+        [{ font: [] }],
+        [{ align: [] }],
+        ["bold", "italic", "underline", "strike", "blockquote"],
+        [{ list: "ordered" }, { list: "bullet" }, "link"],
+        [
+          {
+            color: [
+              "#000000",
+              "#e60000",
+              "#ff9900",
+              "#ffff00",
+              "#008a00",
+              "#0066cc",
+              "#9933ff",
+              "custom-color",
+            ],
+          },
+          { background: [] },
+        ],
+        ["image", "video"],
+        ["clean"],
+      ],
+    },
+  };
 
   return (
     <Main>
@@ -189,11 +245,14 @@ function AnswerEdit({ setIsSidebar, setIsFooter }) {
             <Title name="title">페이지</Title>
             <Answeredit></Answeredit>
             <Title name="title">Answer</Title>
-            <Answeredit
-              type={"text"}
-              value={editAnswer}
-              onChange={(event) => setEditAnswer(event.target.value)}
-            ></Answeredit>
+
+            <ReactQuill
+              className="text-left"
+              name="content"
+              theme="snow"
+              modules={modules}
+              onChange={(event) => setEditAnswer(event)}
+            />
             <Summary>
               <Title>Edit Summary</Title>
               <InputText
