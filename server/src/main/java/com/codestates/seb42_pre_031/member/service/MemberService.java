@@ -2,12 +2,16 @@ package com.codestates.seb42_pre_031.member.service;
 
 import com.codestates.seb42_pre_031.exception.BusinessLogicException;
 import com.codestates.seb42_pre_031.exception.ExceptionCode;
+import com.codestates.seb42_pre_031.helper.event.MemberRegistrationApplicationEvent;
 import com.codestates.seb42_pre_031.member.entity.Member;
 import com.codestates.seb42_pre_031.member.repository.MemberRepository;
 //import com.codestates.seb42_pre_031.utils.CustomBeanUtils;
+import com.codestates.seb42_pre_031.utils.CustomAuthorityUtils;
 import com.codestates.seb42_pre_031.utils.CustomBeanUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,14 +22,27 @@ import java.util.Optional;
 public class MemberService {
 
     private final MemberRepository memberRepository;
+    private final ApplicationEventPublisher publisher;
     private final CustomBeanUtils<Member> beanUtils;
+    private final PasswordEncoder passwordEncoder;
+    private final CustomAuthorityUtils authorityUtils;
 
 
     public Member createMember(Member member) {
 
         verifyExistsEmail(member.getMemberEmail());
 
-        return memberRepository.save(member);
+        String encryptedPassword = passwordEncoder.encode(member.getMemberPW());
+        member.setMemberPW(encryptedPassword);
+
+        List<String> roles = authorityUtils.createRoles(member.getMemberEmail());
+        member.setRoles(roles);
+
+        Member savedMember = memberRepository.save(member);
+
+//        publisher.publishEvent(new MemberRegistrationApplicationEvent(savedMember));
+
+        return savedMember;
     }
 
     public Member updateMember(Member member) {
@@ -51,6 +68,10 @@ public class MemberService {
     public Member findMember(long memberId) {
 
         return findVerifiedMember(memberId);
+    }
+
+    public List<Member> findMembers() {
+        return memberRepository.findAll();
     }
 
 

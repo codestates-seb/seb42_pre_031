@@ -6,9 +6,11 @@ import com.codestates.seb42_pre_031.member.dto.MemberPatchDto;
 import com.codestates.seb42_pre_031.member.dto.MemberPostDto;
 import com.codestates.seb42_pre_031.member.entity.Member;
 import com.codestates.seb42_pre_031.member.service.MemberService;
+import com.codestates.seb42_pre_031.response.MultiResponseDto;
 import com.codestates.seb42_pre_031.response.SingleResponseDto;
 import com.codestates.seb42_pre_031.utils.UriCreator;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -18,6 +20,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Positive;
 import java.net.URI;
+import java.util.List;
 
 @CrossOrigin
 @RestController
@@ -70,25 +73,16 @@ public class MemberController {
 
     }
 
-    /*
-    getMembers가 있던가?!!?! 적어도 사용자가 getMembers 할 기능이 없는거 같은데.
-    관리자 기능 구현하는건 우리가 없으니까 생략.
+
     @GetMapping
-    public ResponseEntity getMembers(@Positive @RequestParam int page,
-                                     @Positive @RequestParam int size) {
+    public ResponseEntity getMembers() {
 
-        Page<Member> pageMembers = memberService.findMembers(page - 1, size);
-
-        List<Member> members = pageMembers.getContent();
+        List<Member> members = memberService.findMembers();
         return new ResponseEntity<>(
-                new MultiResponseDto<>(mapper.membersToMemberResponseDtos(members),
-                        pageMembers),
+                new SingleResponseDto<>(memberMapper.membersToMemberResponseDtos(members)),
                 HttpStatus.OK);
-
-
-        return new ResponseEntity<>(HttpStatus.OK);
     }
-    */
+
 
     @DeleteMapping("/{member-id}")
     public ResponseEntity deleteMember(

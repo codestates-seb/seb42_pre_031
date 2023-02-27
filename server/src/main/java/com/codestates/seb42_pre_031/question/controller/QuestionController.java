@@ -1,8 +1,5 @@
 package com.codestates.seb42_pre_031.question.controller;
 
-import com.codestates.seb42_pre_031.answer.dto.AnswerPostDto;
-import com.codestates.seb42_pre_031.answer.entity.Answer;
-import com.codestates.seb42_pre_031.member.entity.Member;
 import com.codestates.seb42_pre_031.question.dto.QuestionPatchDto;
 import com.codestates.seb42_pre_031.question.dto.QuestionPostDto;
 import com.codestates.seb42_pre_031.question.entity.Question;
@@ -20,11 +17,9 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.Positive;
 import java.net.URI;
 import java.util.List;
-import java.util.Optional;
 
 @CrossOrigin
 @RestController

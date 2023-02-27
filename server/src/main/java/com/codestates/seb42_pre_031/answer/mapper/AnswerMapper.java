@@ -1,9 +1,6 @@
 package com.codestates.seb42_pre_031.answer.mapper;
 
 import com.codestates.seb42_pre_031.answer.dto.AnswerDto;
-import com.codestates.seb42_pre_031.answer.dto.AnswerPatchDto;
-import com.codestates.seb42_pre_031.answer.dto.AnswerPostDto;
-import com.codestates.seb42_pre_031.answer.dto.AnswerResponseDto;
 import com.codestates.seb42_pre_031.answer.entity.Answer;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

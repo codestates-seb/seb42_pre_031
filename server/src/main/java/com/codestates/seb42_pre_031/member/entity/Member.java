@@ -43,6 +43,14 @@ public class Member {
     @OneToMany(mappedBy = "member", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private List<Answer> answers = new ArrayList<>();
 
+    @ElementCollection(fetch = FetchType.EAGER)
+    private List<String> roles = new ArrayList<>();
+
+    public enum MemberRole {
+        ROLE_USER,
+        ROLE_ADMIN
+    }
+
     public void setQuestion(Question question) {
         this.questions.add(question);
         if (question.getMember() != this) {

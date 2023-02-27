@@ -1,21 +1,11 @@
 package com.codestates.seb42_pre_031.answer.controller;
 
 import com.codestates.seb42_pre_031.answer.dto.AnswerDto;
-import com.codestates.seb42_pre_031.answer.dto.AnswerPatchDto;
-import com.codestates.seb42_pre_031.answer.dto.AnswerPostDto;
 import com.codestates.seb42_pre_031.answer.entity.Answer;
 import com.codestates.seb42_pre_031.answer.mapper.AnswerMapper;
 import com.codestates.seb42_pre_031.answer.service.AnswerService;
-import com.codestates.seb42_pre_031.member.entity.Member;
-import com.codestates.seb42_pre_031.answer.entity.Answer;
-import com.codestates.seb42_pre_031.question.entity.Question;
-import com.codestates.seb42_pre_031.question.service.QuestionService;
-import com.codestates.seb42_pre_031.response.MultiResponseDto;
-import com.codestates.seb42_pre_031.response.PageInfo;
 import com.codestates.seb42_pre_031.response.SingleResponseDto;
 import com.codestates.seb42_pre_031.utils.UriCreator;
-import com.codestates.seb42_pre_031.voteA.entity.VoteA;
-import com.codestates.seb42_pre_031.voteQ.entity.VoteQ;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -23,10 +13,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 import java.net.URI;
-import java.util.ArrayList;
 import java.util.List;
 @CrossOrigin
 @RestController
