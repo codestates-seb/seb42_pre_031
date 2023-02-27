@@ -1,5 +1,8 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import info from "../images/info.png";
+import star from "../images/star.png";
+import bag from "../images/bag.png";
 
 const LeftBar = styled.div`
   display: flex;
@@ -120,19 +123,19 @@ export default function LeftSidebar({ userInfo }) {
         <div className="side-collective">
           <div className="col">
             <p>COLLECTIVES</p>
-            <img className="info-icon" src="info.png" />
+            <img className="info-icon" src={info} />
           </div>
           <p className="exco">
-            <img src="star.png" /> Explore Collectives
+            <img src={star} /> Explore Collectives
           </p>
         </div>
         <div className="side-teams">
           <div className="tea">
             <p>TEAMS</p>
-            <img className="info-icon" src="info.png" />
+            <img className="info-icon" src={info} />
           </div>
           <p className="cft">
-            <img src="bag.png" /> Create free Team
+            <img src={bag} /> Create free Team
           </p>
         </div>
         <Link to="/question"> 질문 상세페이지 임시 버튼</Link>

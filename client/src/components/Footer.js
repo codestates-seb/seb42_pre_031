@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import purelogo from "../images/purelogo.png";
 
 const Foot = styled.footer`
   display: flex;
@@ -54,7 +55,7 @@ export default function Footer() {
     <Foot>
       <div className="footer-box">
         <Link to="/">
-          <img src="purelogo.png" />
+          <img src={purelogo} />
         </Link>
         <div className="footer-nav">
           <ul>

@@ -5,19 +5,15 @@ import styled from "styled-components";
 import star from "../images/star.png";
 
 const UserBox = styled.div`
-  /* box-sizing: border-box; */
   display: flex;
   flex-direction: column;
-  /* height: 100vh; */
-  /* justify-content: space-between; */
   position: relative;
   width: 100%;
   max-width: 1100px;
   padding: 24px 16px;
   background: none;
-  /* font-size: 13px; */
   color: rgb(35, 38, 41);
-  // 상단 유저 정보
+
   .user-top {
     display: flex;
     height: 150px;

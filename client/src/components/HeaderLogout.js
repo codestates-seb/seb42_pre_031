@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import logo from "../images/logo.png";
+import search from "../images/search.png";
 
 // 926px 이하일때 변화주자
 const Headout = styled.header`
@@ -132,7 +134,7 @@ export default function HeaderLogout() {
     <Headout>
       <div className="head-wrap">
         <Link to="/">
-          <img className="head-logo" src="logo.png" />
+          <img className="head-logo" src={logo} />
         </Link>
         <div className="head-info">
           <div className="products">About</div>
@@ -140,7 +142,7 @@ export default function HeaderLogout() {
           <div className="products">For Teams</div>
         </div>
         <div className="top-search-bar">
-          <img src="search.png" />
+          <img src={search} />
           <input placeholder="Search..."></input>
         </div>
         <div className="icon-set">
