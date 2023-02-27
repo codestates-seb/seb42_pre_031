@@ -129,7 +129,7 @@ const Headout = styled.header`
   }
 `;
 
-export default function HeaderLogout() {
+export default function HeaderLogout({ setSearchInput }) {
   return (
     <Headout>
       <div className="head-wrap">
@@ -143,7 +143,10 @@ export default function HeaderLogout() {
         </div>
         <div className="top-search-bar">
           <img src={search} />
-          <input placeholder="Search..."></input>
+          <input
+            placeholder="Search..."
+            onChange={(e) => setSearchInput(e.target.value)}
+          ></input>
         </div>
         <div className="icon-set">
           <Link to="/login" className="login-button">

@@ -100,7 +100,7 @@ const Head = styled.header`
     height: 30px;
   }
 `;
-export default function Header() {
+export default function Header({ setSearchInput }) {
   return (
     <Head>
       <div className="head-wrap">

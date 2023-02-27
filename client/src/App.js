@@ -37,7 +37,10 @@ function App() {
   const [isSidebar, setIsSidebar] = useState(true);
   const [isFooter, setIsFooter] = useState(true);
   // 로그인 상태에 헤더변경 // 마이페이지 접근 가능 여부
-  const [isLogin, setIsLogin] = useState(true);
+  const [isLogin, setIsLogin] = useState(false);
+
+  // 검색 기능 인풋창
+  const [searchInput, setSearchInput] = useState("");
 
   // 유저 정보 받아오기
   //FIXME: 아이디 부분 로그인 상태의 아이디로 수정해야댐
@@ -54,7 +57,11 @@ function App() {
   return (
     <BrowserRouter>
       <div className="App">
-        {isLogin === true ? <Header /> : <HeaderLogout />}
+        {isLogin === true ? (
+          <Header setSearchInput={setSearchInput} />
+        ) : (
+          <HeaderLogout setSearchInput={setSearchInput} />
+        )}
         <Dev className="ddd">
           <SideToggle style={{ display: isSidebar ? "block" : "none" }}>
             <Sidebar userInfo={userInfo} />
@@ -64,7 +71,11 @@ function App() {
               exact
               path="/"
               element={
-                <Main setIsSidebar={setIsSidebar} setIsFooter={setIsFooter} />
+                <Main
+                  searchInput={searchInput}
+                  setIsSidebar={setIsSidebar}
+                  setIsFooter={setIsFooter}
+                />
               }
             />
             <Route path="/tag" element={<TagPage />} />

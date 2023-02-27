@@ -31,12 +31,15 @@ import { MainSidebar } from "../components/Sidebar.js";
 import Mainscript from "../components/Mainpage.js";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import FilterMain from "../components/FilterMain.js";
 
-function Main({ setIsSidebar, setIsFooter }) {
+function Main({ searchInput, setIsSidebar, setIsFooter }) {
   useEffect(() => {
     setIsSidebar(true);
     setIsFooter(true);
   }, []);
+  // 질문목록 불러오기
+  // 페이지네이션 여기 수정하면됩니다
   const ALL_URL =
     "http://ec2-13-125-254-178.ap-northeast-2.compute.amazonaws.com:8080/v1/questions?page=1&size=15";
   const [data, setData] = useState([]);
@@ -45,6 +48,19 @@ function Main({ setIsSidebar, setIsFooter }) {
       setData(response.data.data);
     });
   }, []);
+  // 검색한 질문목록 불러오기
+  const [filterData, setFilterData] = useState([]);
+  useEffect(() => {
+    axios
+      .get(
+        `http://ec2-13-125-254-178.ap-northeast-2.compute.amazonaws.com:8080/v1/questions/search?keyword=${searchInput}&page=1&size=15`
+      )
+      .then((response) => {
+        setFilterData(response.data.data);
+        console.log(response);
+      });
+  }, [searchInput]);
+
   return (
     <Container>
       <Content>
@@ -69,10 +85,11 @@ function Main({ setIsSidebar, setIsFooter }) {
               </Main2div21>
             </Main2div2>
           </Main2div>
-
-          {/* 내용 map으로 뿌리기 전  */}
-          <Mainscript data={data} setData={setData} />
-
+          {searchInput === "" ? (
+            <Mainscript data={data} setData={setData} />
+          ) : (
+            <FilterMain filterData={filterData} setFilterData={setFilterData} />
+          )}
           <Mainbarbr></Mainbarbr>
           <Mainbarh2>
             "Looking for more? Browse the "
