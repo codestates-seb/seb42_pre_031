@@ -1,5 +1,11 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import logo from "../images/logo.png";
+import search from "../images/search.png";
+import inbox from "../images/inbox.png";
+import question from "../images/question.png";
+import trophy from "../images/trophy.png";
+import star from "../images/star.png";
 
 const Head = styled.header`
   display: flex;
@@ -99,19 +105,19 @@ export default function Header() {
     <Head>
       <div className="head-wrap">
         <Link to="/">
-          <img className="head-logo" src="logo.png" />
+          <img className="head-logo" src={logo} />
         </Link>
         <div className="top-search-bar">
-          <img src="search.png" />
+          <img src={search} />
           <input placeholder="Search..."></input>
         </div>
         <Link to="/users" className="my-icon-wrap">
-          <img className="my-icon" src="logo192.png" />
+          <img className="my-icon" src={star} />
         </Link>
         <div className="icon-set">
-          <img src="inbox.png" />
-          <img src="trophy.png" />
-          <img src="question.png" />
+          <img src={inbox} />
+          <img src={trophy} />
+          <img src={question} />
           <Link to="/logout">Log out</Link>
         </div>
       </div>

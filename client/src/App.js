@@ -37,7 +37,7 @@ function App() {
   const [isSidebar, setIsSidebar] = useState(true);
   const [isFooter, setIsFooter] = useState(true);
   // 로그인 상태에 헤더변경 // 마이페이지 접근 가능 여부
-  const [isLogin, setIsLogin] = useState(false);
+  const [isLogin, setIsLogin] = useState(true);
 
   // 유저 정보 받아오기
   //FIXME: 아이디 부분 로그인 상태의 아이디로 수정해야댐
@@ -54,7 +54,6 @@ function App() {
   return (
     <BrowserRouter>
       <div className="App">
-        {/* {console.log(id)} */}
         {isLogin === true ? <Header /> : <HeaderLogout />}
         <Dev className="ddd">
           <SideToggle style={{ display: isSidebar ? "block" : "none" }}>
