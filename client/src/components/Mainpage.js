@@ -46,13 +46,6 @@ function Mainscript({ data, setData }) {
                 <Main3div3>
                   <Main3div31>
                     <Main3div31div>
-                      {/* <div>
-                 {[All].map(function(){
-                   return(
-                     <h1>{All.questionTitle}</h1>
-                   )
-                 })}
-                 </div> */}
                       <Main3div31divspan>{a.voteQCount}</Main3div31divspan>
                       <Main3div31divspan1>votes</Main3div31divspan1>
                     </Main3div31div>

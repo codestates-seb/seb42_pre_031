@@ -45,7 +45,7 @@ function App() {
   useEffect(() => {
     axios
       .get(
-        "http://ec2-13-125-248-94.ap-northeast-2.compute.amazonaws.com:8080/v1/members/1"
+        "http://ec2-13-125-254-178.ap-northeast-2.compute.amazonaws.com:8080/v1/members/1"
       )
       .then((response) => {
         setUserInfo(response.data.data);
@@ -97,7 +97,7 @@ function App() {
               }
             />
             <Route
-              path="/editquestion"
+              path="/editquestion/:id"
               element={
                 <EditQuestion
                   setIsSidebar={setIsSidebar}

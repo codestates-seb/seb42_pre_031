@@ -946,15 +946,16 @@ let Mainpn2a1 = styled.a`
   }
 `;
 let MainpageMainbtn = styled.button`
-  background-color: rgba(0,0,0,0);
+  background-color: rgba(0, 0, 0, 0);
   color: red;
-  border: 1px solid rgba(0,0,0,0);
+  border: 1px solid rgba(0, 0, 0, 0);
   border-radius: 0px;
   margin-bottom: 0px;
   padding: 0px;
   padding-top: 0px;
   border-top: 0px;
-`
+  cursor: pointer;
+`;
 
 export {
   MainpageMainbtn,

@@ -38,7 +38,7 @@ function Main({ setIsSidebar, setIsFooter }) {
     setIsFooter(true);
   }, []);
   const ALL_URL =
-    "http://ec2-13-125-248-94.ap-northeast-2.compute.amazonaws.com:8080/v1/questions?page=1&size=15";
+    "http://ec2-13-125-254-178.ap-northeast-2.compute.amazonaws.com:8080/v1/questions?page=1&size=15";
   const [data, setData] = useState([]);
   useEffect(() => {
     axios.get(ALL_URL).then((response) => {

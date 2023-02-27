@@ -232,7 +232,7 @@ const ProfileEdit = ({ setIsSidebar, setIsFooter }) => {
     e.preventDefault();
     try {
       const response = await axios.patch(
-        `http://ec2-13-125-248-94.ap-northeast-2.compute.amazonaws.com:8080/v1/members/${memberId.id}`,
+        `http://ec2-13-125-254-178.ap-northeast-2.compute.amazonaws.com:8080/v1/members/${memberId.id}`,
         {
           memberName: fullName,
           memberPW: "111111",

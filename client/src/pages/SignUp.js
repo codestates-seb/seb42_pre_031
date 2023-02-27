@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import React, { useEffect, useState } from "react";
-import  { useNavigate }from "react-router-dom"
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const Main = styled.div`
@@ -133,39 +133,33 @@ function SignUp({ setIsSidebar, setIsFooter }) {
       setConfirmPassword("Password cannot be empty.");
     } else {
       setConfirmPassword("");
-    }  
+    }
 
-    
     await signUp(email, password);
   };
 
-
-
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   // 회원가입 요청 axios
   const signUp = async (email, password) => {
     try {
       const response = await axios.post(
-        "http://ec2-13-125-248-94.ap-northeast-2.compute.amazonaws.com:8080/v1/members" ,
+        "http://ec2-13-125-254-178.ap-northeast-2.compute.amazonaws.com:8080/v1/members",
         {
           memberName: "mem",
           memberEmail: email,
           memberPW: password,
           nickName: nickName,
-          aboutMe: 'aasdasdasdasdasda'
+          aboutMe: "aasdasdasdasdasda",
         }
       );
 
-      console.log(response.data)
-      navigate("/login")
-            
-      
+      console.log(response.data);
+      navigate("/login");
     } catch (error) {
-      console.error(error.response); 
-      
+      console.error(error.response);
     }
   };
-  
+
   return (
     <Main>
       <Explanation>

@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   Mainpage,
   Mainpage1,
@@ -89,14 +89,14 @@ import ReactQuill from "react-quill";
 
 // 질문 세부내용 페이지 ..
 function MainpageD() {
-  // const [Vote, setVote] = useState([]);
+  const navigate = useNavigate();
   const { id } = useParams();
-  // 질문 세부 페이지 api
+  //  질문 불러오는 api
   const [data, setData] = useState([]);
   useEffect(() => {
     axios
       .get(
-        `http://ec2-13-125-248-94.ap-northeast-2.compute.amazonaws.com:8080/v1/questions/${id}`
+        `http://ec2-13-125-254-178.ap-northeast-2.compute.amazonaws.com:8080/v1/questions/${id}`
       )
       .then((response) => {
         setData(response.data.data);
@@ -104,13 +104,15 @@ function MainpageD() {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
-  //답변 받는 api
+  }, [data]);
+  // 날짜 자르기
+
+  // 질문 페이지 해당 답변 받는 api
   const [answers, setAnswers] = useState([]);
   useEffect(() => {
     axios
       .get(
-        `http://ec2-13-125-248-94.ap-northeast-2.compute.amazonaws.com:8080/v1/questions/${id}/answers`
+        `http://ec2-13-125-254-178.ap-northeast-2.compute.amazonaws.com:8080/v1/questions/${id}/answers?page=20&size=5`
       )
       .then((response) => {
         setAnswers(response.data.data);
@@ -118,7 +120,7 @@ function MainpageD() {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [answers]);
 
   // 답변 작성 api
   const [newAnswer, setNewAnswer] = useState("");
@@ -126,9 +128,8 @@ function MainpageD() {
     e.preventDefault();
     try {
       await axios.post(
-        `http://ec2-13-125-248-94.ap-northeast-2.compute.amazonaws.com:8080/v1/questions/${id}/answers/`,
+        `http://ec2-13-125-254-178.ap-northeast-2.compute.amazonaws.com:8080/v1/questions/${id}/answers/`,
         {
-          questionId: id,
           memberId: 1,
           contents: newAnswer,
         }
@@ -138,8 +139,41 @@ function MainpageD() {
       console.log(error);
     }
   };
-  //답변 추천 기능 api
+  // 글삭제 기능
+  const questionDelete = async (select) => {
+    if (window.confirm("진짜 지울거임?")) {
+      try {
+        await axios.delete(
+          `http://ec2-13-125-254-178.ap-northeast-2.compute.amazonaws.com:8080/v1/questions/${id}`
+        );
+        alert("질문삭제완료");
+        navigate("/");
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
 
+  //답변 삭제 기능
+  //FIXME: 현재 로그인 전이라 아이디 고정 중
+  // 답변 아이디 answerId 불러오기
+  // 맵 안에 있는 객체와 접근하려면
+  // 답변 목록 불러오기
+  // 바로 적용시키려면 바꿔주는코드 직접 바로 구현
+
+  const answerDelete = async (select) => {
+    if (window.confirm("진짜 지울거임?")) {
+      try {
+        await axios.delete(
+          `http://ec2-13-125-254-178.ap-northeast-2.compute.amazonaws.com:8080/v1/answers/${select}`
+        );
+        alert("답변삭제완료");
+      } catch (error) {
+        console.log(error);
+        console.log(id);
+      }
+    }
+  };
   // 에디터 모듈
   const modules = {
     toolbar: {
@@ -185,7 +219,7 @@ function MainpageD() {
           <Mainpage1div2>
             <MainpageDiv1div21>
               <span>Asked</span>
-              <time>today</time>
+              <time>{data.createdAt}</time>
             </MainpageDiv1div21>
             <Mainpage1div22>
               <span>Modified</span>
@@ -197,12 +231,10 @@ function MainpageD() {
           </Mainpage1div2>
           <MainpageMain>
             <MainpageMain1>
-              <style></style>
               <MainpageMain11>
                 <MainpageMain111>
                   <MainpageMain112></MainpageMain112>
                 </MainpageMain111>
-                <div></div>
               </MainpageMain11>
               <MainpageMain2>
                 <MainpageMain21>
@@ -267,13 +299,17 @@ function MainpageD() {
                               <MainpageMain224131a>Share</MainpageMain224131a>
                             </MainpageMain224131>
                             <MainpageMain224131>
-                              <MainpageMain224131a>Edit</MainpageMain224131a>
+                              <MainpageMain224131a href={`/editquestion/${id}`}>
+                                Edit
+                              </MainpageMain224131a>
                             </MainpageMain224131>
                             <MainpageMain224131>
                               <MainpageMain224131a>Follow</MainpageMain224131a>
                             </MainpageMain224131>
                             <MainpageMain224131>
-                              <MainpageMainbtn>delete</MainpageMainbtn>
+                              <MainpageMainbtn onClick={questionDelete}>
+                                delete
+                              </MainpageMainbtn>
                             </MainpageMain224131>
                           </MainpageMain22413>
                         </MainpageMain22412>
@@ -348,8 +384,12 @@ function MainpageD() {
 
             <MainpageMainf11fh21>
               <MainpageMainf>
-                <MainpageMainf1></MainpageMainf1>
-                <MainpageMainf11></MainpageMainf11>
+                <MainpageMainf1> Trial</MainpageMainf1>
+                <MainpageMainf11
+                  dangerouslySetInnerHTML={{
+                    __html: data.questionTrial,
+                  }}
+                ></MainpageMainf11>
               </MainpageMainf>
               <MainpageMainf11h2>
                 Know someone who can answer? Share a link to this
@@ -452,7 +492,13 @@ function MainpageD() {
                                       </MainpageMain224131a>
                                     </MainpageMain224131>
                                     <MainpageMain224131>
-                                      <MainpageMainbtn>delete</MainpageMainbtn>
+                                      <MainpageMainbtn
+                                        onClick={() =>
+                                          answerDelete(answer.answerId)
+                                        }
+                                      >
+                                        delete
+                                      </MainpageMainbtn>
                                     </MainpageMain224131>
                                   </MainpageMain22413>
                                 </MainpageMain22412>

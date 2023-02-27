@@ -3,6 +3,7 @@ import styled from "styled-components";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const AskQ = styled.div`
   display: flex;
@@ -238,6 +239,7 @@ const AskQ = styled.div`
   }
 `;
 export default function AskQuestion({ setIsSidebar, setIsFooter }) {
+  const navigate = useNavigate();
   useEffect(() => {
     setIsSidebar(false);
     setIsFooter(true);
@@ -298,15 +300,16 @@ export default function AskQuestion({ setIsSidebar, setIsFooter }) {
     }
     try {
       const response = await axios.post(
-        "http://ec2-13-125-248-94.ap-northeast-2.compute.amazonaws.com:8080/v1/questions",
+        "http://ec2-13-125-254-178.ap-northeast-2.compute.amazonaws.com:8080/v1/questions",
         {
-          memberId: 2,
+          memberId: 1,
           questionTitle: questionTitle,
           questionContents: questionContent,
           questionTrial: questionTry,
         }
       );
       console.log(response);
+      navigate("/");
     } catch (error) {
       console.log(error);
     }
