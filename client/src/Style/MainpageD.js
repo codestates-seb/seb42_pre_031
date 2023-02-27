@@ -1141,10 +1141,12 @@ let MainpageMainf = styled.div`
 
 let MainpageMainf1 = styled.div`
   box-sizing: border-box;
+
   display: block;
   margin-top: 10px;
   width: auto;
-  font-size: 13px;
+  font-size: 30px;
+  font-weight: bold;
   line-height: 17px;
   text-align: left;
   vertical-align: baseline;

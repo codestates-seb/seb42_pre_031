@@ -1,5 +1,9 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import {
+  UNSAFE_DataRouterStateContext,
+  useNavigate,
+  useParams,
+} from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
 import ReactQuill from "react-quill";
@@ -155,21 +159,23 @@ const Li = styled.li`
 `;
 
 function AnswerEdit({ setIsSidebar, setIsFooter }) {
-  const [editAnswer, setEditAnswer] = useState("");
   const navigate = useNavigate();
   const { id } = useParams();
 
   // 수정 완료 버튼
+  // 네비게이트를 이용하려면 이동하는곳의 엔드포인트가 해당 답글이 있는 질문세부페이지
   const handleEditAnswer = async (e) => {
     e.preventDefault();
     try {
       await axios.patch(
-        `http://ec2-13-125-248-94.ap-northeast-2.compute.amazonaws.com:8080/v1/answers/${id}`,
+        `http://ec2-13-125-254-178.ap-northeast-2.compute.amazonaws.com:8080/v1/answers/${id}`,
         {
-          contents: editAnswer,
+          answerId: id,
+          contents: answer,
         }
       );
-      navigate("/question");
+      // navigate("/question/1");
+      window.history.back();
     } catch (error) {
       console.log(error);
     }
@@ -180,21 +186,23 @@ function AnswerEdit({ setIsSidebar, setIsFooter }) {
     setIsFooter(true);
   }, []);
 
-  // 답변 받아오는 api
-  const [answers, setAnswers] = useState([]);
+  // 해당 페이지 답변 받아오는 api
+  // 답변을 가져와야하는데 주소 엔드포인트는 답글의 아이디라 접근못함
+  // id 부분에 들어가는건 질문의 아이디
+  // 가져오는건 모든 답변
+  const [answer, setAnswer] = useState("");
   useEffect(() => {
     axios
       .get(
-        `http://ec2-13-125-248-94.ap-northeast-2.compute.amazonaws.com:8080/v1/questions/${id}/answers`
+        `http://ec2-13-125-254-178.ap-northeast-2.compute.amazonaws.com:8080/v1/answers/${id}`
       )
       .then((response) => {
-        setAnswers(response.data.data);
-        console.log(answers);
+        setAnswer(response.data.data.contents);
       })
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [id]);
 
   // 에디터 모듈
   const modules = {
@@ -251,7 +259,8 @@ function AnswerEdit({ setIsSidebar, setIsFooter }) {
               name="content"
               theme="snow"
               modules={modules}
-              onChange={(event) => setEditAnswer(event)}
+              value={answer}
+              onChange={(e) => setAnswer(e)}
             />
             <Summary>
               <Title>Edit Summary</Title>

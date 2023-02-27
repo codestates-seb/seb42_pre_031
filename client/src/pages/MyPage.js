@@ -1,7 +1,8 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Suspense, useEffect, useState } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
+import star from "../images/star.png";
 
 const UserBox = styled.div`
   /* box-sizing: border-box; */
@@ -265,6 +266,7 @@ const UserBox = styled.div`
 
 export default function Mypage({ setIsSidebar, setIsFooter }) {
   const [feedModal, setFeedModal] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     setIsSidebar(true);
@@ -284,7 +286,7 @@ export default function Mypage({ setIsSidebar, setIsFooter }) {
     console.log(memberId.id);
     axios
       .get(
-        `http://ec2-13-125-248-94.ap-northeast-2.compute.amazonaws.com:8080/v1/members/${memberId.id}`
+        `http://ec2-13-125-254-178.ap-northeast-2.compute.amazonaws.com:8080/v1/members/${memberId.id}`
       )
       .then((response) => {
         setUserInfo(response.data.data);
@@ -300,9 +302,10 @@ export default function Mypage({ setIsSidebar, setIsFooter }) {
     if (window.confirm("진짜 지울거임?")) {
       try {
         await axios.delete(
-          `http://ec2-13-125-248-94.ap-northeast-2.compute.amazonaws.com:8080/v1/members/${memberId.id}`
+          `http://ec2-13-125-254-178.ap-northeast-2.compute.amazonaws.com:8080/v1/members/${memberId.id}`
         );
         alert("삭제됐다!!!!");
+        navigate("/");
       } catch (error) {
         console.log(error);
         alert("삭제안됨;;");
@@ -314,10 +317,11 @@ export default function Mypage({ setIsSidebar, setIsFooter }) {
     <UserBox>
       <div className="user-top">
         <div className="user-id-info">
-          <img src="star.png" />
+          <img src={star} alt="member-image" />
+
           <div>
             <div className="user-nickname">{userInfo.nickName}</div>
-            {/* <div className="user-about">{userInfo.aboutMe}</div> */}
+
             <div
               className="user-about"
               dangerouslySetInnerHTML={{ __html: userInfo.aboutMe }}
