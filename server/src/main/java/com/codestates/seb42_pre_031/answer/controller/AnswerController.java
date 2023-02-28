@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.constraints.Positive;
 import java.net.URI;
 import java.util.List;
-@CrossOrigin
+//@CrossOrigin
 @RestController
 @RequestMapping("/v1")
 @Validated

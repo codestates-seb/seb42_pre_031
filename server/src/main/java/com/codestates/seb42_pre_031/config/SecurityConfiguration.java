@@ -108,8 +108,8 @@ public class SecurityConfiguration {
             CorsConfiguration configuration = new CorsConfiguration();
             configuration.setAllowedOrigins(Arrays.asList("*"));   //setAllowedOrigins()을 통해 모든 출처(Origin)에 대해 스크립트 기반의 HTTP 통신을 허용하도록 설정합니다. 이 설정은 운영 서버 환경에서 요구사항에 맞게 변경이 가능
             configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PATCH", "DELETE"));
-            configuration.addAllowedHeader("Authorization");
-            configuration.addExposedHeader("Authorization");
+            configuration.addAllowedHeader("*");
+            configuration.addExposedHeader("*");
 
             UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();   //CorsConfigurationSource 인터페이스의 구현 클래스인 UrlBasedCorsConfigurationSource 클래스의 객체를 생성
             source.registerCorsConfiguration("/**", configuration); //모든 URL에 앞에서 구성한 CORS 정책(CorsConfiguration)을 적용
