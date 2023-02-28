@@ -43,22 +43,27 @@ function App() {
   const [searchInput, setSearchInput] = useState("");
 
   // 유저 정보 받아오기
-  //FIXME: 아이디 부분 로그인 상태의 아이디로 수정해야댐
+  // FIXME: 아이디 부분 로그인 상태의 아이디로 수정해야댐
+  // 현재 로그인 중인 사용자 아이디
+  const token = localStorage.getItem("access_token");
   const [userInfo, setUserInfo] = useState([]);
+
   useEffect(() => {
     axios
       .get(
-        "http://ec2-13-125-254-178.ap-northeast-2.compute.amazonaws.com:8080/v1/members/1"
+        "http://ec2-52-79-226-32.ap-northeast-2.compute.amazonaws.com:8080/v1/members/1",
+        { headers: { Authorization: token } }
       )
       .then((response) => {
         setUserInfo(response.data.data);
+        console.log(response);
       });
   }, []);
   return (
     <BrowserRouter>
       <div className="App">
-        {isLogin === true ? (
-          <Header setSearchInput={setSearchInput} />
+        {token ? (
+          <Header setSearchInput={setSearchInput} userInfo={userInfo} />
         ) : (
           <HeaderLogout setSearchInput={setSearchInput} />
         )}
@@ -82,7 +87,11 @@ function App() {
             <Route
               path="/login"
               element={
-                <Login setIsSidebar={setIsSidebar} setIsFooter={setIsFooter} />
+                <Login
+                  setIsLogin={setIsLogin}
+                  setIsSidebar={setIsSidebar}
+                  setIsFooter={setIsFooter}
+                />
               }
             />
             <Route

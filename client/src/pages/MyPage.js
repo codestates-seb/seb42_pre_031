@@ -278,11 +278,13 @@ export default function Mypage({ setIsSidebar, setIsFooter }) {
   // 회원 정보 요청
   const memberId = useParams();
   const [userInfo, setUserInfo] = useState([]);
+  const token = localStorage.getItem("access_token");
   useEffect(() => {
     console.log(memberId.id);
     axios
       .get(
-        `http://ec2-13-125-254-178.ap-northeast-2.compute.amazonaws.com:8080/v1/members/${memberId.id}`
+        `http://ec2-52-79-226-32.ap-northeast-2.compute.amazonaws.com:8080/v1/members/${memberId.id}`,
+        { headers: { Authorization: token } }
       )
       .then((response) => {
         setUserInfo(response.data.data);
@@ -298,7 +300,8 @@ export default function Mypage({ setIsSidebar, setIsFooter }) {
     if (window.confirm("진짜 지울거임?")) {
       try {
         await axios.delete(
-          `http://ec2-13-125-254-178.ap-northeast-2.compute.amazonaws.com:8080/v1/members/${memberId.id}`
+          `http://ec2-52-79-226-32.ap-northeast-2.compute.amazonaws.com:8080/v1/members/${memberId.id}`,
+          { headers: { Authorization: token } }
         );
         alert("삭제됐다!!!!");
         navigate("/");

@@ -93,10 +93,11 @@ function MainpageD() {
   const { id } = useParams();
   //  질문 불러오는 api
   const [data, setData] = useState([]);
+  const token = localStorage.getItem("access_token");
   useEffect(() => {
     axios
       .get(
-        `http://ec2-13-125-254-178.ap-northeast-2.compute.amazonaws.com:8080/v1/questions/${id}`
+        `http://ec2-52-79-226-32.ap-northeast-2.compute.amazonaws.com:8080/v1/questions/${id}`
       )
       .then((response) => {
         setData(response.data.data);
@@ -112,7 +113,7 @@ function MainpageD() {
   useEffect(() => {
     axios
       .get(
-        `http://ec2-13-125-254-178.ap-northeast-2.compute.amazonaws.com:8080/v1/questions/${id}/answers?page=20&size=5`
+        `http://ec2-52-79-226-32.ap-northeast-2.compute.amazonaws.com:8080/v1/questions/${id}/answers?page=20&size=5`
       )
       .then((response) => {
         setAnswers(response.data.data);
@@ -128,11 +129,12 @@ function MainpageD() {
     e.preventDefault();
     try {
       await axios.post(
-        `http://ec2-13-125-254-178.ap-northeast-2.compute.amazonaws.com:8080/v1/questions/${id}/answers/`,
+        `http://ec2-52-79-226-32.ap-northeast-2.compute.amazonaws.com:8080/v1/questions/${id}/answers/`,
         {
           memberId: 1,
           contents: newAnswer,
-        }
+        },
+        { headers: { Authorization: token } }
       );
       alert("답변등록완료");
     } catch (error) {
@@ -144,7 +146,8 @@ function MainpageD() {
     if (window.confirm("진짜 지울거임?")) {
       try {
         await axios.delete(
-          `http://ec2-13-125-254-178.ap-northeast-2.compute.amazonaws.com:8080/v1/questions/${id}`
+          `http://ec2-52-79-226-32.ap-northeast-2.compute.amazonaws.com:8080/v1/questions/${id}`,
+          { headers: { Authorization: token } }
         );
         alert("질문삭제완료");
         navigate("/");
@@ -165,7 +168,8 @@ function MainpageD() {
     if (window.confirm("진짜 지울거임?")) {
       try {
         await axios.delete(
-          `http://ec2-13-125-254-178.ap-northeast-2.compute.amazonaws.com:8080/v1/answers/${select}`
+          `http://ec2-52-79-226-32.ap-northeast-2.compute.amazonaws.com:8080/v1/answers/${select}`,
+          { headers: { Authorization: token } }
         );
         alert("답변삭제완료");
       } catch (error) {

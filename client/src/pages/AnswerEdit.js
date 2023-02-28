@@ -161,18 +161,19 @@ const Li = styled.li`
 function AnswerEdit({ setIsSidebar, setIsFooter }) {
   const navigate = useNavigate();
   const { id } = useParams();
-
+  const token = localStorage.getItem("access_token");
   // 수정 완료 버튼
   // 네비게이트를 이용하려면 이동하는곳의 엔드포인트가 해당 답글이 있는 질문세부페이지
   const handleEditAnswer = async (e) => {
     e.preventDefault();
     try {
       await axios.patch(
-        `http://ec2-13-125-254-178.ap-northeast-2.compute.amazonaws.com:8080/v1/answers/${id}`,
+        `http://ec2-52-79-226-32.ap-northeast-2.compute.amazonaws.com:8080/v1/answers/${id}`,
         {
           answerId: id,
           contents: answer,
-        }
+        },
+        { headers: { Authorization: token } }
       );
       // navigate("/question/1");
       window.history.back();
@@ -194,7 +195,7 @@ function AnswerEdit({ setIsSidebar, setIsFooter }) {
   useEffect(() => {
     axios
       .get(
-        `http://ec2-13-125-254-178.ap-northeast-2.compute.amazonaws.com:8080/v1/answers/${id}`
+        `http://ec2-52-79-226-32.ap-northeast-2.compute.amazonaws.com:8080/v1/answers/${id}`
       )
       .then((response) => {
         setAnswer(response.data.data.contents);

@@ -100,7 +100,7 @@ const Head = styled.header`
     height: 30px;
   }
 `;
-export default function Header({ setSearchInput }) {
+export default function Header({ setSearchInput, userInfo }) {
   return (
     <Head>
       <div className="head-wrap">
@@ -109,9 +109,12 @@ export default function Header({ setSearchInput }) {
         </Link>
         <div className="top-search-bar">
           <img src={search} />
-          <input placeholder="Search..."></input>
+          <input
+            placeholder="Search..."
+            onChange={(e) => setSearchInput(e.target.value)}
+          ></input>
         </div>
-        <Link to="/users" className="my-icon-wrap">
+        <Link to={`/users/${userInfo.memberId}`} className="my-icon-wrap">
           <img className="my-icon" src={star} />
         </Link>
         <div className="icon-set">

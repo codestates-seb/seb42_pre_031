@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const LogoutContainer = styled.div`
@@ -90,10 +91,16 @@ const WhiteButton = styled(ButtonLogout)`
   }
 `;
 const LogOut = ({ setIsSidebar, setIsFooter }) => {
+  const navigate = useNavigate();
   useEffect(() => {
     setIsSidebar(false);
     setIsFooter(false);
   }, []);
+
+  const logoutHandler = () => {
+    localStorage.clear();
+    navigate("/");
+  };
 
   return (
     <LogoutContainer>
@@ -130,7 +137,7 @@ const LogOut = ({ setIsSidebar, setIsFooter }) => {
           <label htmlFor="checkbox">Log out on all devices</label>
         </DivCheckbox>
         <ButtonContainer>
-          <BlueButton>Log out</BlueButton>
+          <BlueButton onClick={logoutHandler}>Log out</BlueButton>
           <WhiteButton>Cancel</WhiteButton>
         </ButtonContainer>
         <p>
