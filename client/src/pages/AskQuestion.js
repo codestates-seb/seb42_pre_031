@@ -289,7 +289,7 @@ export default function AskQuestion({ setIsSidebar, setIsFooter }) {
       ],
     },
   };
-
+  const token = localStorage.getItem("access_token");
   // 질문 내역 POST 요청 >> 구현 완료
   //FIXME 아이디 부분에 로그인한 유저 아이디로 들어가야함
   const questionSubmit = async (e) => {
@@ -300,13 +300,15 @@ export default function AskQuestion({ setIsSidebar, setIsFooter }) {
     }
     try {
       const response = await axios.post(
-        "http://ec2-13-125-254-178.ap-northeast-2.compute.amazonaws.com:8080/v1/questions",
+        "http://ec2-52-79-226-32.ap-northeast-2.compute.amazonaws.com:8080/v1/questions",
+
         {
           memberId: 1,
           questionTitle: questionTitle,
           questionContents: questionContent,
           questionTrial: questionTry,
-        }
+        },
+        { headers: { Authorization: token } }
       );
       console.log(response);
       navigate("/");

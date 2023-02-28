@@ -245,6 +245,7 @@ export default function EditQuestion({ setIsSidebar, setIsFooter }) {
     setIsSidebar(false);
     setIsFooter(true);
   }, []);
+  const token = localStorage.getItem("access_token");
   // 타이틀모달
   const [isGoodTitle, setIsGoodTitle] = useState(false);
   // 타이틀 인풋 클릭 시 모달
@@ -255,7 +256,7 @@ export default function EditQuestion({ setIsSidebar, setIsFooter }) {
   useEffect(() => {
     axios
       .get(
-        `http://ec2-13-125-254-178.ap-northeast-2.compute.amazonaws.com:8080/v1/questions/${id}`
+        `http://ec2-52-79-226-32.ap-northeast-2.compute.amazonaws.com:8080/v1/questions/${id}`
       )
       .then((response) => {
         setQuestionTitle(response.data.data.questionTitle);
@@ -269,7 +270,7 @@ export default function EditQuestion({ setIsSidebar, setIsFooter }) {
   useEffect(() => {
     axios
       .get(
-        `http://ec2-13-125-254-178.ap-northeast-2.compute.amazonaws.com:8080/v1/questions/${id}`
+        `http://ec2-52-79-226-32.ap-northeast-2.compute.amazonaws.com:8080/v1/questions/${id}`
       )
       .then((response) => {
         setQuestionContent(response.data.data.questionContents);
@@ -282,7 +283,7 @@ export default function EditQuestion({ setIsSidebar, setIsFooter }) {
   useEffect(() => {
     axios
       .get(
-        `http://ec2-13-125-254-178.ap-northeast-2.compute.amazonaws.com:8080/v1/questions/${id}`
+        `http://ec2-52-79-226-32.ap-northeast-2.compute.amazonaws.com:8080/v1/questions/${id}`
       )
       .then((response) => {
         setQuestionTry(response.data.data.questionTrial);
@@ -304,13 +305,14 @@ export default function EditQuestion({ setIsSidebar, setIsFooter }) {
     e.preventDefault();
     try {
       await axios.patch(
-        `http://ec2-13-125-254-178.ap-northeast-2.compute.amazonaws.com:8080/v1/questions/${id}`,
+        `http://ec2-52-79-226-32.ap-northeast-2.compute.amazonaws.com:8080/v1/questions/${id}`,
         {
           answerId: id,
           questionTitle: questionTitle,
           questionContents: questionContent,
           questionTrial: questionTry,
-        }
+        },
+        { headers: { Authorization: token } }
       );
       navigate(`/question/${id}`);
     } catch (error) {

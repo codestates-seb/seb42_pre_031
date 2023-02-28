@@ -41,7 +41,7 @@ function Main({ searchInput, setIsSidebar, setIsFooter }) {
   // 질문목록 불러오기
   // 페이지네이션 여기 수정하면됩니다
   const ALL_URL =
-    "http://ec2-13-125-254-178.ap-northeast-2.compute.amazonaws.com:8080/v1/questions?page=1&size=15";
+    "http://ec2-52-79-226-32.ap-northeast-2.compute.amazonaws.com:8080/v1/questions?page=1&size=15";
   const [data, setData] = useState([]);
   useEffect(() => {
     axios.get(ALL_URL).then((response) => {
@@ -53,7 +53,7 @@ function Main({ searchInput, setIsSidebar, setIsFooter }) {
   useEffect(() => {
     axios
       .get(
-        `http://ec2-13-125-254-178.ap-northeast-2.compute.amazonaws.com:8080/v1/questions/search?keyword=${searchInput}&page=1&size=15`
+        `http://ec2-52-79-226-32.ap-northeast-2.compute.amazonaws.com:8080/v1/questions/search?keyword=${searchInput}&page=1&size=15`
       )
       .then((response) => {
         setFilterData(response.data.data);
@@ -85,6 +85,7 @@ function Main({ searchInput, setIsSidebar, setIsFooter }) {
               </Main2div21>
             </Main2div2>
           </Main2div>
+
           {searchInput === "" ? (
             <Mainscript data={data} setData={setData} />
           ) : (

@@ -106,7 +106,7 @@ const SignupGuide = styled.div`
   }
 `;
 
-function Login({ setIsSidebar, setIsFooter }) {
+function Login({ setIsSidebar, setIsFooter, setIsLogin }) {
   useEffect(() => {
     setIsSidebar(false);
     setIsFooter(false);
@@ -134,19 +134,21 @@ function Login({ setIsSidebar, setIsFooter }) {
 
     try {
       const response = await axios.post(
-        "http://ec2-13-125-254-178.ap-northeast-2.compute.amazonaws.com:8080/v1/members",
+        "http://ec2-52-79-226-32.ap-northeast-2.compute.amazonaws.com:8080/v1/auth/login",
+
         {
-          memberEmail: email,
-          memberPW: password,
+          username: email,
+          password: password,
         }
       );
-      const accessToken = response.data.access_token;
+      const accessToken = response.headers.authorization;
 
       console.log(response);
       localStorage.setItem("access_token", accessToken);
 
       setIsSidebar(false);
       setIsFooter(false);
+      setIsLogin(true);
       navigate("/");
     } catch (error) {
       console.log(error);

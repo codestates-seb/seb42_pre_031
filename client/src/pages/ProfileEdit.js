@@ -211,6 +211,8 @@ const ProfileEdit = ({ setIsSidebar, setIsFooter }) => {
     setFullName(e.target.value);
   };
 
+  const token = localStorage.getItem("access_token");
+
   // 유저 정보 요청
   const memberId = useParams();
   const [userInfo, setUserInfo] = useState([]);
@@ -218,7 +220,7 @@ const ProfileEdit = ({ setIsSidebar, setIsFooter }) => {
     console.log(memberId.id);
     axios
       .get(
-        `http://ec2-13-125-248-94.ap-northeast-2.compute.amazonaws.com:8080/v1/members/${memberId.id}`
+        `http://ec2-52-79-226-32.ap-northeast-2.compute.amazonaws.com:8080/v1/members/${memberId.id}`
       )
       .then((response) => {
         setUserInfo(response.data.data);
@@ -232,13 +234,14 @@ const ProfileEdit = ({ setIsSidebar, setIsFooter }) => {
     e.preventDefault();
     try {
       const response = await axios.patch(
-        `http://ec2-13-125-254-178.ap-northeast-2.compute.amazonaws.com:8080/v1/members/${memberId.id}`,
+        `http://ec2-52-79-226-32.ap-northeast-2.compute.amazonaws.com:8080/v1/members/${memberId.id}`,
         {
           memberName: fullName,
           memberPW: "111111",
           nickName: displayName,
           aboutMe: aboutMe,
-        }
+        },
+        { headers: { Authorization: token } }
       );
       console.log(response);
       navigate(`/users/${memberId.id}`);

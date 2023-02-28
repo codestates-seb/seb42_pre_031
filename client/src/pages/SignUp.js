@@ -140,10 +140,11 @@ function SignUp({ setIsSidebar, setIsFooter }) {
 
   const navigate = useNavigate();
   // 회원가입 요청 axios
-  const signUp = async (email, password) => {
+  const signUp = async (e) => {
+    e.preventDefault();
     try {
       const response = await axios.post(
-        "http://ec2-13-125-254-178.ap-northeast-2.compute.amazonaws.com:8080/v1/members",
+        "http://ec2-52-79-226-32.ap-northeast-2.compute.amazonaws.com:8080/v1/members",
         {
           memberName: "mem",
           memberEmail: email,
@@ -156,7 +157,7 @@ function SignUp({ setIsSidebar, setIsFooter }) {
       console.log(response.data);
       navigate("/login");
     } catch (error) {
-      console.error(error.response);
+      console.log(error);
     }
   };
 
@@ -183,7 +184,7 @@ function SignUp({ setIsSidebar, setIsFooter }) {
           </SocialButton>
         </SocialSignupContainer>
         <SignupContainer>
-          <form onSubmit={signUpSubmit}>
+          <form onSubmit={signUp}>
             <Div>Display name</Div>
             <Input
               type="text"
