@@ -89,24 +89,23 @@ import ReactQuill from "react-quill";
 
 // 질문 세부내용 페이지 ..
 function MainpageD() {
-  const VOTEPLUS_URL = `http://ec2-52-79-226-32.ap-northeast-2.compute.amazonaws.com:8080/v1/questions/`
-  const VOTEMINUS_URL = `http://ec2-52-79-226-32.ap-northeast-2.compute.amazonaws.com:8080/v1/questions/`
-  const ANSWERVOTEPLUS_URL = `http://ec2-52-79-226-32.ap-northeast-2.compute.amazonaws.com:8080/v1/answers/`
-  const ANSWERVOTEMINUS_URL = `http://ec2-52-79-226-32.ap-northeast-2.compute.amazonaws.com:8080/v1/answers/`
+  const VOTEPLUS_URL = `http://ec2-52-79-226-32.ap-northeast-2.compute.amazonaws.com:8080/v1/questions/`;
+  const VOTEMINUS_URL = `http://ec2-52-79-226-32.ap-northeast-2.compute.amazonaws.com:8080/v1/questions/`;
+  const ANSWERVOTEPLUS_URL = `http://ec2-52-79-226-32.ap-northeast-2.compute.amazonaws.com:8080/v1/answers/`;
+  const ANSWERVOTEMINUS_URL = `http://ec2-52-79-226-32.ap-northeast-2.compute.amazonaws.com:8080/v1/answers/`;
 
-  function answerVotePlus(answerId){
-    axios.patch(ANSWERVOTEPLUS_URL + answerId +'/votePlus')
-  } 
-  function answerVoteMinus(answerId){
-    axios.patch(ANSWERVOTEMINUS_URL + answerId +'/voteMinus')
+  function answerVotePlus(answerId) {
+    axios.patch(ANSWERVOTEPLUS_URL + answerId + "/votePlus");
   }
-  function votePlus(e){
-    axios.patch(VOTEPLUS_URL + id +'/votePlus')
+  function answerVoteMinus(answerId) {
+    axios.patch(ANSWERVOTEMINUS_URL + answerId + "/voteMinus");
   }
-  function voteMinus(e){
-    axios.patch(VOTEMINUS_URL + id +'/voteMinus')
+  function votePlus(e) {
+    axios.patch(VOTEPLUS_URL + id + "/votePlus");
   }
-
+  function voteMinus(e) {
+    axios.patch(VOTEMINUS_URL + id + "/voteMinus");
+  }
 
   const navigate = useNavigate();
   const { id } = useParams();
@@ -264,14 +263,20 @@ function MainpageD() {
                   <MainpageMain211>
                     <MainpageMain211btn>
                       <MainpageMain211sgv>
-                        <MainpageMain211svgP onClick={votePlus} d="M2 25h32L18 9 2 25Z"></MainpageMain211svgP>
+                        <MainpageMain211svgP
+                          onClick={votePlus}
+                          d="M2 25h32L18 9 2 25Z"
+                        ></MainpageMain211svgP>
                       </MainpageMain211sgv>
                     </MainpageMain211btn>
 
                     <MainpageMain212>{data.voteQCount}</MainpageMain212>
                     <MainpageMain211btn>
                       <MainpageMain211sgv>
-                        <MainpageMain211svgP onClick={voteMinus} d="M2 11h32L18 27 2 11Z"></MainpageMain211svgP>
+                        <MainpageMain211svgP
+                          onClick={voteMinus}
+                          d="M2 11h32L18 27 2 11Z"
+                        ></MainpageMain211svgP>
                       </MainpageMain211sgv>
                     </MainpageMain211btn>
 
@@ -439,7 +444,12 @@ function MainpageD() {
                           <MainpageMain211>
                             <MainpageMain211btn>
                               <MainpageMain211sgv>
-                                <MainpageMain211svgP onClick={()=>answerVotePlus(answer.answerId)} d="M2 25h32L18 9 2 25Z"></MainpageMain211svgP>
+                                <MainpageMain211svgP
+                                  onClick={() =>
+                                    answerVotePlus(answer.answerId)
+                                  }
+                                  d="M2 25h32L18 9 2 25Z"
+                                ></MainpageMain211svgP>
                               </MainpageMain211sgv>
                             </MainpageMain211btn>
 
@@ -448,7 +458,12 @@ function MainpageD() {
                             </MainpageMain212>
                             <MainpageMain211btn>
                               <MainpageMain211sgv>
-                                <MainpageMain211svgP onClick={()=>answerVoteMinus(answer.answerId)} d="M2 11h32L18 27 2 11Z"></MainpageMain211svgP>
+                                <MainpageMain211svgP
+                                  onClick={() =>
+                                    answerVoteMinus(answer.answerId)
+                                  }
+                                  d="M2 11h32L18 27 2 11Z"
+                                ></MainpageMain211svgP>
                               </MainpageMain211sgv>
                             </MainpageMain211btn>
 
