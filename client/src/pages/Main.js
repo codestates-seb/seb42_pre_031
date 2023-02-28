@@ -43,9 +43,11 @@ function Main({ searchInput, setIsSidebar, setIsFooter }) {
   const ALL_URL =
     "http://ec2-52-79-226-32.ap-northeast-2.compute.amazonaws.com:8080/v1/questions?page=1&size=15";
   const [data, setData] = useState([]);
+  const [data2, setData2] = useState([]);
   useEffect(() => {
     axios.get(ALL_URL).then((response) => {
       setData(response.data.data);
+      setData2(response.data.data);
     });
   }, []);
   // 검색한 질문목록 불러오기
@@ -60,6 +62,7 @@ function Main({ searchInput, setIsSidebar, setIsFooter }) {
         console.log(response);
       });
   }, [searchInput]);
+  const [tureFalse, setTureFalse] = useState(false);
 
   return (
     <Container>
@@ -87,7 +90,7 @@ function Main({ searchInput, setIsSidebar, setIsFooter }) {
           </Main2div>
 
           {searchInput === "" ? (
-            <Mainscript data={data} setData={setData} />
+            <Mainscript data={data} setData={setData} data2={data2}tureFalse={tureFalse}/>
           ) : (
             <FilterMain filterData={filterData} setFilterData={setFilterData} />
           )}
