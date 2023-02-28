@@ -96,13 +96,11 @@ function MainpageD() {
 
   function answerVotePlus(answerId){
     axios.patch(ANSWERVOTEPLUS_URL + answerId +'/votePlus',{
-              answerId: answerId,
             },
     { headers: { Authorization: token } })
   } 
   function answerVoteMinus(answerId){
     axios.patch(ANSWERVOTEMINUS_URL + answerId +'/voteMinus',{
-      answerId: answerId,
     },
     { headers: { Authorization: token } })
   }
