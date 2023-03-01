@@ -7,7 +7,6 @@ import com.codestates.seb42_pre_031.voteQ.entity.VoteQ;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -29,6 +28,8 @@ import java.util.List;
 @Setter
 @Entity
 public class Question extends Auditable {
+
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -58,12 +59,33 @@ public class Question extends Auditable {
     @OneToOne(mappedBy = "question", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private VoteQ voteQ;
 
+    public void setMember(Member member) {
+        this.member = member;
+        if (!this.member.getQuestions().contains(this)){
+            this.member.getQuestions().add(this);
+        }
+    }
+
+    public void setAnswer(Answer answer) {
+        this.answerList.add(answer);
+        if (answer.getQuestion() != this) {
+            answer.setQuestion(this);
+        }
+    }
+
+    public void setVoteQ(VoteQ voteQ) {
+        this.voteQ = voteQ;
+        if (voteQ.getQuestion() != this) {
+            voteQ.setQuestion(this);
+        }
+    }
+
     // @Enumerated(value = EnumType.STRING) : enum 값을 index가 아닌 텍스트 값 그대로 저장
    /* @Enumerated(value = EnumType.STRING)
     private QuestionStatus questionStatus = QuestionStatus.QUESTION_REGISTRATION;*/
 
-    @Column(columnDefinition = "integer default 0", nullable = false) // 수정됨
-    private long questionView;
+//    @Column(columnDefinition = "integer default 0", nullable = false) // 수정됨
+//    private long questionView;
 }
 
     /*public enum QuestionStatus {

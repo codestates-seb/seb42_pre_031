@@ -1,22 +1,14 @@
 package com.codestates.seb42_pre_031.answer.entity;
-
 import com.codestates.seb42_pre_031.audit.Auditable;
 import com.codestates.seb42_pre_031.member.entity.Member;
 import com.codestates.seb42_pre_031.question.entity.Question;
 import com.codestates.seb42_pre_031.voteA.entity.VoteA;
-import lombok.AllArgsConstructor;
+import com.codestates.seb42_pre_031.voteQ.entity.VoteQ;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.data.annotation.CreatedBy;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-import org.w3c.dom.ls.LSException;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * <p> * @EntityListeners(class_name.claa) : 설정된 도메인의 값이 변경됐 때를 체크한다.</p>
@@ -30,7 +22,7 @@ import java.util.List;
  *<p></p>
  *<p>* @Enumerated : enum name 그대로 DB에 저장한다.</p>
  *<p>* @Enumerated(EnumType.STRING) : 문자열 자체 저장</p>
-*/
+ */
 
 @NoArgsConstructor
 // @AllArgsConstructor
@@ -67,23 +59,30 @@ public class Answer extends Auditable {
      * <p>하나의 게시물에서 누를 수 있는 답변 추천수는 여러개이다.</p>
      * <p>해당 답변이 삭제될시 추천 역시 사라지게된다. </p>
      */
-    @OneToMany(mappedBy = "answer", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
-    private List<VoteA> voteAList = new ArrayList<>();
-}
+    @OneToOne(mappedBy = "answer", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    private VoteA voteA;
 
-    /* 답변 상태 경과 확인
-    public enum AnswerStatus {
-        ANSWER_COMPLETE("답변 완료"),
-        ANSWER_DELETING("답변 삭제중"),
-        ANSWER_DELETE("답변 삭제");
-
-        @Getter
-        private String stepDescription;
-
-        AnswerStatus(String stepDescription) {
-            this.stepDescription = stepDescription;
+    public void setMember(Member member) {
+        this.member = member;
+        if (!this.member.getAnswers().contains(this)){
+            this.member.getAnswers().add(this);
         }
-    }*/
+    }
+
+    public void setQuestion(Question question) {
+        this.question = question;
+        if (!this.question.getAnswerList().contains(this)){
+            this.question.getAnswerList().add(this);
+        }
+    }
+
+    public void setVoteA(VoteA voteA) {
+        this.voteA = voteA;
+        if (voteA.getAnswer() != this) {
+            voteA.setAnswer(this);
+        }
+    }
+}
 
 
     /*private void setQuestion(Question question) {
@@ -103,4 +102,3 @@ public class Answer extends Auditable {
             voteA.setVoteA(this);
         }
     }*/
-

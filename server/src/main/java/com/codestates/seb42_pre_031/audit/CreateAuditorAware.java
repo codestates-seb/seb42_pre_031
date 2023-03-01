@@ -17,15 +17,17 @@ import java.util.Optional;
 @Component
 public class CreateAuditorAware implements AuditorAware<String> {
 
-    private final HttpSession httpSession;
+//    private final HttpSession httpSession;
 
     @Override
     public Optional<String> getCurrentAuditor() {
-        SessionUser user = (SessionUser) httpSession.getAttribute("user");
-        if (user == null)
-            return null;
+//        SessionUser user = (SessionUser) httpSession.getAttribute("user");
+//        if (user == null)
+//            return null;
 
-        return Optional.ofNullable(user.getId());
+//        return Optional.ofNullable(user.getId());
+
+        return Optional.of("back-end");
 
     }
 }

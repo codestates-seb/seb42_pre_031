@@ -10,19 +10,25 @@ import javax.persistence.*;
 
 @NoArgsConstructor
 @Getter
+@Setter
 @Entity
 public class VoteQ {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long voteId;
+    private long voteQId;
 
-    /* 1:1 양방향 관계 매핑시
-    외래키 기준 연관관계의 주 -> @JoinColumn을 넣어준다.
-    반대편에는 mappedBy를 적용시켜준다.*/
+
+    @Column(nullable = false)
+    private int voteQCount;
+
     @OneToOne
     @JoinColumn(name = "QUESTION_ID")
     private Question question;
 
-    @Column(nullable = false )
-    private int voteQCount;
+    public void setQuestion(Question question) {
+        this.question = question;
+        if(question.getVoteQ() != this) {
+            question.setVoteQ(this);
+        }
+    }
 }

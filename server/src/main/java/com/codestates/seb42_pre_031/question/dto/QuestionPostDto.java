@@ -10,22 +10,26 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.time.LocalDateTime;
 
 @Getter
 @Setter
 public class QuestionPostDto {
 
+    private long memberId;
+
+    @NotNull
+    @Pattern(regexp = "^(?!\\s+$).+", message = "Fill in the blank.")
     private String questionTitle;
 
-    private LocalDateTime createdAt;
-
-    private int questionView;
-
+    @NotNull
+    @Pattern(regexp = "^(?!\\s+$).+", message = "Fill in the blank.")
     private String questionContents;
 
+    @NotNull
+    @Pattern(regexp = "^(?!\\s+$).+", message = "Fill in the blank.")
     private String questionTrial;
-
-    private long memberId;
 
 }
