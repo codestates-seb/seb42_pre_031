@@ -27,29 +27,45 @@ import {
   Mainpn2a1,
   Mainpnspan,
 } from "../Style/Style.js";
+
 import { MainSidebar } from "../components/Sidebar.js";
 import Mainscript from "../components/Mainpage.js";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import FilterMain from "../components/FilterMain.js";
+import styled from 'styled-components';
+
+const PageButton = styled.button`
+  background-color: ${(props) => (props.active ? 'orange' : 'white')};
+  color: ${(props) => (props.active ? 'white' : 'black')};
+  padding: 8px;
+  border: 1px solid gray;
+  cursor: pointer;
+  &:hover {
+    background-color: ${(props) => (props.active ? 'orange' : 'lightgray')};
+  }
+`;
 
 function Main({ searchInput, setIsSidebar, setIsFooter }) {
+  const [data, setData] = useState([]);
+  const [data2, setData2] = useState([]);
+  const [page, setPage] = useState(1);
+  const [size, setSize] = useState(15);
+  
   useEffect(() => {
     setIsSidebar(true);
     setIsFooter(true);
   }, []);
   // 질문목록 불러오기
   // 페이지네이션 여기 수정하면됩니다
-  const ALL_URL =
-    "http://ec2-52-79-226-32.ap-northeast-2.compute.amazonaws.com:8080/v1/questions?page=1&size=15";
-  const [data, setData] = useState([]);
-  const [data2, setData2] = useState([]);
   useEffect(() => {
-    axios.get(ALL_URL).then((response) => {
-      setData(response.data.data);
-      setData2(response.data.data);
-    });
-  }, []);
+    axios
+      .get(`http://ec2-52-79-226-32.ap-northeast-2.compute.amazonaws.com:8080/v1/questions?page=${page}&size=${size}`)
+      .then((response) => {
+        setData(response.data.data);
+        setData2(response.data.data);
+      });
+  }, [page, size]);
   // 검색한 질문목록 불러오기
   const [filterData, setFilterData] = useState([]);
   useEffect(() => {
@@ -64,6 +80,10 @@ function Main({ searchInput, setIsSidebar, setIsFooter }) {
   }, [searchInput]);
   const [tureFalse, setTureFalse] = useState(false);
 
+
+
+
+  
   return (
     <Container>
       <Content>
@@ -107,22 +127,30 @@ function Main({ searchInput, setIsSidebar, setIsFooter }) {
         </Mainbar>
 
         <Mainpn>
-          <Mainpndiva>15</Mainpndiva>
-          <Mainpndiva1>30</Mainpndiva1>
-          <Mainpndiva1>50</Mainpndiva1>
-          <Mainpnspan>per page</Mainpnspan>
-        </Mainpn>
-        <Mainpn2>
-          <Mainpn2a>1</Mainpn2a>
-          <Mainpn2a1>2</Mainpn2a1>
-          <Mainpn2a1>3</Mainpn2a1>
-          <Mainpn2a1>4</Mainpn2a1>
-          <Mainpn2a1>5</Mainpn2a1>
-          <a>...</a>
-          <Mainpn2a1>1567342</Mainpn2a1>
-          <Mainpn2a1> Next</Mainpn2a1>
-        </Mainpn2>
-      </Content>
+                {[15, 30, 50].map((s) => (
+                <PageButton key={s} onClick={() => { setSize(s); setPage(1); }} active={s === size}>
+                {s}
+      </PageButton>
+      ))}
+      <Mainpnspan>per page</Mainpnspan>
+      </Mainpn>
+
+                <Mainpn2>
+                {[...Array(10)].map((_, i) => (
+                  <PageButton
+                  key={i}
+                  onClick={() => setPage(i + 1)}
+                  active={i + 1 === page}
+                  >
+                 {i + 1}
+                </PageButton>
+                ))}
+
+            <a>...</a>
+            <Mainpn2a1 onClick={() => setPage(1567342)}>1567342</Mainpn2a1>
+            <Mainpn2a1 onClick={() => setPage(page + 1)}>Next</Mainpn2a1>  
+          </Mainpn2>
+        </Content>
       <MainSidebar />
     </Container>
   );
