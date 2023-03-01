@@ -89,10 +89,10 @@ import ReactQuill from "react-quill";
 
 // 질문 세부내용 페이지 ..
 function MainpageD() {
-  const VOTEPLUS_URL = `http://ec2-52-79-226-32.ap-northeast-2.compute.amazonaws.com:8080/v1/questions/`;
-  const VOTEMINUS_URL = `http://ec2-52-79-226-32.ap-northeast-2.compute.amazonaws.com:8080/v1/questions/`;
-  const ANSWERVOTEPLUS_URL = `http://ec2-52-79-226-32.ap-northeast-2.compute.amazonaws.com:8080/v1/answers/`;
-  const ANSWERVOTEMINUS_URL = `http://ec2-52-79-226-32.ap-northeast-2.compute.amazonaws.com:8080/v1/answers/`;
+  const VOTEPLUS_URL = `${process.env.REACT_APP_SERVER}/v1/questions/`;
+  const VOTEMINUS_URL = `${process.env.REACT_APP_SERVER}/v1/questions/`;
+  const ANSWERVOTEPLUS_URL = `${process.env.REACT_APP_SERVER}/v1/answers/`;
+  const ANSWERVOTEMINUS_URL = `${process.env.REACT_APP_SERVER}/v1/answers/`;
 
   function answerVotePlus(answerId) {
     axios.patch(
@@ -130,9 +130,7 @@ function MainpageD() {
   const token = localStorage.getItem("access_token");
   useEffect(() => {
     axios
-      .get(
-        `http://ec2-52-79-226-32.ap-northeast-2.compute.amazonaws.com:8080/v1/questions/${id}`
-      )
+      .get(`${process.env.REACT_APP_SERVER}/v1/questions/${id}`)
       .then((response) => {
         setData(response.data.data);
       })
@@ -148,7 +146,7 @@ function MainpageD() {
   useEffect(() => {
     axios
       .get(
-        `http://ec2-52-79-226-32.ap-northeast-2.compute.amazonaws.com:8080/v1/questions/${id}/answers?page=20&size=5`
+        `${process.env.REACT_APP_SERVER}/v1/questions/${id}/answers?page=20&size=5`
       )
       .then((response) => {
         setAnswers(response.data.data);
@@ -165,7 +163,7 @@ function MainpageD() {
     e.preventDefault();
     try {
       await axios.post(
-        `http://ec2-52-79-226-32.ap-northeast-2.compute.amazonaws.com:8080/v1/questions/${id}/answers/`,
+        `${process.env.REACT_APP_SERVER}/v1/questions/${id}/answers/`,
         {
           memberId: 1,
           contents: newAnswer,
@@ -183,7 +181,7 @@ function MainpageD() {
     if (window.confirm("진짜 지울거임?")) {
       try {
         await axios.delete(
-          `http://ec2-52-79-226-32.ap-northeast-2.compute.amazonaws.com:8080/v1/questions/${id}`,
+          `${process.env.REACT_APP_SERVER}/v1/questions/${id}`,
           { headers: { Authorization: token } }
         );
         alert("질문삭제완료");
@@ -206,7 +204,7 @@ function MainpageD() {
     if (window.confirm("진짜 지울거임?")) {
       try {
         await axios.delete(
-          `http://ec2-52-79-226-32.ap-northeast-2.compute.amazonaws.com:8080/v1/answers/${select}`,
+          `${process.env.REACT_APP_SERVER}/v1/answers/${select}`,
           { headers: { Authorization: token } }
         );
         alert("답변삭제완료");
