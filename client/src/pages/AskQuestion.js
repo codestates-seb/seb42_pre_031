@@ -301,7 +301,7 @@ export default function AskQuestion({ setIsSidebar, setIsFooter }) {
     }
     try {
       const response = await axios.post(
-        "http://ec2-52-79-226-32.ap-northeast-2.compute.amazonaws.com:8080/v1/questions",
+        `${process.env.REACT_APP_SERVER}/v1/questions`,
 
         {
           memberId: 1,

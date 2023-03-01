@@ -255,9 +255,7 @@ export default function EditQuestion({ setIsSidebar, setIsFooter }) {
   // 질문 제목 불러오는 api
   useEffect(() => {
     axios
-      .get(
-        `http://ec2-52-79-226-32.ap-northeast-2.compute.amazonaws.com:8080/v1/questions/${id}`
-      )
+      .get(`${process.env.REACT_APP_SERVER}/v1/questions/${id}`)
       .then((response) => {
         setQuestionTitle(response.data.data.questionTitle);
       })
@@ -270,9 +268,7 @@ export default function EditQuestion({ setIsSidebar, setIsFooter }) {
   // 질문 내용 불러오는 api
   useEffect(() => {
     axios
-      .get(
-        `http://ec2-52-79-226-32.ap-northeast-2.compute.amazonaws.com:8080/v1/questions/${id}`
-      )
+      .get(`${process.env.REACT_APP_SERVER}/v1/questions/${id}`)
       .then((response) => {
         setQuestionContent(response.data.data.questionContents);
       })
@@ -284,9 +280,7 @@ export default function EditQuestion({ setIsSidebar, setIsFooter }) {
   // 질문 시도내용 불러오는 api
   useEffect(() => {
     axios
-      .get(
-        `http://ec2-52-79-226-32.ap-northeast-2.compute.amazonaws.com:8080/v1/questions/${id}`
-      )
+      .get(`${process.env.REACT_APP_SERVER}/v1/questions/${id}`)
       .then((response) => {
         setQuestionTry(response.data.data.questionTrial);
       })
@@ -308,7 +302,7 @@ export default function EditQuestion({ setIsSidebar, setIsFooter }) {
     e.preventDefault();
     try {
       await axios.patch(
-        `http://ec2-52-79-226-32.ap-northeast-2.compute.amazonaws.com:8080/v1/questions/${id}`,
+        `${process.env.REACT_APP_SERVER}/v1/questions/${id}`,
         {
           answerId: id,
           questionTitle: questionTitle,

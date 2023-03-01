@@ -60,10 +60,11 @@ function Main({ searchInput, setIsSidebar, setIsFooter }) {
   }, []);
   // 질문목록 불러오기
   // 페이지네이션 여기 수정하면됩니다
+
   useEffect(() => {
     axios
       .get(
-        `http://ec2-52-79-226-32.ap-northeast-2.compute.amazonaws.com:8080/v1/questions?page=${page}&size=${size}`
+        `${process.env.REACT_APP_SERVER}/v1/questions?page=${page}&size=${size}`
       )
       .then((response) => {
         setData(response.data.data);
@@ -75,7 +76,7 @@ function Main({ searchInput, setIsSidebar, setIsFooter }) {
   useEffect(() => {
     axios
       .get(
-        `http://ec2-52-79-226-32.ap-northeast-2.compute.amazonaws.com:8080/v1/questions/search?keyword=${searchInput}&page=${page}&size=${size}`
+        `${process.env.REACT_APP_SERVER}/v1/questions/search?keyword=${searchInput}&page=${page}&size=${size}`
       )
       .then((response) => {
         setFilterData(response.data.data);
