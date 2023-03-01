@@ -95,16 +95,32 @@ function MainpageD() {
   const ANSWERVOTEMINUS_URL = `http://ec2-52-79-226-32.ap-northeast-2.compute.amazonaws.com:8080/v1/answers/`;
 
   function answerVotePlus(answerId) {
-    axios.patch(ANSWERVOTEPLUS_URL + answerId + "/votePlus");
+    axios.patch(
+      ANSWERVOTEPLUS_URL + answerId + "/votePlus",
+      {},
+      { headers: { Authorization: token } }
+    );
   }
   function answerVoteMinus(answerId) {
-    axios.patch(ANSWERVOTEMINUS_URL + answerId + "/voteMinus");
+    axios.patch(
+      ANSWERVOTEMINUS_URL + answerId + "/voteMinus",
+      {},
+      { headers: { Authorization: token } }
+    );
   }
   function votePlus(e) {
-    axios.patch(VOTEPLUS_URL + id + "/votePlus");
+    axios.patch(
+      VOTEPLUS_URL + id + "/votePlus",
+      {},
+      { headers: { Authorization: token } }
+    );
   }
   function voteMinus(e) {
-    axios.patch(VOTEMINUS_URL + id + "/voteMinus");
+    axios.patch(
+      VOTEMINUS_URL + id + "/voteMinus",
+      {},
+      { headers: { Authorization: token } }
+    );
   }
 
   const navigate = useNavigate();

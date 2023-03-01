@@ -148,19 +148,27 @@ let Main2div21 = styled.div`
 `;
 let Main2div21a = styled.a`
   box-sizing: border-box;
-  display: block;
+  border-color: hsl(210, 8%, 65%);
   margin-bottom: -1px;
-  margin-right: -1px;
-  z-index: 25;
-  padding: 0.8em;
-  cursor: pointer;
-  border-radius: 3px;
   border: 1px solid hsl(210, 8%, 65%);
-  font-weight: normal;
-  line-height: 15px;
-  color: rgb(59, 64, 69);
-  background-color: #e4e5e7;
+  margin-right: -1px;
+  position: relative;
+  font-size: 100%;
+  padding: 10.4px;
+  text-align: center;
+  text-decoration-color: rgb(106, 115, 124);
+  text-decoration-line: none;
+  text-decoration-style: solid;
+  text-decoration-thickness: auto;
+  vertical-align: baseline;
+  white-space: nowrap;
+  color: rgb(106, 115, 124);
   box-shadow: none;
+  cursor: pointer;
+  user-select: none;
+  :hover {
+    background-color: hsl(210, 8%, 95%);
+  }
 `;
 let Main2div21a1 = styled.a`
   box-sizing: border-box;

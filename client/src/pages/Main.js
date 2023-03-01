@@ -78,11 +78,11 @@ function Main({ searchInput, setIsSidebar, setIsFooter }) {
             <Main2div1></Main2div1>
             <Main2div2>
               <Main2div21>
-                <Main2div21a>Interesting</Main2div21a>
+                <Main2div21a onClick={()=>setTureFalse(false)} >Time</Main2div21a>
                 <Main2div21a1>
                   <Main2div21a1span>281</Main2div21a1span>"Bountied"
                 </Main2div21a1>
-                <Main2div21a2>Hot</Main2div21a2>
+                <Main2div21a2 onClick={()=>setTureFalse(true)}>Hot</Main2div21a2>
                 <Main2div21a2>Week</Main2div21a2>
                 <Main2div21a2L>Month</Main2div21a2L>
               </Main2div21>
