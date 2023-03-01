@@ -1,12 +1,10 @@
-import { useEffect, useState } from "react";
-import styled from "styled-components";
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import writepen from "../images/writepen.png";
+import { useEffect, useState } from "react";
+import ReactQuill from "react-quill";
+import { useNavigate, useParams } from "react-router-dom";
+import styled from "styled-components";
 
-const AskQ = styled.div`
+const AskEdit = styled.div`
   display: flex;
   flex-direction: column;
   padding: 0px 16px 24px 16px;
@@ -239,27 +237,92 @@ const AskQ = styled.div`
     }
   }
 `;
-export default function AskQuestion({ setIsSidebar, setIsFooter }) {
+
+export default function EditQuestion({ setIsSidebar, setIsFooter }) {
+  const { id } = useParams();
   const navigate = useNavigate();
   useEffect(() => {
     setIsSidebar(false);
     setIsFooter(true);
   }, []);
+  const token = localStorage.getItem("access_token");
   // 타이틀모달
   const [isGoodTitle, setIsGoodTitle] = useState(false);
   // 타이틀 인풋 클릭 시 모달
   const goodTitleHandler = () => {
     setIsGoodTitle(true);
   };
+  // 질문 제목 불러오는 api
+  useEffect(() => {
+    axios
+      .get(
+        `http://ec2-52-79-226-32.ap-northeast-2.compute.amazonaws.com:8080/v1/questions/${id}`
+      )
+      .then((response) => {
+        setQuestionTitle(response.data.data.questionTitle);
+      })
+      .catch((err) => {
+        console.log(err);
+        navigate("/error");
+      });
+  }, [id]);
+
+  // 질문 내용 불러오는 api
+  useEffect(() => {
+    axios
+      .get(
+        `http://ec2-52-79-226-32.ap-northeast-2.compute.amazonaws.com:8080/v1/questions/${id}`
+      )
+      .then((response) => {
+        setQuestionContent(response.data.data.questionContents);
+      })
+      .catch((err) => {
+        console.log(err);
+        navigate("/error");
+      });
+  }, [id]);
+  // 질문 시도내용 불러오는 api
+  useEffect(() => {
+    axios
+      .get(
+        `http://ec2-52-79-226-32.ap-northeast-2.compute.amazonaws.com:8080/v1/questions/${id}`
+      )
+      .then((response) => {
+        setQuestionTry(response.data.data.questionTrial);
+      })
+      .catch((err) => {
+        console.log(err);
+        navigate("/error");
+      });
+  }, [id]);
+
   // Title 인풋
   const [questionTitle, setQuestionTitle] = useState("");
   // 질문 본문 인풋
   const [questionContent, setQuestionContent] = useState("");
-
   // 시도 인풋
   const [questionTry, setQuestionTry] = useState("");
 
-  //FIXME: 태그 인풋
+  // 질문 수정 api
+  const handleEditQuestion = async (e) => {
+    e.preventDefault();
+    try {
+      await axios.patch(
+        `http://ec2-52-79-226-32.ap-northeast-2.compute.amazonaws.com:8080/v1/questions/${id}`,
+        {
+          answerId: id,
+          questionTitle: questionTitle,
+          questionContents: questionContent,
+          questionTrial: questionTry,
+        },
+        { headers: { Authorization: token } }
+      );
+      navigate(`/question/${id}`);
+    } catch (error) {
+      console.log(error);
+      navigate("/error");
+    }
+  };
 
   //에디터 모듈
   const modules = {
@@ -290,37 +353,9 @@ export default function AskQuestion({ setIsSidebar, setIsFooter }) {
       ],
     },
   };
-  const token = localStorage.getItem("access_token");
-  // 질문 내역 POST 요청 >> 구현 완료
-  //FIXME 아이디 부분에 로그인한 유저 아이디로 들어가야함
-  const questionSubmit = async (e) => {
-    e.preventDefault();
-    if (!questionContent) {
-      alert("게시글을 입력해주세요");
-      return;
-    }
-    try {
-      const response = await axios.post(
-        "http://ec2-52-79-226-32.ap-northeast-2.compute.amazonaws.com:8080/v1/questions",
-
-        {
-          memberId: 1,
-          questionTitle: questionTitle,
-          questionContents: questionContent,
-          questionTrial: questionTry,
-        },
-        { headers: { Authorization: token } }
-      );
-      console.log(response);
-      navigate("/");
-    } catch (error) {
-      console.log(error);
-      navigate("/error");
-    }
-  };
 
   return (
-    <AskQ>
+    <AskEdit>
       <h1>Ask a public question</h1>
       <div className="question-explain">
         <h2>Writing a good question</h2>
@@ -351,7 +386,7 @@ export default function AskQuestion({ setIsSidebar, setIsFooter }) {
           </div>
           <div className="good-title-box">
             <div className="good-title-pen">
-              <img src={writepen} />
+              <img src="writepen.png" />
             </div>
             <div className="good-title-contents">
               <p>Your title should summarize the problem.</p>
@@ -372,6 +407,7 @@ export default function AskQuestion({ setIsSidebar, setIsFooter }) {
           onClick={goodTitleHandler}
           placeholder="e.g Is there an R function for finding the index of an element in a vector?"
           onChange={(e) => setQuestionTitle(e.target.value)}
+          value={questionTitle}
         ></input>
       </div>
       <div className="ask-problem">
@@ -387,6 +423,7 @@ export default function AskQuestion({ setIsSidebar, setIsFooter }) {
           theme="snow"
           modules={modules}
           onChange={(e) => setQuestionContent(e)}
+          value={questionContent}
         />
       </div>
       <div className="ask-expect">
@@ -401,6 +438,7 @@ export default function AskQuestion({ setIsSidebar, setIsFooter }) {
           theme="snow"
           modules={modules}
           onChange={(e) => setQuestionTry(e)}
+          value={questionTry}
         />
       </div>
       <div className="tags-gen">
@@ -413,15 +451,9 @@ export default function AskQuestion({ setIsSidebar, setIsFooter }) {
           <input placeholder="e.g (ajax iphone string"></input>
         </div>
       </div>
-      <button onClick={questionSubmit} className="post-question">
-        Post your question
+      <button onClick={handleEditQuestion} className="post-question">
+        Edit your question
       </button>
-      <input
-        defaultValue={questionContent.replace(/(<([^>]+)>)/gi, "")}
-      ></input>
-    </AskQ>
+    </AskEdit>
   );
 }
-
-// TODO: 인풋창 정리
-// 에디터 인풋이 target.value 를 못읽음?

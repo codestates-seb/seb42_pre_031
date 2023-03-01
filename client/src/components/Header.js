@@ -1,5 +1,11 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import logo from "../images/logo.png";
+import search from "../images/search.png";
+import inbox from "../images/inbox.png";
+import question from "../images/question.png";
+import trophy from "../images/trophy.png";
+import star from "../images/star.png";
 
 const Head = styled.header`
   display: flex;
@@ -16,6 +22,7 @@ const Head = styled.header`
   z-index: 100;
   .head-wrap {
     display: flex;
+    justify-content: center;
     width: 100%;
     align-items: center;
     max-width: 1264px;
@@ -24,16 +31,18 @@ const Head = styled.header`
   .head-wrap > a {
     cursor: pointer;
     text-decoration: none;
+    display: flex;
   }
   .head-logo {
     width: 150px;
     height: 30px;
+    padding-right: 20px;
   }
   .icon-set {
     display: flex;
     align-items: center;
     justify-content: space-around;
-    width: 12%;
+    width: 14%;
     > a {
       display: flex;
       align-items: center;
@@ -60,9 +69,10 @@ const Head = styled.header`
     align-items: center;
     border: 2px solid rgb(235, 236, 237);
     border-radius: 5px;
-    width: 64%;
+    width: 50%;
     height: 30px;
     background-color: white;
+    padding-left: 10px;
     > img {
       width: 20px;
       height: 20px;
@@ -89,30 +99,30 @@ const Head = styled.header`
     width: 30px;
     height: 30px;
   }
-  .products {
-    width: 10%;
-    font-size: 15px;
-  }
 `;
-export default function Header() {
+export default function Header({ setSearchInput, userInfo }) {
+  const membertoken = localStorage.getItem("member_token");
+
   return (
     <Head>
       <div className="head-wrap">
         <Link to="/">
-          <img className="head-logo" src="logo.png" />
+          <img className="head-logo" src={logo} />
         </Link>
-        <div className="products">Products</div>
         <div className="top-search-bar">
-          <img src="search.png" />
-          <input placeholder="Search..."></input>
+          <img src={search} />
+          <input
+            placeholder="Search..."
+            onChange={(e) => setSearchInput(e.target.value)}
+          ></input>
         </div>
-        <Link to="/mypage" className="my-icon-wrap">
-          <img className="my-icon" src="logo192.png" />
+        <Link to={`/users/${membertoken}`} className="my-icon-wrap">
+          <img className="my-icon" src={star} />
         </Link>
         <div className="icon-set">
-          <img src="inbox.png" />
-          <img src="trophy.png" />
-          <img src="question.png" />
+          <img src={inbox} />
+          <img src={trophy} />
+          <img src={question} />
           <Link to="/logout">Log out</Link>
         </div>
       </div>

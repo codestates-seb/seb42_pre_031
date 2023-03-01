@@ -1,142 +1,209 @@
-import { Link } from "react-router-dom";
-import styled from "styled-components";
-
-const LeftBar = styled.div`
-  display: flex;
-
-  flex-direction: column;
-  align-items: center;
-  width: 164px;
-  height: 100%;
-  z-index: 20;
-  background-color: white;
-  border-right: 1px solid rgb(235, 236, 237);
-
-  .tag_mypage {
-    display: flex;
-    flex-direction: column;
-    color: rgb(133, 140, 148);
-    > a {
-      height: 26px;
-      display: flex;
-      align-items: center;
-      color: black;
-      padding-left: 20px;
-    }
-    > a:focus {
-      background-color: rgb(241, 242, 243);
-      font-weight: bold;
-      color: black;
-      border-right: 2px solid rgb(229, 135, 62);
-    }
-  }
-  .side-move {
-    position: fixed;
-    padding-top: 30px;
-    text-align: start;
-    width: 159px;
-  }
-  .side-home {
-    display: flex;
-    > a {
-      display: flex;
-      align-items: center;
-      width: 100%;
-      height: 26px;
-      color: rgb(133, 140, 148);
-    }
-    > a:focus {
-      background-color: rgb(241, 242, 243);
-      font-weight: bold;
-      color: black;
-      border-right: 2px solid rgb(229, 135, 62);
-    }
-  }
-  .side-collective {
-    color: rgb(133, 140, 148);
-    > p {
-      display: flex;
-      align-items: center;
-    }
-  }
-  .side-teams {
-    color: rgb(133, 140, 148);
-    > p {
-      display: flex;
-      align-items: center;
-    }
-  }
-  .exco {
-    color: black;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    > img {
-      width: 25px;
-      height: 25px;
-    }
-  }
-  .cft {
-    color: black;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    > img {
-      width: 15px;
-      height: 15px;
-    }
-  }
-  .info-icon {
-    width: 15px;
-    height: 15px;
-    filter: opacity(0.5) drop-shadow(0 0 0 grey);
-  }
-  .col {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-right: 5px;
-  }
-  .tea {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-right: 5px;
-  }
-`;
-export default function Sidebar() {
+import {
+  Sidebar,
+  SidebarMain,
+  Sidebar1,
+  SidebarSvg,
+  Sidebarli,
+  Sidebarli1,
+  SidebarDiv,
+  SidebarDivDiv,
+  SidebarDivDiva,
+} from "../Style/StyleSidebar2.js";
+import { Sidebar2 } from "./SideBar2.js";
+import { Sidebar3th } from "./SideBar3.js";
+import {
+  Sidebar4,
+  Sidebar4div,
+  Sidebar4diva,
+  Sidebar41,
+  Sidebar411,
+  Sidebar411div,
+  Sidebar411div1,
+  Sidebar411div11,
+  Sidebar411div2,
+  Sidebar411div2h1,
+  Sidebar411div2a,
+  Sidebar411div2div,
+  Sidebar411div3,
+  Sidebar411div3from,
+  Sidebar411div3formip,
+  Sidebar411div3formbtn,
+  Sidebar411div12span,
+} from "../Style/Sidebar4";
+function MainSidebar() {
   return (
-    <LeftBar>
-      <div className="side-move">
-        <div className="side-home">
-          <Link to="/">Home</Link>
-        </div>
-        <div className="tag_mypage">
-          <p>PUBLIC</p>
-          <Link to="/tag">Tags</Link>
-          <Link to="/mypage">Users</Link>
-        </div>
-        <div className="side-collective">
-          <div className="col">
-            <p>COLLECTIVES</p>
-            <img className="info-icon" src="info.png" />
-          </div>
-          <p className="exco">
-            <img src="star.png" /> Explore Collectives
-          </p>
-        </div>
-        <div className="side-teams">
-          <div className="tea">
-            <p>TEAMS</p>
-            <img className="info-icon" src="info.png" />
-          </div>
-          <p className="cft">
-            <img src="bag.png" /> Create free Team
-          </p>
-        </div>
-      </div>
-    </LeftBar>
+    <Sidebar>
+      <SidebarMain>
+        <Sidebar1>
+          <Sidebarli>The Overflow Blog</Sidebarli>
+          <Sidebarli1>
+            <SidebarDiv>
+              <SidebarSvg>
+                <path d="m11.1 1.71 1.13 1.12c.2.2.2.51 0 .71L11.1 4.7 9.21 2.86l1.17-1.15c.2-.2.51-.2.71 0ZM2 10.12l6.37-6.43 1.88 1.88L3.88 12H2v-1.88Z"></path>
+              </SidebarSvg>
+            </SidebarDiv>
+            <SidebarDivDiv>
+              <SidebarDivDiva>
+                Monitoring debt builds up faster than software teams can pay it
+                off
+              </SidebarDivDiva>
+            </SidebarDivDiv>
+          </Sidebarli1>
+          <Sidebarli1>
+            <SidebarDiv>
+              <SidebarSvg>
+                <path d="m11.1 1.71 1.13 1.12c.2.2.2.51 0 .71L11.1 4.7 9.21 2.86l1.17-1.15c.2-.2.51-.2.71 0ZM2 10.12l6.37-6.43 1.88 1.88L3.88 12H2v-1.88Z"></path>
+              </SidebarSvg>
+            </SidebarDiv>
+            <SidebarDivDiv>
+              <SidebarDivDiva>
+                Because the only thing worse than building internal tools is
+                maintaining them...
+              </SidebarDivDiva>
+            </SidebarDivDiv>
+          </Sidebarli1>
+          <Sidebarli>Featured on Meta</Sidebarli>
+          <Sidebarli1>
+            <SidebarDiv>
+              <SidebarSvg>
+                <path d="m11.1 1.71 1.13 1.12c.2.2.2.51 0 .71L11.1 4.7 9.21 2.86l1.17-1.15c.2-.2.51-.2.71 0ZM2 10.12l6.37-6.43 1.88 1.88L3.88 12H2v-1.88Z"></path>
+              </SidebarSvg>
+            </SidebarDiv>
+            <SidebarDivDiv>
+              <SidebarDivDiva href="https://meta.stackexchange.com/questions/386681/ticket-smash-for-status-review-tag-part-deux?cb=1">
+                Ticket smash for [status-review] tag: Part Deux
+              </SidebarDivDiva>
+            </SidebarDivDiv>
+          </Sidebarli1>
+          <Sidebarli1>
+            <SidebarDiv>
+              <SidebarSvg>
+                <path d="m11.1 1.71 1.13 1.12c.2.2.2.51 0 .71L11.1 4.7 9.21 2.86l1.17-1.15c.2-.2.51-.2.71 0ZM2 10.12l6.37-6.43 1.88 1.88L3.88 12H2v-1.88Z"></path>
+              </SidebarSvg>
+            </SidebarDiv>
+            <SidebarDivDiv>
+              <SidebarDivDiva href="https://meta.stackexchange.com/questions/386681/ticket-smash-for-status-review-tag-part-deux?cb=1">
+                We&#39;ve added a &quot;Necessary cookies only&quot; option to
+                the cookie...
+              </SidebarDivDiva>
+            </SidebarDivDiv>
+          </Sidebarli1>
+          <Sidebarli1>
+            <SidebarDiv>
+              <SidebarSvg>
+                <path d="m11.1 1.71 1.13 1.12c.2.2.2.51 0 .71L11.1 4.7 9.21 2.86l1.17-1.15c.2-.2.51-.2.71 0ZM2 10.12l6.37-6.43 1.88 1.88L3.88 12H2v-1.88Z"></path>
+              </SidebarSvg>
+            </SidebarDiv>
+            <SidebarDivDiv>
+              <SidebarDivDiva href="https://meta.stackexchange.com/questions/386681/ticket-smash-for-status-review-tag-part-deux?cb=1">
+                We’ve made changes to our Privacy Notice for Collectives™
+              </SidebarDivDiva>
+            </SidebarDivDiv>
+          </Sidebarli1>
+          <Sidebarli1>
+            <SidebarDiv>
+              <SidebarSvg>
+                <path d="m11.1 1.71 1.13 1.12c.2.2.2.51 0 .71L11.1 4.7 9.21 2.86l1.17-1.15c.2-.2.51-.2.71 0ZM2 10.12l6.37-6.43 1.88 1.88L3.88 12H2v-1.88Z"></path>
+              </SidebarSvg>
+            </SidebarDiv>
+            <SidebarDivDiv>
+              <SidebarDivDiva href="https://meta.stackexchange.com/questions/386681/ticket-smash-for-status-review-tag-part-deux?cb=1">
+                The [amazon] tag is being burninated
+              </SidebarDivDiva>
+            </SidebarDivDiv>
+          </Sidebarli1>
+        </Sidebar1>
+      </SidebarMain>
+      <Sidebar2></Sidebar2>
+      <Sidebar3th />
+      <Sidebar4>
+        <Sidebar4div>
+          Collectives
+          <Sidebar4diva>see all</Sidebar4diva>
+        </Sidebar4div>
+        <Sidebar41>
+          <Sidebar411>
+            <Sidebar411div>
+              <Sidebar411div1>
+                <Sidebar411div11>IMG</Sidebar411div11>
+              </Sidebar411div1>
+              <Sidebar411div2>
+                <Sidebar411div2h1>
+                  <Sidebar411div2a>Twilio</Sidebar411div2a>
+                </Sidebar411div2h1>
+                <Sidebar411div2div>7k Members</Sidebar411div2div>
+              </Sidebar411div2>
+              <Sidebar411div3>
+                <Sidebar411div3from>
+                  <Sidebar411div3formip type="hidden"></Sidebar411div3formip>
+                  <Sidebar411div3formbtn>Join</Sidebar411div3formbtn>
+                </Sidebar411div3from>
+              </Sidebar411div3>
+            </Sidebar411div>
+          </Sidebar411>
+          <Sidebar411div12span>
+            Twilio has democratized channels like voice, text, chat, video, and
+            email by virtualizing the world’s communications infrastructure
+            through APIs that are simple enough for any developer, yet robust
+            enough to power the world’s most demanding applications.
+          </Sidebar411div12span>
+        </Sidebar41>
+        <Sidebar41>
+          <Sidebar411>
+            <Sidebar411div>
+              <Sidebar411div1>
+                <Sidebar411div11>IMG</Sidebar411div11>
+              </Sidebar411div1>
+              <Sidebar411div2>
+                <Sidebar411div2h1>
+                  <Sidebar411div2a>AWS</Sidebar411div2a>
+                </Sidebar411div2h1>
+                <Sidebar411div2div>7k Members</Sidebar411div2div>
+              </Sidebar411div2>
+              <Sidebar411div3>
+                <Sidebar411div3from>
+                  <Sidebar411div3formip type="hidden"></Sidebar411div3formip>
+                  <Sidebar411div3formbtn>Join</Sidebar411div3formbtn>
+                </Sidebar411div3from>
+              </Sidebar411div3>
+            </Sidebar411div>
+          </Sidebar411>
+          <Sidebar411div12span>
+            "Amazon Web Services (AWS) is the world’s most comprehensive and
+            broadly adopted cloud platform, offering over 200 fully featured
+            services from data centers globally. The AWS Collective is a
+            community-driven site with resources for developers."
+          </Sidebar411div12span>
+        </Sidebar41>
+        <Sidebar41>
+          <Sidebar411>
+            <Sidebar411div>
+              <Sidebar411div1>
+                <Sidebar411div11> IMG </Sidebar411div11>
+              </Sidebar411div1>
+              <Sidebar411div2>
+                <Sidebar411div2h1>
+                  <Sidebar411div2a>Microsoft Azure</Sidebar411div2a>
+                </Sidebar411div2h1>
+                <Sidebar411div2div>3k Members</Sidebar411div2div>
+              </Sidebar411div2>
+              <Sidebar411div3>
+                <Sidebar411div3from>
+                  <Sidebar411div3formip type="hidden"></Sidebar411div3formip>
+                  <Sidebar411div3formbtn>Join</Sidebar411div3formbtn>
+                </Sidebar411div3from>
+              </Sidebar411div3>
+            </Sidebar411div>
+          </Sidebar411>
+          <Sidebar411div12span>
+            On-premises, hybrid, multicloud, or at the edge—build on your terms
+            with best-in-class tools, your favorite open-source frameworks and
+            languages, and a platform that supports continuous collaboration and
+            delivery with Azure.
+          </Sidebar411div12span>
+        </Sidebar41>
+      </Sidebar4>
+    </Sidebar>
   );
 }
-
-// 반응형 적용시 사이드바는 디스플레이 none
+export { MainSidebar };
