@@ -168,7 +168,7 @@ function AnswerEdit({ setIsSidebar, setIsFooter }) {
     e.preventDefault();
     try {
       await axios.patch(
-        `http://ec2-52-79-226-32.ap-northeast-2.compute.amazonaws.com:8080/v1/answers/${id}`,
+        `${process.env.REACT_APP_SERVER}/v1/answers/${id}`,
         {
           answerId: id,
           contents: answer,
@@ -195,9 +195,7 @@ function AnswerEdit({ setIsSidebar, setIsFooter }) {
   const [answer, setAnswer] = useState("");
   useEffect(() => {
     axios
-      .get(
-        `http://ec2-52-79-226-32.ap-northeast-2.compute.amazonaws.com:8080/v1/answers/${id}`
-      )
+      .get(`${process.env.REACT_APP_SERVER}/v1/answers/${id}`)
       .then((response) => {
         setAnswer(response.data.data.contents);
       })

@@ -281,20 +281,19 @@ export default function Mypage({ setIsSidebar, setIsFooter }) {
   const token = localStorage.getItem("access_token");
   const membertoken = localStorage.getItem("member_token");
   useEffect(() => {
-    console.log(memberId.id);
     axios
-      .get(
-        `http://ec2-52-79-226-32.ap-northeast-2.compute.amazonaws.com:8080/v1/members/${membertoken}`,
-        { headers: { Authorization: token } }
-      )
+      .get(`${process.env.REACT_APP_SERVER}/v1/members/${membertoken}`, {
+        headers: { Authorization: token },
+      })
       .then((response) => {
         setUserInfo(response.data.data);
       })
       .catch((err) => {
         console.log(err);
+        console.log(membertoken);
         navigate("/error");
       });
-  }, [memberId]);
+  }, [membertoken]);
   // 회원 정보 삭제 요청
   //FIXME: 버튼에 온클릭으로 담기
   const userDeleteHandler = async (e) => {
@@ -302,7 +301,7 @@ export default function Mypage({ setIsSidebar, setIsFooter }) {
     if (window.confirm("진짜 지울거임?")) {
       try {
         await axios.delete(
-          `http://ec2-52-79-226-32.ap-northeast-2.compute.amazonaws.com:8080/v1/members/${membertoken}`,
+          `${process.env.REACT_APP_SERVER}/v1/members/${membertoken}`,
           { headers: { Authorization: token } }
         );
         alert("삭제됐다!!!!");
@@ -349,8 +348,8 @@ export default function Mypage({ setIsSidebar, setIsFooter }) {
           </button>
         </div>
         <div className="user-info-edit">
-          <Link to={`/editmypage/${memberId.id}`}>
-            <i class="fa-sharp fa-solid fa-pen"></i> Edit profile
+          <Link to={`/editmypage/${membertoken}`}>
+            <i className="fa-sharp fa-solid fa-pen"></i> Edit profile
           </Link>
           <div>Profiles</div>
         </div>

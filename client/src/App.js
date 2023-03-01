@@ -47,14 +47,14 @@ function App() {
   // FIXME: 아이디 부분 로그인 상태의 아이디로 수정해야댐
   // 현재 로그인 중인 사용자 아이디
   const token = localStorage.getItem("access_token");
+  const membertoken = localStorage.getItem("member_token");
   const [userInfo, setUserInfo] = useState([]);
 
   useEffect(() => {
     axios
-      .get(
-        "http://ec2-52-79-226-32.ap-northeast-2.compute.amazonaws.com:8080/v1/members/1",
-        { headers: { Authorization: token } }
-      )
+      .get(`${process.env.REACT_APP_SERVER}/v1/members/${membertoken}`, {
+        headers: { Authorization: token },
+      })
       .then((response) => {
         setUserInfo(response.data.data);
         console.log(response);
