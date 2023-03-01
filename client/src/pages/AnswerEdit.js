@@ -179,6 +179,7 @@ function AnswerEdit({ setIsSidebar, setIsFooter }) {
       window.history.back();
     } catch (error) {
       console.log(error);
+      navigate("/error");
     }
   };
 
@@ -202,6 +203,7 @@ function AnswerEdit({ setIsSidebar, setIsFooter }) {
       })
       .catch((err) => {
         console.log(err);
+        navigate("/error");
       });
   }, [id]);
 

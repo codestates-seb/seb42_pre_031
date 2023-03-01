@@ -89,32 +89,39 @@ import ReactQuill from "react-quill";
 
 // 질문 세부내용 페이지 ..
 function MainpageD() {
-  const VOTEPLUS_URL = `http://ec2-52-79-226-32.ap-northeast-2.compute.amazonaws.com:8080/v1/questions/`
-  const VOTEMINUS_URL = `http://ec2-52-79-226-32.ap-northeast-2.compute.amazonaws.com:8080/v1/questions/`
-  const ANSWERVOTEPLUS_URL = `http://ec2-52-79-226-32.ap-northeast-2.compute.amazonaws.com:8080/v1/answers/`
-  const ANSWERVOTEMINUS_URL = `http://ec2-52-79-226-32.ap-northeast-2.compute.amazonaws.com:8080/v1/answers/`
+  const VOTEPLUS_URL = `http://ec2-52-79-226-32.ap-northeast-2.compute.amazonaws.com:8080/v1/questions/`;
+  const VOTEMINUS_URL = `http://ec2-52-79-226-32.ap-northeast-2.compute.amazonaws.com:8080/v1/questions/`;
+  const ANSWERVOTEPLUS_URL = `http://ec2-52-79-226-32.ap-northeast-2.compute.amazonaws.com:8080/v1/answers/`;
+  const ANSWERVOTEMINUS_URL = `http://ec2-52-79-226-32.ap-northeast-2.compute.amazonaws.com:8080/v1/answers/`;
 
-  function answerVotePlus(answerId){
-    axios.patch(ANSWERVOTEPLUS_URL + answerId +'/votePlus',{
-            },
-    { headers: { Authorization: token } })
-  } 
-  function answerVoteMinus(answerId){
-    axios.patch(ANSWERVOTEMINUS_URL + answerId +'/voteMinus',{
-    },
-    { headers: { Authorization: token } })
+  function answerVotePlus(answerId) {
+    axios.patch(
+      ANSWERVOTEPLUS_URL + answerId + "/votePlus",
+      {},
+      { headers: { Authorization: token } }
+    );
   }
-  function votePlus(e){
-    axios.patch(VOTEPLUS_URL + id +'/votePlus',{
-    },
-    { headers: { Authorization: token } })
+  function answerVoteMinus(answerId) {
+    axios.patch(
+      ANSWERVOTEMINUS_URL + answerId + "/voteMinus",
+      {},
+      { headers: { Authorization: token } }
+    );
   }
-  function voteMinus(e){
-    axios.patch(VOTEMINUS_URL + id +'/voteMinus',{
-    },
-    { headers: { Authorization: token } })
+  function votePlus(e) {
+    axios.patch(
+      VOTEPLUS_URL + id + "/votePlus",
+      {},
+      { headers: { Authorization: token } }
+    );
   }
-
+  function voteMinus(e) {
+    axios.patch(
+      VOTEMINUS_URL + id + "/voteMinus",
+      {},
+      { headers: { Authorization: token } }
+    );
+  }
 
   const navigate = useNavigate();
   const { id } = useParams();
@@ -131,6 +138,7 @@ function MainpageD() {
       })
       .catch((err) => {
         console.log(err);
+        navigate("/error");
       });
   }, [data]);
   // 날짜 자르기
@@ -147,6 +155,7 @@ function MainpageD() {
       })
       .catch((err) => {
         console.log(err);
+        navigate("/error");
       });
   }, [answers]);
 
@@ -166,6 +175,7 @@ function MainpageD() {
       alert("답변등록완료");
     } catch (error) {
       console.log(error);
+      navigate("/error");
     }
   };
   // 글삭제 기능
@@ -180,6 +190,7 @@ function MainpageD() {
         navigate("/");
       } catch (error) {
         console.log(error);
+        navigate("/error");
       }
     }
   };
@@ -201,7 +212,7 @@ function MainpageD() {
         alert("답변삭제완료");
       } catch (error) {
         console.log(error);
-        console.log(id);
+        navigate("/error");
       }
     }
   };
@@ -272,14 +283,20 @@ function MainpageD() {
                   <MainpageMain211>
                     <MainpageMain211btn>
                       <MainpageMain211sgv>
-                        <MainpageMain211svgP onClick={votePlus} d="M2 25h32L18 9 2 25Z"></MainpageMain211svgP>
+                        <MainpageMain211svgP
+                          onClick={votePlus}
+                          d="M2 25h32L18 9 2 25Z"
+                        ></MainpageMain211svgP>
                       </MainpageMain211sgv>
                     </MainpageMain211btn>
 
                     <MainpageMain212>{data.voteQCount}</MainpageMain212>
                     <MainpageMain211btn>
                       <MainpageMain211sgv>
-                        <MainpageMain211svgP onClick={voteMinus} d="M2 11h32L18 27 2 11Z"></MainpageMain211svgP>
+                        <MainpageMain211svgP
+                          onClick={voteMinus}
+                          d="M2 11h32L18 27 2 11Z"
+                        ></MainpageMain211svgP>
                       </MainpageMain211sgv>
                     </MainpageMain211btn>
 
@@ -447,7 +464,12 @@ function MainpageD() {
                           <MainpageMain211>
                             <MainpageMain211btn>
                               <MainpageMain211sgv>
-                                <MainpageMain211svgP onClick={()=>answerVotePlus(answer.answerId)} d="M2 25h32L18 9 2 25Z"></MainpageMain211svgP>
+                                <MainpageMain211svgP
+                                  onClick={() =>
+                                    answerVotePlus(answer.answerId)
+                                  }
+                                  d="M2 25h32L18 9 2 25Z"
+                                ></MainpageMain211svgP>
                               </MainpageMain211sgv>
                             </MainpageMain211btn>
 
@@ -456,7 +478,12 @@ function MainpageD() {
                             </MainpageMain212>
                             <MainpageMain211btn>
                               <MainpageMain211sgv>
-                                <MainpageMain211svgP onClick={()=>answerVoteMinus(answer.answerId)} d="M2 11h32L18 27 2 11Z"></MainpageMain211svgP>
+                                <MainpageMain211svgP
+                                  onClick={() =>
+                                    answerVoteMinus(answer.answerId)
+                                  }
+                                  d="M2 11h32L18 27 2 11Z"
+                                ></MainpageMain211svgP>
                               </MainpageMain211sgv>
                             </MainpageMain211btn>
 

@@ -216,17 +216,19 @@ const ProfileEdit = ({ setIsSidebar, setIsFooter }) => {
   // 유저 정보 요청
   const memberId = useParams();
   const [userInfo, setUserInfo] = useState([]);
+  const membertoken = localStorage.getItem("member_token");
   useEffect(() => {
     console.log(memberId.id);
     axios
       .get(
-        `http://ec2-52-79-226-32.ap-northeast-2.compute.amazonaws.com:8080/v1/members/${memberId.id}`
+        `http://ec2-52-79-226-32.ap-northeast-2.compute.amazonaws.com:8080/v1/members/${membertoken}`
       )
       .then((response) => {
         setUserInfo(response.data.data);
       })
       .catch((err) => {
         console.log(err);
+        navigate("/error");
       });
   }, [memberId]);
   // 유저정보 수정 요청
@@ -234,7 +236,7 @@ const ProfileEdit = ({ setIsSidebar, setIsFooter }) => {
     e.preventDefault();
     try {
       const response = await axios.patch(
-        `http://ec2-52-79-226-32.ap-northeast-2.compute.amazonaws.com:8080/v1/members/${memberId.id}`,
+        `http://ec2-52-79-226-32.ap-northeast-2.compute.amazonaws.com:8080/v1/members/${membertoken}`,
         {
           memberName: fullName,
           memberPW: "111111",
@@ -247,6 +249,7 @@ const ProfileEdit = ({ setIsSidebar, setIsFooter }) => {
       navigate(`/users/${memberId.id}`);
     } catch (error) {
       console.log(error);
+      navigate("/error");
     }
   };
 

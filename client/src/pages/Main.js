@@ -33,16 +33,17 @@ import Mainscript from "../components/Mainpage.js";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import FilterMain from "../components/FilterMain.js";
-import styled from 'styled-components';
+import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 
 const PageButton = styled.button`
-  background-color: ${(props) => (props.active ? 'orange' : 'white')};
-  color: ${(props) => (props.active ? 'white' : 'black')};
+  background-color: ${(props) => (props.active ? "orange" : "white")};
+  color: ${(props) => (props.active ? "white" : "black")};
   padding: 8px;
   border: 1px solid gray;
   cursor: pointer;
   &:hover {
-    background-color: ${(props) => (props.active ? 'orange' : 'lightgray')};
+    background-color: ${(props) => (props.active ? "orange" : "lightgray")};
   }
 `;
 
@@ -51,7 +52,8 @@ function Main({ searchInput, setIsSidebar, setIsFooter }) {
   const [data2, setData2] = useState([]);
   const [page, setPage] = useState(1);
   const [size, setSize] = useState(15);
-  
+  const navigate = useNavigate();
+
   useEffect(() => {
     setIsSidebar(true);
     setIsFooter(true);
@@ -60,7 +62,9 @@ function Main({ searchInput, setIsSidebar, setIsFooter }) {
   // 페이지네이션 여기 수정하면됩니다
   useEffect(() => {
     axios
-      .get(`http://ec2-52-79-226-32.ap-northeast-2.compute.amazonaws.com:8080/v1/questions?page=${page}&size=${size}`)
+      .get(
+        `http://ec2-52-79-226-32.ap-northeast-2.compute.amazonaws.com:8080/v1/questions?page=${page}&size=${size}`
+      )
       .then((response) => {
         setData(response.data.data);
         setData2(response.data.data);
@@ -71,19 +75,19 @@ function Main({ searchInput, setIsSidebar, setIsFooter }) {
   useEffect(() => {
     axios
       .get(
-        `http://ec2-52-79-226-32.ap-northeast-2.compute.amazonaws.com:8080/v1/questions/search?keyword=${searchInput}&page=1&size=15`
+        `http://ec2-52-79-226-32.ap-northeast-2.compute.amazonaws.com:8080/v1/questions/search?keyword=${searchInput}&page=${page}&size=${size}`
       )
       .then((response) => {
         setFilterData(response.data.data);
         console.log(response);
+      })
+      .catch((err) => {
+        console.log(err);
+        navigate("/error");
       });
-  }, [searchInput]);
+  }, [searchInput, page, size]);
   const [tureFalse, setTureFalse] = useState(false);
 
-
-
-
-  
   return (
     <Container>
       <Content>
@@ -98,11 +102,15 @@ function Main({ searchInput, setIsSidebar, setIsFooter }) {
             <Main2div1></Main2div1>
             <Main2div2>
               <Main2div21>
-                <Main2div21a onClick={()=>setTureFalse(false)} >Time</Main2div21a>
+                <Main2div21a onClick={() => setTureFalse(false)}>
+                  Time
+                </Main2div21a>
                 <Main2div21a1>
                   <Main2div21a1span>281</Main2div21a1span>"Bountied"
                 </Main2div21a1>
-                <Main2div21a2 onClick={()=>setTureFalse(true)}>Hot</Main2div21a2>
+                <Main2div21a2 onClick={() => setTureFalse(true)}>
+                  Hot
+                </Main2div21a2>
                 <Main2div21a2>Week</Main2div21a2>
                 <Main2div21a2L>Month</Main2div21a2L>
               </Main2div21>
@@ -110,7 +118,12 @@ function Main({ searchInput, setIsSidebar, setIsFooter }) {
           </Main2div>
 
           {searchInput === "" ? (
-            <Mainscript data={data} setData={setData} data2={data2}tureFalse={tureFalse}/>
+            <Mainscript
+              data={data}
+              setData={setData}
+              data2={data2}
+              tureFalse={tureFalse}
+            />
           ) : (
             <FilterMain filterData={filterData} setFilterData={setFilterData} />
           )}
@@ -127,30 +140,37 @@ function Main({ searchInput, setIsSidebar, setIsFooter }) {
         </Mainbar>
 
         <Mainpn>
-                {[15, 30, 50].map((s) => (
-                <PageButton key={s} onClick={() => { setSize(s); setPage(1); }} active={s === size}>
-                {s}
-      </PageButton>
-      ))}
-      <Mainpnspan>per page</Mainpnspan>
-      </Mainpn>
+          {[15, 30, 50].map((s) => (
+            <PageButton
+              key={s}
+              onClick={() => {
+                setSize(s);
+                setPage(1);
+              }}
+              active={s === size}
+            >
+              {s}
+            </PageButton>
+          ))}
+          <Mainpnspan>per page</Mainpnspan>
+        </Mainpn>
 
-                <Mainpn2>
-                {[...Array(10)].map((_, i) => (
-                  <PageButton
-                  key={i}
-                  onClick={() => setPage(i + 1)}
-                  active={i + 1 === page}
-                  >
-                 {i + 1}
-                </PageButton>
-                ))}
+        <Mainpn2>
+          {[...Array(10)].map((_, i) => (
+            <PageButton
+              key={i}
+              onClick={() => setPage(i + 1)}
+              active={i + 1 === page}
+            >
+              {i + 1}
+            </PageButton>
+          ))}
 
-            <a>...</a>
-            <Mainpn2a1 onClick={() => setPage(1567342)}>1567342</Mainpn2a1>
-            <Mainpn2a1 onClick={() => setPage(page + 1)}>Next</Mainpn2a1>  
-          </Mainpn2>
-        </Content>
+          <a>...</a>
+          <Mainpn2a1 onClick={() => setPage(1567342)}>1567342</Mainpn2a1>
+          <Mainpn2a1 onClick={() => setPage(page + 1)}>Next</Mainpn2a1>
+        </Mainpn2>
+      </Content>
       <MainSidebar />
     </Container>
   );

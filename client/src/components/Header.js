@@ -101,6 +101,8 @@ const Head = styled.header`
   }
 `;
 export default function Header({ setSearchInput, userInfo }) {
+  const membertoken = localStorage.getItem("member_token");
+
   return (
     <Head>
       <div className="head-wrap">
@@ -114,7 +116,7 @@ export default function Header({ setSearchInput, userInfo }) {
             onChange={(e) => setSearchInput(e.target.value)}
           ></input>
         </div>
-        <Link to={`/users/${userInfo.memberId}`} className="my-icon-wrap">
+        <Link to={`/users/${membertoken}`} className="my-icon-wrap">
           <img className="my-icon" src={star} />
         </Link>
         <div className="icon-set">

@@ -109,6 +109,7 @@ const LeftBar = styled.div`
   }
 `;
 export default function LeftSidebar({ userInfo }) {
+  const membertoken = localStorage.getItem("member_token");
   return (
     <LeftBar>
       <div className="side-move">
@@ -118,7 +119,7 @@ export default function LeftSidebar({ userInfo }) {
         <div className="tag_mypage">
           <p>PUBLIC</p>
           <a>Tags</a>
-          <Link to={`/users/${userInfo.memberId}`}>Users</Link>
+          <Link to={`/users/${membertoken}`}>Users</Link>
         </div>
         <div className="side-collective">
           <div className="col">

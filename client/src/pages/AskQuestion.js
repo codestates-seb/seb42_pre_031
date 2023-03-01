@@ -4,6 +4,7 @@ import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import writepen from "../images/writepen.png";
 
 const AskQ = styled.div`
   display: flex;
@@ -314,6 +315,7 @@ export default function AskQuestion({ setIsSidebar, setIsFooter }) {
       navigate("/");
     } catch (error) {
       console.log(error);
+      navigate("/error");
     }
   };
 
@@ -349,7 +351,7 @@ export default function AskQuestion({ setIsSidebar, setIsFooter }) {
           </div>
           <div className="good-title-box">
             <div className="good-title-pen">
-              <img src="writepen.png" />
+              <img src={writepen} />
             </div>
             <div className="good-title-contents">
               <p>Your title should summarize the problem.</p>
