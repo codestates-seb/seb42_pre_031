@@ -218,9 +218,10 @@ const ProfileEdit = ({ setIsSidebar, setIsFooter }) => {
   const [userInfo, setUserInfo] = useState([]);
   const membertoken = localStorage.getItem("member_token");
   useEffect(() => {
-    console.log(memberId.id);
     axios
-      .get(`${process.env.REACT_APP_SERVER}/v1/members/${membertoken}`)
+      .get(`${process.env.REACT_APP_SERVER}/v1/members/${membertoken}`, {
+        headers: { Authorization: token },
+      })
       .then((response) => {
         setUserInfo(response.data.data);
       })
@@ -228,7 +229,7 @@ const ProfileEdit = ({ setIsSidebar, setIsFooter }) => {
         console.log(err);
         navigate("/error");
       });
-  }, [memberId]);
+  }, [membertoken]);
   // 유저정보 수정 요청
   const handleSubmit = async (e) => {
     e.preventDefault();
