@@ -263,6 +263,7 @@ export default function EditQuestion({ setIsSidebar, setIsFooter }) {
       })
       .catch((err) => {
         console.log(err);
+        navigate("/error");
       });
   }, [id]);
 
@@ -277,6 +278,7 @@ export default function EditQuestion({ setIsSidebar, setIsFooter }) {
       })
       .catch((err) => {
         console.log(err);
+        navigate("/error");
       });
   }, [id]);
   // 질문 시도내용 불러오는 api
@@ -290,6 +292,7 @@ export default function EditQuestion({ setIsSidebar, setIsFooter }) {
       })
       .catch((err) => {
         console.log(err);
+        navigate("/error");
       });
   }, [id]);
 
@@ -317,6 +320,7 @@ export default function EditQuestion({ setIsSidebar, setIsFooter }) {
       navigate(`/question/${id}`);
     } catch (error) {
       console.log(error);
+      navigate("/error");
     }
   };
 

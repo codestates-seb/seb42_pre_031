@@ -279,11 +279,12 @@ export default function Mypage({ setIsSidebar, setIsFooter }) {
   const memberId = useParams();
   const [userInfo, setUserInfo] = useState([]);
   const token = localStorage.getItem("access_token");
+  const membertoken = localStorage.getItem("member_token");
   useEffect(() => {
     console.log(memberId.id);
     axios
       .get(
-        `http://ec2-52-79-226-32.ap-northeast-2.compute.amazonaws.com:8080/v1/members/${memberId.id}`,
+        `http://ec2-52-79-226-32.ap-northeast-2.compute.amazonaws.com:8080/v1/members/${membertoken}`,
         { headers: { Authorization: token } }
       )
       .then((response) => {
@@ -291,6 +292,7 @@ export default function Mypage({ setIsSidebar, setIsFooter }) {
       })
       .catch((err) => {
         console.log(err);
+        navigate("/error");
       });
   }, [memberId]);
   // 회원 정보 삭제 요청
@@ -300,11 +302,13 @@ export default function Mypage({ setIsSidebar, setIsFooter }) {
     if (window.confirm("진짜 지울거임?")) {
       try {
         await axios.delete(
-          `http://ec2-52-79-226-32.ap-northeast-2.compute.amazonaws.com:8080/v1/members/${memberId.id}`,
+          `http://ec2-52-79-226-32.ap-northeast-2.compute.amazonaws.com:8080/v1/members/${membertoken}`,
           { headers: { Authorization: token } }
         );
         alert("삭제됐다!!!!");
+        localStorage.clear();
         navigate("/");
+        window.location.reload();
       } catch (error) {
         console.log(error);
         alert("삭제안됨;;");

@@ -6,7 +6,7 @@ import Footer from "./components/Footer";
 import Sidebar from "./components/LeftSidebar";
 import Main from "./pages/Main";
 import Login from "./pages/Login";
-import TagPage from "./pages/TagPage";
+
 import SignUp from "./pages/SignUp";
 import HeaderLogout from "./components/HeaderLogout";
 import { useEffect, useState } from "react";
@@ -19,6 +19,7 @@ import AnswerEdit from "./pages/AnswerEdit";
 import EditQuestion from "./pages/EditQuestion";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import ErrorPage from "./pages/ErrorPage";
 
 const Dev = styled.div`
   display: flex;
@@ -83,7 +84,7 @@ function App() {
                 />
               }
             />
-            <Route path="/tag" element={<TagPage />} />
+
             <Route
               path="/login"
               element={
@@ -153,6 +154,15 @@ function App() {
               path="/editanswer/:id"
               element={
                 <AnswerEdit
+                  setIsSidebar={setIsSidebar}
+                  setIsFooter={setIsFooter}
+                />
+              }
+            />
+            <Route
+              path="/error"
+              element={
+                <ErrorPage
                   setIsSidebar={setIsSidebar}
                   setIsFooter={setIsFooter}
                 />

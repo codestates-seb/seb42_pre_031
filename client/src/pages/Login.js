@@ -142,9 +142,10 @@ function Login({ setIsSidebar, setIsFooter, setIsLogin }) {
         }
       );
       const accessToken = response.headers.authorization;
-
+      const memberToken = response.headers.memberid;
       console.log(response);
       localStorage.setItem("access_token", accessToken);
+      localStorage.setItem("member_token", memberToken);
 
       setIsSidebar(false);
       setIsFooter(false);
@@ -154,21 +155,6 @@ function Login({ setIsSidebar, setIsFooter, setIsLogin }) {
       console.log(error);
     }
   };
-
-  // const emailRegex =
-  //   /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
-  // async function getLogin() {
-  //   if (!emailRegex.test(account.email)) {
-  //     Alert('error', 'The email is not a valid email address.');
-  //   } else if (account.password.length < 4) {
-  //     Alert('error', 'Please enter at least 4 characters for the password.');
-  //   } else {
-
-  //
-  //
-  //     }
-  //   }
-  // }
 
   return (
     <Container>

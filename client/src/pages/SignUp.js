@@ -142,6 +142,21 @@ function SignUp({ setIsSidebar, setIsFooter }) {
   // 회원가입 요청 axios
   const signUp = async (e) => {
     e.preventDefault();
+    if (nickName === "") {
+      setConfirmNickName("Display name cannot be empty.");
+    } else {
+      setConfirmNickName("");
+    }
+    if (email === "") {
+      setConfirmEmail("Email cannot be empty.");
+    } else {
+      setConfirmEmail("");
+    }
+    if (password === "") {
+      setConfirmPassword("Password cannot be empty.");
+    } else {
+      setConfirmPassword("");
+    }
     try {
       const response = await axios.post(
         "http://ec2-52-79-226-32.ap-northeast-2.compute.amazonaws.com:8080/v1/members",

@@ -138,6 +138,7 @@ function MainpageD() {
       })
       .catch((err) => {
         console.log(err);
+        navigate("/error");
       });
   }, [data]);
   // 날짜 자르기
@@ -154,6 +155,7 @@ function MainpageD() {
       })
       .catch((err) => {
         console.log(err);
+        navigate("/error");
       });
   }, [answers]);
 
@@ -173,6 +175,7 @@ function MainpageD() {
       alert("답변등록완료");
     } catch (error) {
       console.log(error);
+      navigate("/error");
     }
   };
   // 글삭제 기능
@@ -187,6 +190,7 @@ function MainpageD() {
         navigate("/");
       } catch (error) {
         console.log(error);
+        navigate("/error");
       }
     }
   };
@@ -208,7 +212,7 @@ function MainpageD() {
         alert("답변삭제완료");
       } catch (error) {
         console.log(error);
-        console.log(id);
+        navigate("/error");
       }
     }
   };
