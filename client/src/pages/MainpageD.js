@@ -138,6 +138,17 @@ function MainpageD() {
         console.log(err);
         navigate("/error");
       });
+  }, []);
+
+  // 회원닉네임 얻어오기
+  //member.memberName
+  const [member, setMember] = useState({});
+  useEffect(() => {
+    axios
+      .get(`${process.env.REACT_APP_SERVER}/v1/members`)
+      .then((res) =>
+        setMember(...res.data.data.filter((e) => e.memberId === data.memberId))
+      );
   }, [data]);
 
   const [answers, setAnswers] = useState([]);
@@ -371,9 +382,7 @@ function MainpageD() {
                             </MainpageMain2312a>
                           </MainpageMain2312>
                           <MainpageMain2312div>
-                            <MainpageMain2312diva>
-                              yukarishere
-                            </MainpageMain2312diva>
+                            <MainpageMain2312diva>작성자</MainpageMain2312diva>
                             <MainpageMain2312divsp></MainpageMain2312divsp>
                             <MainpageMain2312div1>
                               <MainpageMain2312divsp>
