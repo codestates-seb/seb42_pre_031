@@ -33,21 +33,21 @@ stackoverflow 기능 구현
 
 </br>
 
-- **`팀 명` :**  🌡 37℃
+- **`팀 명` :**  파이팅 정다운!! 멋지다 다운아!!
 - **`프로젝트 명` :** Stackoverflow
-- **`프로젝트 기간` :** 2022.12.15 - 2023.01.02
+- **`프로젝트 기간` :** 2023.02.13 - 2023.03.02
 - **`한줄 소개` :** Stackoverflow !  개발자간의 질의응답 커뮤니티입니다.
-- **`팀원` :** 이재혁(팀장), 이동우, 박종식, 박연환(부팀장), 김혜원, 박평환
-- **`배포 링크` :** [🌐 stackoverflowpre.p-e.kr](http://stackoverflowpre.p-e.kr/)
+- **`팀원` :** 정다운(팀장), 김상교(부팀장), 김재현, 안병민, 이혜인
+- **`배포 링크` :** [🌐 http://pre31-fe.s3-website.ap-northeast-2.amazonaws.com/](http://pre31-fe.s3-website.ap-northeast-2.amazonaws.com/)
 
 <br/>
 
 ## 💼 Team
 
 
-| 이재혁<br>(BE, 팀장) | 이동우<br>(BE) | 박종식<br>(BE) | 박연환<br>(FE) | 김혜원<br>(FE) | 박평환 <br>(FE) |
+| 정다운<br>(BE, 팀장) | 김상교<br>(FE, 부팀장) | 김재현<br>(FE) | 안병민<br>(FE) | 이혜인<br>(BE)
 | :---: | :---: | :---: | :---: | :---: | :---: |
-| <img alt="이재혁" src="https://avatars.githubusercontent.com/u/95069395?v=4" height="100" width="100"> | <img alt="이동우" src="https://avatars.githubusercontent.com/u/110949256?v=4" height="100" width="100"> | <img alt="박종식" src="https://avatars.githubusercontent.com/u/57285707?v=4" height="100" width="100"> | <img alt="박연환" src="https://user-images.githubusercontent.com/95069395/210201597-f550690c-8780-462f-8fdc-e8cb65d6b9f8.jpeg" height="100" width="100"> | <img alt="김혜원" src="https://avatars.githubusercontent.com/u/111227745?v=4" height="100" width="100"> | <img alt="박평환" src="https://avatars.githubusercontent.com/u/110876643?v=4" height="100" width="100"> 
+
 |<p align="left">- 로그인 인증처리<br/>(JWT 발급,인증)<br/>- OAuth2 로그인 <br/>인증 처리(구글)<br/>- 질문 등록,조회<br/>삭제,투표기능<br/>- 답변 등록,조회<br/>삭제,투표기능<br/>- 예외처리 로직 <br/>기능 구현<br/>- 게시글,답변 <br/>유효성 검증<br/>처리 구현<br/>- 회원 프로필<br/>이미지 관리<br/>-JUnit 초안작성<br/>(Security 등)<br/>- 배포환경 구축</p>|<p align="left">- 메인화면 API <br/>- 게시글 검색기능<br/>- 게시글 정렬기능 <br/>- User화면 조회<br/>페이지네이션구현<br/>- Tag화면 <br/>조회 기능구현<br/>페이지네이션구현<br/>- User,Tags 검색<br/>- 회원 프로필 <br/>게시글,댓글<br/>조회 기능 추가<br/>- 배포환경 구축</p>|<p align="left">- 회원등록,삭제<br/>- 회원 프로필<br/>조회,수정<br/>삭제,편집<br/>- 회원 가입<br/>유효성 검증<br/>- 시간관리 기능<br/>- 배포환경 구축</p>|<p align="left"><br/>-Main페이지구현<br/>(검색, 정렬 조회)<br/>-Users<br/>페이지구현<br/>(검색 기능)<br/>-Tags페이지구현<br/>(검색 기능)<br/>-페이지네이션 <br/>구현(모든화면)<br/>-Signup 페이지<br/>구글 OAuth2.0 <br/>회원가입 구현<br/>-Right Sidebar <br/>컴포넌트 구현</p>|<p align="left">-Header<br/>컴포넌트 구현 <br/>-Left Nav <br/>컴포넌트 구현 <br/>-Post페이지 <br/>구현 (조회, 삭제<br/>공유, 투표) <br/>-유저 Profile <br/>페이지 구현  <br/>- 회원 Login <br/>페이지구현<br/>(JWT 로그인<br/>OAuth2.0<br/>로그인 구현)<br/>-모바일,태블릿 <br/>반응형 웹 작업 </p>|<p align="left">- Footer <br/>컴포넌트 작업 <br/>- 404 Page </p> |
 
 <br/>
