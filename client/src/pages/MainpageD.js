@@ -128,6 +128,7 @@ function MainpageD() {
   //  질문 불러오는 api
   const [data, setData] = useState([]);
   const token = localStorage.getItem("access_token");
+  const membertoken = localStorage.getItem("member_token");
   useEffect(() => {
     axios
       .get(`${process.env.REACT_APP_SERVER}/v1/questions/${id}`)
@@ -165,7 +166,7 @@ function MainpageD() {
       await axios.post(
         `${process.env.REACT_APP_SERVER}/v1/questions/${id}/answers/`,
         {
-          memberId: 1,
+          memberId: membertoken,
           contents: newAnswer,
         },
         { headers: { Authorization: token } }

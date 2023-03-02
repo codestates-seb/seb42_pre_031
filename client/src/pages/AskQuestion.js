@@ -291,6 +291,7 @@ export default function AskQuestion({ setIsSidebar, setIsFooter }) {
     },
   };
   const token = localStorage.getItem("access_token");
+  const membertoken = localStorage.getItem("member_token");
   // 질문 내역 POST 요청 >> 구현 완료
   //FIXME 아이디 부분에 로그인한 유저 아이디로 들어가야함
   const questionSubmit = async (e) => {
@@ -304,7 +305,7 @@ export default function AskQuestion({ setIsSidebar, setIsFooter }) {
         `${process.env.REACT_APP_SERVER}/v1/questions`,
 
         {
-          memberId: 1,
+          memberId: membertoken,
           questionTitle: questionTitle,
           questionContents: questionContent,
           questionTrial: questionTry,
@@ -416,9 +417,6 @@ export default function AskQuestion({ setIsSidebar, setIsFooter }) {
       <button onClick={questionSubmit} className="post-question">
         Post your question
       </button>
-      <input
-        defaultValue={questionContent.replace(/(<([^>]+)>)/gi, "")}
-      ></input>
     </AskQ>
   );
 }

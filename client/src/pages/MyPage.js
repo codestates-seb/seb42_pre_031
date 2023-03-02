@@ -290,7 +290,6 @@ export default function Mypage({ setIsSidebar, setIsFooter }) {
       })
       .catch((err) => {
         console.log(err);
-        console.log(membertoken);
         navigate("/error");
       });
   }, [membertoken]);
