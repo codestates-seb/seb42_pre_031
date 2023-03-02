@@ -87,7 +87,6 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import ReactQuill from "react-quill";
 
-// 질문 세부내용 페이지 ..
 function MainpageD() {
   const VOTEPLUS_URL = `${process.env.REACT_APP_SERVER}/v1/questions/`;
   const VOTEMINUS_URL = `${process.env.REACT_APP_SERVER}/v1/questions/`;
@@ -125,9 +124,10 @@ function MainpageD() {
 
   const navigate = useNavigate();
   const { id } = useParams();
-  //  질문 불러오는 api
-  const [data, setData] = useState([]);
   const token = localStorage.getItem("access_token");
+  const membertoken = localStorage.getItem("member_token");
+
+  const [data, setData] = useState([]);
   useEffect(() => {
     axios
       .get(`${process.env.REACT_APP_SERVER}/v1/questions/${id}`)
@@ -139,15 +139,11 @@ function MainpageD() {
         navigate("/error");
       });
   }, [data]);
-  // 날짜 자르기
 
-  // 질문 페이지 해당 답변 받는 api
   const [answers, setAnswers] = useState([]);
   useEffect(() => {
     axios
-      .get(
-        `${process.env.REACT_APP_SERVER}/v1/questions/${id}/answers?page=20&size=5`
-      )
+      .get(`${process.env.REACT_APP_SERVER}/v1/questions/${id}/answers`)
       .then((response) => {
         setAnswers(response.data.data);
       })
@@ -157,7 +153,6 @@ function MainpageD() {
       });
   }, [answers]);
 
-  // 답변 작성 api
   const [newAnswer, setNewAnswer] = useState("");
   const answerHandler = async (e) => {
     e.preventDefault();
@@ -165,7 +160,7 @@ function MainpageD() {
       await axios.post(
         `${process.env.REACT_APP_SERVER}/v1/questions/${id}/answers/`,
         {
-          memberId: 1,
+          memberId: membertoken,
           contents: newAnswer,
         },
         { headers: { Authorization: token } }
@@ -176,32 +171,31 @@ function MainpageD() {
       navigate("/error");
     }
   };
-  // 글삭제 기능
+  // 글삭제 기능 // 글을 지우는걸 먼저 확인하고 권한이 있는지 없는지 확인
   const questionDelete = async (select) => {
-    if (window.confirm("진짜 지울거임?")) {
-      try {
-        await axios.delete(
-          `${process.env.REACT_APP_SERVER}/v1/questions/${id}`,
-          { headers: { Authorization: token } }
-        );
-        alert("질문삭제완료");
-        navigate("/");
-      } catch (error) {
-        console.log(error);
-        navigate("/error");
+    if (Number(data.memberId) === Number(membertoken)) {
+      if (window.confirm("삭제하시겠습니까?")) {
+        try {
+          await axios.delete(
+            `${process.env.REACT_APP_SERVER}/v1/questions/${id}`,
+            { headers: { Authorization: token } }
+          );
+          alert("질문삭제완료");
+          navigate("/");
+        } catch (error) {
+          console.log(error);
+          navigate("/error");
+        }
       }
+    } else {
+      alert("권한이 없습니다.");
     }
   };
-
-  //답변 삭제 기능
-  //FIXME: 현재 로그인 전이라 아이디 고정 중
-  // 답변 아이디 answerId 불러오기
-  // 맵 안에 있는 객체와 접근하려면
-  // 답변 목록 불러오기
-  // 바로 적용시키려면 바꿔주는코드 직접 바로 구현
-
+  // select 는 답변id 번호
+  // 클릭했을떄 memberId 를 받아와야한다.
+  // 해당 답변의 멤버아이디호출
   const answerDelete = async (select) => {
-    if (window.confirm("진짜 지울거임?")) {
+    if (window.confirm("삭제하시겠습니까?")) {
       try {
         await axios.delete(
           `${process.env.REACT_APP_SERVER}/v1/answers/${select}`,
@@ -214,7 +208,7 @@ function MainpageD() {
       }
     }
   };
-  // 에디터 모듈
+
   const modules = {
     toolbar: {
       container: [
@@ -378,7 +372,7 @@ function MainpageD() {
                           </MainpageMain2312>
                           <MainpageMain2312div>
                             <MainpageMain2312diva>
-                              yurkaishere
+                              yukarishere
                             </MainpageMain2312diva>
                             <MainpageMain2312divsp></MainpageMain2312divsp>
                             <MainpageMain2312div1>

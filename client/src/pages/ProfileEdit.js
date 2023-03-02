@@ -191,6 +191,7 @@ const ProfileEdit = ({ setIsSidebar, setIsFooter }) => {
   const [displayName, setDisplayName] = useState("");
   const [aboutMe, setAboutMe] = useState("");
   const [fullName, setFullName] = useState("");
+  const [password, setPassword] = useState("");
 
   const navigate = useNavigate();
 
@@ -198,6 +199,9 @@ const ProfileEdit = ({ setIsSidebar, setIsFooter }) => {
     setIsSidebar(true);
     setIsFooter(true);
   }, []);
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+  };
 
   const handleDisplayNameChange = (e) => {
     setDisplayName(e.target.value);
@@ -238,7 +242,7 @@ const ProfileEdit = ({ setIsSidebar, setIsFooter }) => {
         `${process.env.REACT_APP_SERVER}/v1/members/${membertoken}`,
         {
           memberName: fullName,
-          memberPW: "111111",
+          memberPW: password,
           nickName: displayName,
           aboutMe: aboutMe,
         },
@@ -334,15 +338,8 @@ const ProfileEdit = ({ setIsSidebar, setIsFooter }) => {
                 <Profilelabel>Display name</Profilelabel>
                 <InputText
                   type={"text"}
-                  value={displayName}
+                  value={userInfo.nickName}
                   onChange={handleDisplayNameChange}
-                ></InputText>
-                <Profilelabel>Location</Profilelabel>
-                <InputText type={"text"}></InputText>
-                <Profilelabel>Title</Profilelabel>
-                <InputText
-                  type={"text"}
-                  placeholder="No title has been set"
                 ></InputText>
                 <Profilelabel>About me</Profilelabel>
                 <ReactQuill
@@ -350,6 +347,7 @@ const ProfileEdit = ({ setIsSidebar, setIsFooter }) => {
                   name="content"
                   theme="snow"
                   modules={modules}
+                  value={userInfo.aboutMe}
                   onChange={handleAboutMeChange}
                 />
               </Changediv>
@@ -359,8 +357,17 @@ const ProfileEdit = ({ setIsSidebar, setIsFooter }) => {
                 <Profilelabel>Full name</Profilelabel>
                 <InputText
                   type={"text"}
-                  value={fullName}
+                  value={userInfo.memberName}
                   onChange={handleFullNameChange}
+                ></InputText>
+              </Changediv>
+
+              <Profilelabel>Change PassWord</Profilelabel>
+              <Changediv>
+                <Profilelabel>password</Profilelabel>
+                <InputText
+                  type="password"
+                  onChange={handlePasswordChange}
                 ></InputText>
               </Changediv>
 

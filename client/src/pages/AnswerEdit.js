@@ -162,24 +162,29 @@ function AnswerEdit({ setIsSidebar, setIsFooter }) {
   const navigate = useNavigate();
   const { id } = useParams();
   const token = localStorage.getItem("access_token");
-  // 수정 완료 버튼
-  // 네비게이트를 이용하려면 이동하는곳의 엔드포인트가 해당 답글이 있는 질문세부페이지
+  const membertoken = localStorage.getItem("member_token");
+
   const handleEditAnswer = async (e) => {
     e.preventDefault();
-    try {
-      await axios.patch(
-        `${process.env.REACT_APP_SERVER}/v1/answers/${id}`,
-        {
-          answerId: id,
-          contents: answer,
-        },
-        { headers: { Authorization: token } }
-      );
-      // navigate("/question/1");
+    if (Number(data.memberId) === Number(membertoken)) {
+      try {
+        await axios.patch(
+          `${process.env.REACT_APP_SERVER}/v1/answers/${id}`,
+          {
+            answerId: id,
+            contents: answer,
+          },
+          { headers: { Authorization: token } }
+        );
+
+        window.history.back();
+      } catch (error) {
+        console.log(error);
+        navigate("/error");
+      }
+    } else {
+      alert("권한이 없습니다");
       window.history.back();
-    } catch (error) {
-      console.log(error);
-      navigate("/error");
     }
   };
 
@@ -188,10 +193,19 @@ function AnswerEdit({ setIsSidebar, setIsFooter }) {
     setIsFooter(true);
   }, []);
 
-  // 해당 페이지 답변 받아오는 api
-  // 답변을 가져와야하는데 주소 엔드포인트는 답글의 아이디라 접근못함
-  // id 부분에 들어가는건 질문의 아이디
-  // 가져오는건 모든 답변
+  const [data, setData] = useState("");
+  useEffect(() => {
+    axios
+      .get(`${process.env.REACT_APP_SERVER}/v1/answers/${id}`)
+      .then((response) => {
+        setData(response.data.data);
+      })
+      .catch((err) => {
+        console.log(err);
+        navigate("/error");
+      });
+  }, [id]);
+
   const [answer, setAnswer] = useState("");
   useEffect(() => {
     axios
@@ -205,7 +219,10 @@ function AnswerEdit({ setIsSidebar, setIsFooter }) {
       });
   }, [id]);
 
-  // 에디터 모듈
+  const cancelHandeler = () => {
+    window.history.back();
+  };
+
   const modules = {
     toolbar: {
       container: [
@@ -250,11 +267,7 @@ function AnswerEdit({ setIsSidebar, setIsFooter }) {
           </TopContain>
 
           <Answer>
-            <Title name="title">Rev</Title>
-            <Title name="title">페이지</Title>
-            <Answeredit></Answeredit>
             <Title name="title">Answer</Title>
-
             <ReactQuill
               className="text-left"
               name="content"
@@ -274,7 +287,9 @@ function AnswerEdit({ setIsSidebar, setIsFooter }) {
               <SaveEdit name="saveEdit" onClick={handleEditAnswer}>
                 Save Edits
               </SaveEdit>
-              <CancelBtn name="cancel">Cancel</CancelBtn>
+              <CancelBtn onClick={cancelHandeler} name="cancel">
+                Cancel
+              </CancelBtn>
             </Buttons>
           </Answer>
         </Content>

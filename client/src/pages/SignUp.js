@@ -141,11 +141,11 @@ function SignUp({ setIsSidebar, setIsFooter }) {
       const response = await axios.post(
         `${process.env.REACT_APP_SERVER}/v1/members`,
         {
-          memberName: "mem",
+          memberName: "newMember",
           memberEmail: email,
           memberPW: password,
           nickName: nickName,
-          aboutMe: "aasdasdasdasdasda",
+          aboutMe: "환영합니다!",
         }
       );
 

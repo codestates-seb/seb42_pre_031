@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import logo from "../images/logo.png";
 import search from "../images/search.png";
@@ -28,7 +28,7 @@ const Head = styled.header`
     max-width: 1264px;
   }
 
-  .head-wrap > a {
+  .head-wrap > div {
     cursor: pointer;
     text-decoration: none;
     display: flex;
@@ -103,12 +103,18 @@ const Head = styled.header`
 export default function Header({ setSearchInput, userInfo }) {
   const membertoken = localStorage.getItem("member_token");
 
+  const navigate = useNavigate();
+  const logoLinkHandler = () => {
+    navigate("/");
+    window.location.reload();
+  };
+
   return (
     <Head>
       <div className="head-wrap">
-        <Link to="/">
+        <div onClick={logoLinkHandler}>
           <img className="head-logo" src={logo} />
-        </Link>
+        </div>
         <div className="top-search-bar">
           <img src={search} />
           <input

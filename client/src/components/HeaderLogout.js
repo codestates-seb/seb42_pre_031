@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import logo from "../images/logo.png";
 import search from "../images/search.png";
@@ -24,7 +24,7 @@ const Headout = styled.header`
     max-width: 1264px;
   }
 
-  .head-wrap > a {
+  .head-wrap > div {
     cursor: pointer;
     text-decoration: none;
     display: flex;
@@ -130,12 +130,18 @@ const Headout = styled.header`
 `;
 
 export default function HeaderLogout({ setSearchInput }) {
+  const navigate = useNavigate();
+  const logoLinkHandler = () => {
+    navigate("/");
+    window.location.reload();
+  };
+
   return (
     <Headout>
       <div className="head-wrap">
-        <Link to="/">
+        <div onClick={logoLinkHandler}>
           <img className="head-logo" src={logo} />
-        </Link>
+        </div>
         <div className="head-info">
           <div className="products">About</div>
           <div className="products">Products</div>
