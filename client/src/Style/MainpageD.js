@@ -655,11 +655,12 @@ let MainpageMain22 = styled.div`
   font-weight: 400;
   line-height: 17px;
   text-align: left;
+  overflow-wrap: break-word;
   vertical-align: top;
   color: rgb(35, 38, 41);
 `;
 let MainpageMain221 = styled.div`
-  box-sizing: border-box;
+  box-sizing: content-box;
   display: block;
   width: auto;
   font-size: 15px;
@@ -670,8 +671,8 @@ let MainpageMain221 = styled.div`
   overflow-wrap: break-word;
 `;
 let MainpageMain221p = styled.p`
-  box-sizing: border-box;
-  clear: both;
+  box-sizing: content-box;
+  clear: none;
   display: block;
   margin-bottom: 0px;
   margin-top: 0px;
@@ -685,6 +686,7 @@ let MainpageMain221p = styled.p`
   margin-inline-end: 0px;
   margin-inline-start: 0px;
   overflow-wrap: break-word;
+  white-space: normal;
   margin-bottom: 1.1em;
 `;
 let MainpageMain223 = styled.div`
