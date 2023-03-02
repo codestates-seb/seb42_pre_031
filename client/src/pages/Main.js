@@ -167,8 +167,6 @@ function Main({ searchInput, setIsSidebar, setIsFooter }) {
             </PageButton>
           ))}
 
-          <a>...</a>
-          <Mainpn2a1 onClick={() => setPage(1567342)}>1567342</Mainpn2a1>
           <Mainpn2a1 onClick={() => setPage(page + 1)}>Next</Mainpn2a1>
         </Mainpn2>
       </Content>

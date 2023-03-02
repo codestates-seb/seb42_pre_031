@@ -320,7 +320,8 @@ export default function AskQuestion({ setIsSidebar, setIsFooter }) {
       navigate("/");
     } catch (error) {
       console.log(error);
-      navigate("/error");
+      alert("로그인이 필요한 서비스입니다");
+      navigate("/login");
     }
   };
 
