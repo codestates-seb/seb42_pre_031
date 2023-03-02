@@ -654,6 +654,7 @@ let MainpageMain22 = styled.div`
   font-size: 13px;
   font-weight: 400;
   line-height: 17px;
+  white-space: normal;
   text-align: left;
   overflow-wrap: break-word;
   vertical-align: top;
@@ -668,6 +669,7 @@ let MainpageMain221 = styled.div`
   text-align: left;
   vertical-align: baseline;
   color: rgb(35, 38, 41);
+  white-space: normal;
   overflow-wrap: break-word;
 `;
 let MainpageMain221p = styled.p`

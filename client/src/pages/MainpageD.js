@@ -307,13 +307,11 @@ function MainpageD() {
                 </MainpageMain21>
                 <MainpageMain22>
                   <MainpageMain221>
-                    <form>
                     <MainpageMain221p
                       dangerouslySetInnerHTML={{
                         __html: data.questionContents,
                       }}
                     ></MainpageMain221p>
-                    </form>
                   </MainpageMain221>
                   <MainpageMain223>
                     <MainpageMain2231>
