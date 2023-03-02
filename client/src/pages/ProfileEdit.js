@@ -199,21 +199,6 @@ const ProfileEdit = ({ setIsSidebar, setIsFooter }) => {
     setIsSidebar(true);
     setIsFooter(true);
   }, []);
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
-  };
-
-  const handleDisplayNameChange = (e) => {
-    setDisplayName(e.target.value);
-  };
-
-  const handleAboutMeChange = (e) => {
-    setAboutMe(e);
-  };
-
-  const handleFullNameChange = (e) => {
-    setFullName(e.target.value);
-  };
 
   const token = localStorage.getItem("access_token");
 
@@ -221,13 +206,42 @@ const ProfileEdit = ({ setIsSidebar, setIsFooter }) => {
   const memberId = useParams();
   const [userInfo, setUserInfo] = useState([]);
   const membertoken = localStorage.getItem("member_token");
+  //닉네임
   useEffect(() => {
     axios
       .get(`${process.env.REACT_APP_SERVER}/v1/members/${membertoken}`, {
         headers: { Authorization: token },
       })
       .then((response) => {
-        setUserInfo(response.data.data);
+        setDisplayName(response.data.data.nickName);
+      })
+      .catch((err) => {
+        console.log(err);
+        navigate("/error");
+      });
+  }, [membertoken]);
+  // 어바웃미
+  useEffect(() => {
+    axios
+      .get(`${process.env.REACT_APP_SERVER}/v1/members/${membertoken}`, {
+        headers: { Authorization: token },
+      })
+      .then((response) => {
+        setAboutMe(response.data.data.aboutMe);
+      })
+      .catch((err) => {
+        console.log(err);
+        navigate("/error");
+      });
+  }, [membertoken]);
+  //풀네임
+  useEffect(() => {
+    axios
+      .get(`${process.env.REACT_APP_SERVER}/v1/members/${membertoken}`, {
+        headers: { Authorization: token },
+      })
+      .then((response) => {
+        setFullName(response.data.data.memberName);
       })
       .catch((err) => {
         console.log(err);
@@ -338,8 +352,8 @@ const ProfileEdit = ({ setIsSidebar, setIsFooter }) => {
                 <Profilelabel>Display name</Profilelabel>
                 <InputText
                   type={"text"}
-                  value={userInfo.nickName}
-                  onChange={handleDisplayNameChange}
+                  value={displayName}
+                  onChange={(e) => setDisplayName(e.target.value)}
                 ></InputText>
                 <Profilelabel>About me</Profilelabel>
                 <ReactQuill
@@ -347,8 +361,8 @@ const ProfileEdit = ({ setIsSidebar, setIsFooter }) => {
                   name="content"
                   theme="snow"
                   modules={modules}
-                  value={userInfo.aboutMe}
-                  onChange={handleAboutMeChange}
+                  value={aboutMe}
+                  onChange={(e) => setAboutMe(e)}
                 />
               </Changediv>
 
@@ -357,8 +371,8 @@ const ProfileEdit = ({ setIsSidebar, setIsFooter }) => {
                 <Profilelabel>Full name</Profilelabel>
                 <InputText
                   type={"text"}
-                  value={userInfo.memberName}
-                  onChange={handleFullNameChange}
+                  value={fullName}
+                  onChange={(e) => setFullName(e.target.value)}
                 ></InputText>
               </Changediv>
 
@@ -367,7 +381,7 @@ const ProfileEdit = ({ setIsSidebar, setIsFooter }) => {
                 <Profilelabel>password</Profilelabel>
                 <InputText
                   type="password"
-                  onChange={handlePasswordChange}
+                  onChange={(e) => setPassword(e.target.value)}
                 ></InputText>
               </Changediv>
 

@@ -269,6 +269,8 @@ export default function EditQuestion({ setIsSidebar, setIsFooter }) {
   }, [data]);
 
   // 질문 제목 불러오는 api
+  // Title 인풋
+  const [questionTitle, setQuestionTitle] = useState("");
   useEffect(() => {
     axios
       .get(`${process.env.REACT_APP_SERVER}/v1/questions/${id}`)
@@ -282,6 +284,8 @@ export default function EditQuestion({ setIsSidebar, setIsFooter }) {
   }, [id]);
 
   // 질문 내용 불러오는 api
+  // 질문 본문 인풋
+  const [questionContent, setQuestionContent] = useState("");
   useEffect(() => {
     axios
       .get(`${process.env.REACT_APP_SERVER}/v1/questions/${id}`)
@@ -294,6 +298,8 @@ export default function EditQuestion({ setIsSidebar, setIsFooter }) {
       });
   }, [id]);
   // 질문 시도내용 불러오는 api
+  // 시도 인풋
+  const [questionTry, setQuestionTry] = useState("");
   useEffect(() => {
     axios
       .get(`${process.env.REACT_APP_SERVER}/v1/questions/${id}`)
@@ -305,13 +311,6 @@ export default function EditQuestion({ setIsSidebar, setIsFooter }) {
         navigate("/error");
       });
   }, [id]);
-
-  // Title 인풋
-  const [questionTitle, setQuestionTitle] = useState("");
-  // 질문 본문 인풋
-  const [questionContent, setQuestionContent] = useState("");
-  // 시도 인풋
-  const [questionTry, setQuestionTry] = useState("");
 
   // 질문 수정 api
   const handleEditQuestion = async (e) => {
