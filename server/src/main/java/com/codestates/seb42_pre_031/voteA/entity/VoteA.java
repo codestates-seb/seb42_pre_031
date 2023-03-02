@@ -1,9 +1,9 @@
 package com.codestates.seb42_pre_031.voteA.entity;
 
 import com.codestates.seb42_pre_031.answer.entity.Answer;
-import com.codestates.seb42_pre_031.answer.repository.AnswerRepository;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 
@@ -15,17 +15,15 @@ import javax.persistence.*;
  */
 @NoArgsConstructor
 @Getter
+@Setter
 @Entity
 public class VoteA {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int votAid;
-
-    private int memberId; //TODO HttpSession과 연동할지 검토
-    private int answerId;
+    private long voteAId;
 
     @Column(nullable = false)
-    private int voteState;
+    private int voteACount;
 
     @ManyToOne
     @JoinColumn(name = "ANSWER_ID")

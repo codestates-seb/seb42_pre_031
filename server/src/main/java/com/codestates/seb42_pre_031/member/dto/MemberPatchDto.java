@@ -2,8 +2,11 @@ package com.codestates.seb42_pre_031.member.dto;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.lang.Nullable;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 @Getter
 @Setter
@@ -22,12 +25,19 @@ public class MemberPatchDto {
 
     private long memberId;
 
+    //중간 공백 두개까지만 허용,연달아 두개는 불가, 시작과 끝은 공백이 아니어야함
+    @Pattern(regexp = "^\\S+\\s?\\S+\\s?\\S+$", message = "No more than 2 spaces / Spaces should not be in series.")
     private String memberName;
 
+    @Pattern(regexp = "^\\S{5,}$", message = "Should be more than 5 words.")
     private String memberPW;
 
+    //중간 공백 두개까지만 허용, 연달아 두개는 불가, 시작과 끝은 공백이 아니어야함
+    @Pattern(regexp = "^\\S+\\s?\\S+\\s?\\S+$", message = "No more than 2 spaces / Spaces should not be in series.")
     private String nickName;
 
     private String aboutMe;
+
+
 
 }
