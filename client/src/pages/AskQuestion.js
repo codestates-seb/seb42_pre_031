@@ -296,6 +296,10 @@ export default function AskQuestion({ setIsSidebar, setIsFooter }) {
   //FIXME 아이디 부분에 로그인한 유저 아이디로 들어가야함
   const questionSubmit = async (e) => {
     e.preventDefault();
+    if (!questionTitle) {
+      alert("제목을 입력해주세요");
+      return;
+    }
     if (!questionContent) {
       alert("게시글을 입력해주세요");
       return;

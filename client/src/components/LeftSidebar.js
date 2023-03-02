@@ -139,8 +139,6 @@ export default function LeftSidebar({ userInfo }) {
             <img src={bag} /> Create free Team
           </p>
         </div>
-        <Link to="/question"> 질문 상세페이지 임시 버튼</Link>
-        <Link to="/editquestion">질문 수정페이지 임시</Link>
       </div>
     </LeftBar>
   );

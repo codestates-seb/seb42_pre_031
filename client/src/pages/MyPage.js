@@ -290,26 +290,26 @@ export default function Mypage({ setIsSidebar, setIsFooter }) {
       })
       .catch((err) => {
         console.log(err);
-        navigate("/error");
+        navigate("/login");
       });
   }, [membertoken]);
   // 회원 정보 삭제 요청
   //FIXME: 버튼에 온클릭으로 담기
   const userDeleteHandler = async (e) => {
     e.preventDefault();
-    if (window.confirm("진짜 지울거임?")) {
+    if (window.confirm("삭제하시겠습니까?")) {
       try {
         await axios.delete(
           `${process.env.REACT_APP_SERVER}/v1/members/${membertoken}`,
           { headers: { Authorization: token } }
         );
-        alert("삭제됐다!!!!");
+        alert("삭제되었습니다");
         localStorage.clear();
         navigate("/");
         window.location.reload();
       } catch (error) {
         console.log(error);
-        alert("삭제안됨;;");
+        alert("삭제 실패했습니다");
       }
     }
   };
