@@ -37,15 +37,11 @@ const FootToggle = styled.div``;
 function App() {
   const [isSidebar, setIsSidebar] = useState(true);
   const [isFooter, setIsFooter] = useState(true);
-  // 로그인 상태에 헤더변경 // 마이페이지 접근 가능 여부
+
   const [isLogin, setIsLogin] = useState(false);
 
-  // 검색 기능 인풋창
   const [searchInput, setSearchInput] = useState("");
 
-  // 유저 정보 받아오기
-  // FIXME: 아이디 부분 로그인 상태의 아이디로 수정해야댐
-  // 현재 로그인 중인 사용자 아이디
   const token = localStorage.getItem("access_token");
   const membertoken = localStorage.getItem("member_token");
   const [userInfo, setUserInfo] = useState([]);
