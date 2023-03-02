@@ -246,12 +246,28 @@ export default function EditQuestion({ setIsSidebar, setIsFooter }) {
     setIsFooter(true);
   }, []);
   const token = localStorage.getItem("access_token");
+  const membertoken = localStorage.getItem("member_token");
   // 타이틀모달
   const [isGoodTitle, setIsGoodTitle] = useState(false);
   // 타이틀 인풋 클릭 시 모달
   const goodTitleHandler = () => {
     setIsGoodTitle(true);
   };
+  //해당 질문전체 불러오는 api
+
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    axios
+      .get(`${process.env.REACT_APP_SERVER}/v1/questions/${id}`)
+      .then((response) => {
+        setData(response.data.data);
+      })
+      .catch((err) => {
+        console.log(err);
+        navigate("/error");
+      });
+  }, [data]);
+
   // 질문 제목 불러오는 api
   useEffect(() => {
     axios
@@ -300,21 +316,26 @@ export default function EditQuestion({ setIsSidebar, setIsFooter }) {
   // 질문 수정 api
   const handleEditQuestion = async (e) => {
     e.preventDefault();
-    try {
-      await axios.patch(
-        `${process.env.REACT_APP_SERVER}/v1/questions/${id}`,
-        {
-          answerId: id,
-          questionTitle: questionTitle,
-          questionContents: questionContent,
-          questionTrial: questionTry,
-        },
-        { headers: { Authorization: token } }
-      );
-      navigate(`/question/${id}`);
-    } catch (error) {
-      console.log(error);
-      navigate("/error");
+    if (Number(data.memberId) === Number(membertoken)) {
+      try {
+        await axios.patch(
+          `${process.env.REACT_APP_SERVER}/v1/questions/${id}`,
+          {
+            answerId: id,
+            questionTitle: questionTitle,
+            questionContents: questionContent,
+            questionTrial: questionTry,
+          },
+          { headers: { Authorization: token } }
+        );
+        navigate(`/question/${id}`);
+      } catch (error) {
+        console.log(error);
+        navigate("/error");
+      }
+    } else {
+      alert("권한이없습니다");
+      window.history.back();
     }
   };
 

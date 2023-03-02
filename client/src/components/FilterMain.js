@@ -50,11 +50,7 @@ function FilterMain({ filterData, setFilterData }) {
                       <Main3div31divspan1>votes</Main3div31divspan1>
                     </Main3div31div>
                     <Main3div31div>
-                      <Main3div31divspan>0</Main3div31divspan>
-                      <Main3div31divspan1>answer</Main3div31divspan1>
-                    </Main3div31div>
-                    <Main3div31div>
-                      <Main3div31divspan>0</Main3div31divspan>
+                      <Main3div31divspan>{a.answers.length}</Main3div31divspan>
                       <Main3div31divspan1>answer</Main3div31divspan1>
                     </Main3div31div>
                   </Main3div31>

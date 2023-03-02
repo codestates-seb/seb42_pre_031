@@ -338,7 +338,7 @@ const ProfileEdit = ({ setIsSidebar, setIsFooter }) => {
                 <Profilelabel>Display name</Profilelabel>
                 <InputText
                   type={"text"}
-                  value={displayName}
+                  value={userInfo.nickName}
                   onChange={handleDisplayNameChange}
                 ></InputText>
                 <Profilelabel>About me</Profilelabel>
@@ -347,6 +347,7 @@ const ProfileEdit = ({ setIsSidebar, setIsFooter }) => {
                   name="content"
                   theme="snow"
                   modules={modules}
+                  value={userInfo.aboutMe}
                   onChange={handleAboutMeChange}
                 />
               </Changediv>
@@ -356,7 +357,7 @@ const ProfileEdit = ({ setIsSidebar, setIsFooter }) => {
                 <Profilelabel>Full name</Profilelabel>
                 <InputText
                   type={"text"}
-                  value={fullName}
+                  value={userInfo.memberName}
                   onChange={handleFullNameChange}
                 ></InputText>
               </Changediv>
