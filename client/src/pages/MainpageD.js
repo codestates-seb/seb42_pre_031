@@ -138,7 +138,7 @@ function MainpageD() {
         console.log(err);
         navigate("/error");
       });
-  }, []);
+  }, [data]);
 
   // 회원닉네임 얻어오기
   //member.memberName
@@ -179,7 +179,8 @@ function MainpageD() {
       alert("답변등록완료");
     } catch (error) {
       console.log(error);
-      navigate("/error");
+      alert("로그인이 필요한 서비스입니다");
+      navigate("/login");
     }
   };
   // 글삭제 기능 // 글을 지우는걸 먼저 확인하고 권한이 있는지 없는지 확인
